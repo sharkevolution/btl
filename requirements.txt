@@ -6,7 +6,4 @@ pytz
 python-dateutil
 numpy
 jinja2
-distribute==0.6.24
-matplotlib==1.1.0
-scipy==0.11.0
-scikit-learn==0.13.1
+matplotlib
