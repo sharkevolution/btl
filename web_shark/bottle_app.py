@@ -402,4 +402,4 @@ Pull = Pull_user()
 
 # application = default_app()
 # run(application, host='0.0.0.0', port=8080)
-bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
