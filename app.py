@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import logging
+
 import os
 from os import environ as env
 from sys import argv
@@ -34,6 +36,14 @@ def index():
 
     return ret
 
+logger = logging.getLogger('simple_example')
+logger.setLevel(logging.INFO)
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+logger.addHandler(ch)
+
+logger.info('start')
 
 bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 # bottle.run(host='0.0.0.0', port=5000)
