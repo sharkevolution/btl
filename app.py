@@ -5,6 +5,9 @@ import os
 from os import environ as env
 from sys import argv
 
+from gevent import monkey
+monkey.patch_all()
+
 import bottle
 from bottle import default_app, request, route, response, get
 
