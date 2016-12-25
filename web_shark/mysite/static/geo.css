@@ -1,0 +1,292 @@
+/* Default CSS */
+
+body {
+    display: block;
+    position: relative;
+    width: 100%;
+    font-style: normal;
+    font-family: serif;
+}
+#form_step {
+    display: block;
+    position: relative;
+    float: left;
+    width: 20%;
+}
+#wrapper {
+    padding-left: 20px;
+}
+#form_step h3, #geolist h3 {
+    margin: 2px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+#wgs, #poly, #map {
+    display: block;
+    position: relative;
+    float: left;
+    /*width: 90%;*/
+    margin-bottom: 5px;
+    /*background-color: #fdf8f4;*/
+    background-color: #FAF0F6;
+    /*margin: 2px;*/
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+    /*border-style: solid;*/
+    border-width: 1px;
+    overflow:hidden;
+}
+#geolist {
+    display: block;
+    position: relative;
+    float: left;
+    width: 25%;
+    padding-left: 15px;
+    margin-left: 20px;
+    margin-bottom: 4px;
+    background-color: #FAF0F6;
+    border-radius: 10px;
+    /*border-style: solid;*/
+    border-width: 1px;
+}
+#geolist p {
+    margin: 2px;
+    padding-left: 5px;
+    border-style: solid;
+}
+
+#open_home #home {
+    display: inline-block;
+    padding: 5px;
+    width: 50%;
+    margin: 20px 2px 7px 2px;
+    /*background-color: #e80909;*/
+    color: #FFF;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+#status p {
+    color: #bb0f02;
+    font-weight: bold;
+}
+
+p span {
+    color: red;
+    font-size: 0.75em;
+}
+
+#coord_property input{
+  width: 120px;
+  -moz-appearance:textfield;
+}
+
+
+#coord_property input:required:invalid {
+	border:1px solid red;
+}
+
+#coord_property input:required:valid {
+  background: #fff url(tick.png) no-repeat;
+  background-position: 100% 0;
+  border:1px solid #28921f;
+}
+
+#open_help {
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  padding:10px 0 10px 0;
+  margin-bottom: 4px;
+  margin-left: 0px;
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+/* скрываем чекбоксы и блоки с содержанием */
+.hide, .hide + label ~ div {
+    display: none;
+}
+/* вид текста label */
+.hide + label,
+.hide:checked + label {
+    padding: 0;
+    color: green;
+    cursor: pointer;
+    border-bottom: 1px dotted green;
+}
+/* вид текста label активном переключателе */
+.hide:checked + label {
+    color: red;
+    border-bottom: 0;
+}
+/* когда чекбокс активен показываем блоки с содержанием  */
+.hide:checked + label + div {
+    display: block;
+    background: #efefef;
+    -moz-box-shadow: inset 3px 3px 10px #7d8e8f;
+    -webkit-box-shadow: inset 3px 3px 10px #7d8e8f;
+    box-shadow: inset 3px 3px 10px #7d8e8f;
+    margin-top: 10px;
+    margin-left: 20px;
+	margin-right: 10px;
+    padding: 10px;
+
+/* анимации при появлении */
+    -webkit-animation:fade ease-in 0.5s;
+    -moz-animation:fade ease-in 0.5s;
+    animation:fade ease-in 0.5s;
+}
+/* анимация при появлении скрытых блоков */
+@-moz-keyframes fade {
+    from { opacity: 0; }
+to { opacity: 1 }
+}
+@-webkit-keyframes fade {
+    from { opacity: 0; }
+to { opacity: 1 }
+}
+@keyframes fade {
+    from { opacity: 0; }
+to { opacity: 1 }
+}
+
+.hide + label:before {
+  background-color: #003333;
+  color: #fff;
+  content: "+";
+  display: block;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  height: 16px;
+  line-height: 16px;
+  margin: 2px 5px 5px 20px;
+  text-align: center;
+  width: 16px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.hide:checked + label:before {
+  content: "\2212";
+}
+
+#map {
+  position:relative;
+  padding-left: 1%;
+  padding-top: 1%;
+  padding-right: 0px;
+  width: 100%;
+}
+
+#map img {
+  position:relative;
+  max-width: 99%;
+  max-height: 99%;
+  left: 0%;
+  top: 0%;
+  border-radius: 5px;
+}
+
+#poly {
+  position:relative;
+  padding-left: 1%;
+  padding-top: 1%;
+  padding-right: 0px;
+  width: 100%;
+}
+
+input[type=text] {
+    padding:5px;
+    border:2px solid #ccc;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=text]:focus {
+    border-color:#333;
+}
+
+input[type="submit"] {
+    padding:5px 10px;
+    font-size: 80%;
+    background:#F08080;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+    background: rgb(232,95,76);
+    } /* при наведении курсора мышки */
+input[type="submit"]:active {
+    background: rgb(152,15,0);
+    } /* при нажатии */
+
+
+#optimization {
+  display: inline-block;;
+  /*position: absolute;*/
+  /*float: left;*/
+  height: 5px;
+  width: 50px;
+  /*left: -20%;*/
+  margin-top: 0px;
+}
+
+.loader-fb {
+  top: calc(65% - 5px);
+  left: 280px;
+  position: absolute !important;
+}
+/* Demo specific styles end */
+
+/* Loader with three blocks */
+.loader-fb, .loader-fb:before, .loader-fb:after {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 30px;
+  background-color: rgba(215,230,240,0.9);
+  border: 1px solid rgb(215,230,240);
+  z-index: 100000;
+  content: ' ';
+  margin-left: -5px;
+  margin-right: -9px;
+}
+.loader-fb:before {
+  top: -11px;
+  left: -100%;
+  animation: loading-fb .8s cubic-bezier(.4,.5,.6,1) infinite;
+}
+.loader-fb {
+  animation: loading-fb-main .8s cubic-bezier(.4,.5,.6,1) .2s infinite;
+}
+.loader-fb:after {
+  top: -11px;
+  right: -100%;
+  margin-top: 50%;
+  animation: loading-fb .8s cubic-bezier(.4,.5,.6,1) .4s infinite;
+}
+@keyframes loading-fb {
+  from {
+    transform: scaleY(1.4);
+    background-color: rgba(55,114,171,0.9);
+    border: 1px solid rgb(55,114,171);
+  }
+}
+@keyframes loading-fb-main {
+  from {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: -10px;
+    background-color: rgba(55,114,171,0.9);
+    border: 1px solid rgb(55,114,171);
+  }
+}

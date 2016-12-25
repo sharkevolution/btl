@@ -1,0 +1,53 @@
+INFO:root:Started
+INFO:root:Started
+INFO:root:Start optimization: 2016-12-22 21:51:03.288911
+INFO:root:******************************
+INFO:root:Plan figure
+INFO:root:Емкость блока 3750
+INFO:root:Фактический объем 2700
+INFO:root:Планируемый отход 1050
+INFO:root:Планируется строк 3
+INFO:root:Необходимо столбцов 4
+INFO:root:******************************
+INFO:root:------------------------------
+INFO:root:Fate 1
+INFO:root:------------------------------
+INFO:root:control_cloth(long_strips=1250, right_residue=90, lim_figure=8)
+INFO:root:box_structure(section=0.26, lim_list=0.1, alfa_effect=7.2, plato=1, loop=20)
+INFO:root:coeff_distances(distance_model=0, model_fx=0)
+INFO:root:shark_life(cycle_regular=5, cycle_last=15, shark_regular=50, shark_last=300)
+INFO:root:separation(gold_cycle=15, gold_life=100)
+INFO:root:{1: [1, 1, 1, 1, 1, 2, 2, 2, 2, 2]}
+INFO:root:-
+INFO:root:---Wheel of reincarnation--- 1
+INFO:root:-
+INFO:root:layout [1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
+INFO:root:Отобрано фигур 0  10
+INFO:root:additional optimization figure 10
+INFO:root:segment 9  2
+INFO:root:call_back 9
+INFO:root:Отобрано фигур 0  10
+INFO:root:additional optimization figure 10
+INFO:root:segment 8  2
+INFO:root:call_back 8
+INFO:root:Отобрано фигур 0  10
+INFO:root:additional optimization figure 10
+INFO:root:segment 7  2
+INFO:root:call_back 7
+INFO:root:Отобрано фигур 0  10
+INFO:root:additional optimization figure 10
+INFO:root:segment 6  2
+INFO:root:call_back 6
+INFO:root:Отобрано фигур 0  10
+INFO:root:additional optimization figure 10
+INFO:root:segment 5  2
+INFO:root:call_back 5
+INFO:root:Отобрано фигур 0  10
+INFO:root:additional optimization figure 10
+INFO:root:segment 4  1
+INFO:root:call_back 4
+INFO:root:Отобрано фигур 0  10
+INFO:root:additional optimization figure 10
+INFO:root:segment 3  1
+INFO:root:call_back 3
+INFO:root:Отобрано фигур 0  10

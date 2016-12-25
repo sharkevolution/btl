@@ -41,8 +41,11 @@ logger.setLevel(logging.INFO)
 
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
-logger.addHandler(ch)
 
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+
+logger.addHandler(ch)
 logger.info('start')
 
 bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))

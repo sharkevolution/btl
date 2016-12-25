@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Геокодинг</title>
+    <script type="text/javascript" src="lib/jquery-1.10.1.min.js" charset="utf-8"></script>
+    <link href="static/geo.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <h2>Алгоритм двумерной упаковки в полуограниченную полосу</h2>
+        <div id="open_home">
+          <form id='home' name='optimus' enctype="multipart/form-data" method="post"
+          onsubmit="submit_figure(this.form);return false;">
+              <input type="submit" value="Start optimization!" id='start' name='tender'>
+              <input type="hidden" name="code" id="private" value="{{private_code}}">
+          </form>
+        </div>
+        <div id="form_step">
+            <div id="poly">
+                <h3>Загрузка данных из файла Excel (.xlsx)</h3>
+                <form id='myForm' action="/upload_figure" enctype="multipart/form-data" method="post">
+                    <p>
+                        <input type="file" onchange="submit_kml(this.form);" name="fkml">
+                        <input type="hidden" name="code" id="private" value="{{private_code}}">
+                    </p>
+                </form>
+            </div>
+            <div id="map">
+                <img class="top" src="static/tetris.jpg" />
+            </div>
+            <div id="open_help">
+                <input id="hd-1" class="hide" type="checkbox">
+                <label for="hd-1"><strong>Этап №1</strong> подготовка данных</label>
+                <div> Для работы необходимо создать в книге лист с названием "data"
+                  без кавычек. В ячейке A1 - пишем figure, В ячейке B1 - пишем count.
+                  Начиная с строки 2, вводим сплошной таблицей (без пустых строк)
+                  в столбец figure - размер фигуры, в столбец count - количество фигур.
+                  После окончания работы с файлом сохраняем книгу.
+                  Загружаем на сервер полученный файл при помощи
+                  "Загрузка данных из файла Excel".
+                  В случае удачной загрузки справа появится список размеров фигур
+                  и количество.</div>
+            </div>
+            <div id="open_help">
+                <input id="hd-2" class="hide" type="checkbox">
+                <label for="hd-2"><strong>Этап №2
+                </strong> оптимизация данных</label>
+                <div> При нажатии на кнопку Start optimization! автоматически
+                  программа начнет НЕМЕДЛЕННЫЙ РАСЧЕТ и ВОЗВРАТ результата в файл
+                  эксель!</div>
+            </div>
+            <div id="open_help">
+                <input id="hd-3" class="hide" type="checkbox">
+                <label for="hd-3"><strong>Этап №3</strong> время оптимизации</label>
+                <div> От размера подаваемых на вход данных будет зависеть время
+                  работы алгоритма, процесс оптимизации можно контролировать
+                  при помощи индикатора.</div>
+            </div>
+        </div>
+        <div id="geolist">
+            <h3>Список и количество фигур</h3>
+            <ul id='namepolygon'>
+                {% for zname in zona %}
+                <li><a>{{ zname }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+  <script type="text/javascript">
+
+    var dis = 0;
+    var intervalID = 0;
+    var unique = "{{private_code}}";
+    var obj = eval("{{zona}}");
+    var plf = Object.keys(obj).length;
+    var subscribe = 0;  /* Подписка на ожидание или решение заявки*/
+
+    if (plf > 0){
+      document.getElementById('start').disabled = false;
+    } else {
+      document.getElementById('start').disabled = true;
+    }
+
+    // Передача аргументов в javascript
+    // for(var index in zona) {
+    //     var attr = zona[index];
+    //     alert(index, attr);
+    // }
+
+    function submit_figure(event) {
+      // alert('my');
+      // alert(window.dis);
+      if (window.dis == 0){
+        window.subscribe = 0;
+        window.intervalID = setInterval(eee, 5000);
+      } else {
+      /* Добавить обработчик если пользователь отписался от заявки на расчет */
+        window.subscribe = 1;
+      }
+      status_opt('Inquiry!');
+      return false
+    }
+
+    function submit_kml(form) {
+
+      var searchForm = document.forms["myForm"];
+      var keyBox = searchForm.elements["fkml"];
+
+      var i = keyBox.value;
+      i = i.substr(i.length - 4, i.length).toLowerCase();
+      i = i.replace('.','');
+      switch(i){
+        case 'txt':
+            form.submit();
+            break;
+        case 'xlsx':
+            form.submit();
+            break;
+        default:
+          alert('no extension file (txt) or (xlsx)');
+          break;
+      }
+    }
+
+    function optnew(){
+      var div = document.createElement('div');
+      div.id = 'optimization';
+      home.appendChild(div);
+
+      var div_load = document.createElement('div');
+      div_load.className = 'loader-fb';
+      optimization.appendChild(div_load);
+    }
+
+    function Bad_server(){
+        alert( 'Sorry server is not responding ' );
+        var element=document.getElementById('optimization');
+        if (element){
+          home.removeChild(element);
+        }
+        clearInterval(window.intervalID);
+        status_opt('Please, reload page!');
+        document.getElementById('start').disabled = true;
+        window.dis = 0;
+    }
+
+    function optlost(){
+      var element=document.getElementById('optimization');
+      if (element){
+        home.removeChild(element);
+      }
+    }
+
+    function status_opt(txt){
+      form = document.forms.optimus;
+      var elems = form.elements.tender;
+      elems.value = txt;
+    }
+
+    function eee(){
+        var xmlhttp;
+        // Are we using a modern browser or ...
+        if (window.XMLHttpRequest) {
+          // code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+        } else {
+          // code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (!xmlhttp){
+          alert("Error initializing XMLHttpRequest!");
+        }
+
+        function GetItems(){
+          if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            var jsonobj = JSON.parse(xmlhttp.responseText);
+
+            if (jsonobj[1] == "stop"){
+                window.dis = 1;
+                status_opt('Please, reload page!');
+                clearInterval(window.intervalID);
+                optlost();
+                document.getElementById('start').disabled = true;
+              }
+            else if(jsonobj[1] == "wait"){
+                window.dis = 1;
+                status_opt('Waiting');
+              }
+            else if (jsonobj[1] == "start"){
+                  window.dis = 1;
+                  var getoptm=document.getElementById('optimization');
+                  if (!getoptm){
+                    optnew();
+                  }
+                  status_opt('Calculation');
+            } else {
+                alert('аннулирована заявка ' + jsonobj[1]);
+                // window.dis = 0;
+                // clearInterval(window.intervalID);
+                // optlost();
+                Bad_server();
+              }
+
+          } else {
+              alert("data not available");
+              Bad_server();
+              // window.dis = 0;
+              // clearInterval(window.intervalID);
+              // optlost();
+            }
+          }
+
+        xmlhttp.onload = GetItems;
+        xmlhttp.onerror = Bad_server;
+        // send the request in an async way
+        xmlhttp.open("POST", "/getallitems.json", true);
+        // Передача id кода сеанса
+        arg = String("unique=" + window.unique);
+        arg = arg + "&" + String ("subscribe=" + window.subscribe);
+        xmlhttp.send(arg);
+      }
+
+   </script>
+
+</body>
+</html>
