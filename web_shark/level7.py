@@ -26,19 +26,19 @@ import threading
 import numpy as np
 from numpy import array
 
-import matplotlib.pyplot as plt
-from matplotlib.ticker import LinearLocator, FormatStrFormatter, MultipleLocator
-from matplotlib import cm, style
-from mpl_toolkits.mplot3d import axes3d
+# import matplotlib.pyplot as plt
+# from matplotlib.ticker import LinearLocator, FormatStrFormatter, MultipleLocator
+# from matplotlib import cm, style
+# from mpl_toolkits.mplot3d import axes3d
 
 import imexdata
 import perfomance
 
-style.use('fivethirtyeight')
-plt.rcParams['font.size'] = 8
-plt.rcParams['font.family'] = 'Verdana'
-plt.rcParams['figure.figsize'] = [12, 9]
-plt.rcParams['text.latex.unicode'] = True
+# style.use('fivethirtyeight')
+# plt.rcParams['font.size'] = 8
+# plt.rcParams['font.family'] = 'Verdana'
+# plt.rcParams['figure.figsize'] = [12, 9]
+# plt.rcParams['text.latex.unicode'] = True
 
 
 class Plancalc():
