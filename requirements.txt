@@ -1,3 +1,9 @@
 bottle
 gunicorn
 gevent
+openpyxl
+pytz
+python-dateutil
+numpy
+matplotlib
+jinja2

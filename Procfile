@@ -1,1 +1,1 @@
-web: python app.py
+web: python web_shark/bottle_app.py
