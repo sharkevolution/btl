@@ -6,4 +6,3 @@ pytz
 python-dateutil
 numpy
 jinja2
-matplotlib
