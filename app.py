@@ -10,10 +10,11 @@ from bottle import default_app, request, route, response, get
 
 bottle.debug(True)
 
+
 @get('/')
 def index():
     response.content_type = 'text/plain; charset=utf-8'
-    ret =  'Hello world, I\'m %s!\n\n' % os.getpid()
+    ret = 'Hello world, I\'m %s!\n\n' % os.getpid()
     ret += 'Request vars:\n'
     for k, v in request.environ.iteritems():
         if 'bottle.' in k:
@@ -30,4 +31,6 @@ def index():
 
     return ret
 
-bottle.run(host='0.0.0.0', port=8080)
+
+bottle.run(server='gevent', port=os.environ.get('PORT', 5000))
+# bottle.run(host='0.0.0.0', port=8080)
