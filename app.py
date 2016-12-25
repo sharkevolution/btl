@@ -35,5 +35,5 @@ def index():
     return ret
 
 
-bottle.run(server='gevent', port=os.environ.get('PORT', 5000))
+bottle.run(server='gunicorn', workers=4, port=os.environ.get('PORT', 5000))
 # bottle.run(host='0.0.0.0', port=5000)
