@@ -7,5 +7,4 @@ python-dateutil
 numpy
 matplotlib
 jinja2
-tkinter
 python3-tk
