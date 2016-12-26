@@ -198,7 +198,15 @@
                     optnew();
                   }
                   status_opt('Calculation');
-            } else {
+            }
+            else if (jsonobj[1] == "result"){
+                window.dis = 1;
+                status_opt('Take the result!!!');
+                clearInterval(window.intervalID);
+                optlost();
+                document.getElementById('start').disabled = true;
+                location.href = '/result?unique=' + window.unique;
+              } else {
                 alert('аннулирована заявка ' + jsonobj[1]);
                 // window.dis = 0;
                 // clearInterval(window.intervalID);

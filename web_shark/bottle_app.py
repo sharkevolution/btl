@@ -190,6 +190,19 @@ def do_page(page):
     return result
 
 
+@route('/result', method='GET')
+def retresult():
+    gencode = request.query.unique
+
+    fx = os.path.join(config.exm, 'result')
+    myfile = os.path.normpath(fx)
+
+    filename = str(gencode) + '.xlsx'
+
+    return static_file(filename, root=myfile, download=filename)
+
+
+
 @route('/', method='GET')
 def index():
     """ Главная точка входа на сайт
@@ -306,7 +319,6 @@ def shop_aj_getallitems():
                         usdata = Pull.uname[gencode]
                         onthr = level7.main_thread(usdata.pull_figure)
                         onthr.start()
-                        # onthr.run()
 
                         Tender.curr_optimize_gencode = gencode  # Сохраняем инфр о коде пользователя в работе
                         optimization[1] = 'start'  # Флаг запуска оптимизации
@@ -336,7 +348,7 @@ def shop_aj_getallitems():
                 gendel = Tender.waiting_line.popleft() # Удаляем отработаный сеанс после работы алгоритма
                 Tender.curr_optimize_gencode = None
 
-                optimization[1] = 'stop'  # Флаг окончания оптимизации
+                optimization[1] = 'result'  # Флаг окончания оптимизации
                 optimization[3] = 'Окончание работы алгоритма!'
             else:
                 if subscribe:
@@ -406,11 +418,8 @@ Pull = Pull_user()
 app = default_app()
 # run(app, host='0.0.0.0', port=8080)
 # bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
+# bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
 
 # Waitress
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
 serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
-
-
-
-# bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
