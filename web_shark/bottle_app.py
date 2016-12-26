@@ -16,6 +16,9 @@ import bottle
 from bottle import route, run, request, static_file, default_app
 from bottle import jinja2_template as template, redirect
 
+# from gevent import monkey, pool; monkey.patch_all()
+from waitress import serve
+
 import config
 import imexdata
 import level7
@@ -389,8 +392,8 @@ def main_log():
     ch = logging.StreamHandler()
     ch.setLevel(logging.INFO)
 
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    ch.setFormatter(formatter)
+    # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # ch.setFormatter(formatter)
 
     logger.addHandler(ch)
     logger.info('start')
@@ -400,6 +403,14 @@ Unxtime = Epoch()
 main_log()
 Pull = Pull_user()
 
-# application = default_app()
-# run(application, host='0.0.0.0', port=8080)
-bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
+app = default_app()
+# run(app, host='0.0.0.0', port=8080)
+# bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
+
+# Waitress
+# web: waitress-serve --port=$PORT cardisle.wsgi:application
+serve(app, host='0.0.0.0', port=8080)
+
+
+
+# bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
