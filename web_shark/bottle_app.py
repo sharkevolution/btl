@@ -409,7 +409,7 @@ app = default_app()
 
 # Waitress
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
-serve(app, host='0.0.0.0', port=8080)
+serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 
 
