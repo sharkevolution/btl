@@ -97,15 +97,15 @@ def _development():
     # layout_task.extend([8] * 3)
     # task_fate[3] = layout_task
     #
-    # layout_task = []
-    # layout_task.extend([6] * 3)
-    # task_fate[2] = layout_task
+    layout_task = []
+    layout_task.extend([6] * 3)
+    task_fate[2] = layout_task
 
     layout_task = []
-    layout_task.extend([1] * 5)
+    layout_task.extend([1] * 3)
     layout_task.extend([2] * 5)
-    # layout_task.extend([3] * 5)
-    # layout_task.extend([4] * 3)
+    layout_task.extend([3] * 5)
+    layout_task.extend([4] * 3)
 
     task_fate[1] = layout_task
 
