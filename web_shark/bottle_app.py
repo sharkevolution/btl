@@ -275,7 +275,7 @@ def shop_aj_getallitems():
     # Удаление сеансов превышающих порог времени ответа клиента
     for b, v in list(Tender.gencode_time.items()):
         differ = datetime.datetime.now() - v
-        if differ.seconds > 15:
+        if differ.seconds > 10:
             # Время выхода на связь просрочено, удаляем сеанс пользователя
             if b in Pull.uname:
                 del (Pull.uname[b])
