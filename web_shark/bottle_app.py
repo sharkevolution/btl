@@ -258,12 +258,11 @@ def shop_aj_getallitems():
     subscribe = request.forms.get('subscribe')  # Получаем статус подписки, 0 = подписано, 1 = отписаться
 
     if subscribe == '1':
+        # Отписаться от заявки
         subscribe = True
     elif subscribe == '0':
+        # Подача заявки на подписку
         subscribe = False
-        # level7.main_thread.stopping = False
-
-    # print (gencode, len(Tender.waiting_line))
 
     # Ответ пользователю в формате json
     optimization = {}
@@ -276,7 +275,7 @@ def shop_aj_getallitems():
     # Удаление сеансов превышающих порог времени ответа клиента
     for b, v in list(Tender.gencode_time.items()):
         differ = datetime.datetime.now() - v
-        if differ.seconds > 15000:
+        if differ.seconds > 15:
             # Время выхода на связь просрочено, удаляем сеанс пользователя
             if b in Pull.uname:
                 del (Pull.uname[b])
@@ -290,7 +289,7 @@ def shop_aj_getallitems():
             if  b == Tender.curr_optimize_gencode:
                 # !!!Критическая секция!!!, остановка работающего потока
                 level7.main_thread.stopping = True
-                destroy_gencode(gencode)
+                destroy_gencode(b)
                 optimization[1] = 'stop'
                 optimization[3] = 'Внимание, превышен порог времени ответа клиента, расчет сброшен!'
 
@@ -378,7 +377,7 @@ def shop_aj_getallitems():
                     optimization[3] = 'Вы, отписались от подписки!'
                 else:
                     # Ограничиваем кол-во запросов ajax на подключение
-                    if len(Tender.waiting_line) < 4:
+                    if len(Tender.waiting_line) <= 5:
                         optimization[1] = 'wait'  # Флаг ожидания оптимизации
                     else:
                         destroy_gencode(gencode)
@@ -416,7 +415,7 @@ main_log()
 Pull = Pull_user()
 
 app = default_app()
-# run(app, host='0.0.0.0', port=8080)
+# run(app, host='0.0.0.0', port=5000)
 # bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
 # bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
 
