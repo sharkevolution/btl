@@ -286,7 +286,7 @@ def shop_aj_getallitems():
             if b in Tender.waiting_line:
                 Tender.waiting_line.remove(b)
 
-            if  b == Tender.curr_optimize_gencode:
+            if b == Tender.curr_optimize_gencode:
                 # !!!Критическая секция!!!, остановка работающего потока
                 level7.main_thread.stopping = True
                 destroy_gencode(b)
