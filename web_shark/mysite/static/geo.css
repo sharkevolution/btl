@@ -1,53 +1,39 @@
 /* Default CSS */
 
 body {
-    display: block;
-    position: relative;
-    width: 100%;
+    width: 90%;
     font-style: normal;
     font-family: serif;
 }
-#form_step {
-    display: block;
-    position: relative;
-    float: left;
-    width: 20%;
-}
+
 #wrapper {
     padding-left: 20px;
+    padding-right: 20px;
+    min-width: 220px;
 }
+
+#form_step {
+    float: left;
+    width: 30%;
+    clear: left;
+    margin-right: 20px;
+    min-width: 220px;
+}
+
 #form_step h3, #geolist h3 {
     margin: 2px;
     padding-left: 5px;
     padding-bottom: 5px;
 }
-#wgs, #poly, #map {
-    display: block;
-    position: relative;
-    float: left;
-    /*width: 90%;*/
-    margin-bottom: 5px;
-    /*background-color: #fdf8f4;*/
-    background-color: #FAF0F6;
-    /*margin: 2px;*/
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 10px;
-    /*border-style: solid;*/
-    border-width: 1px;
-    overflow:hidden;
-}
+
 #geolist {
-    display: block;
     position: relative;
+    width: 20%;
     float: left;
-    width: 25%;
-    padding-left: 15px;
-    margin-left: 20px;
-    margin-bottom: 4px;
+    min-width: 220px;
+    margin-right: 20px;
     background-color: #FAF0F6;
     border-radius: 10px;
-    /*border-style: solid;*/
     border-width: 1px;
 }
 #geolist p {
@@ -56,12 +42,25 @@ body {
     border-style: solid;
 }
 
+#wgs, #poly, #map {
+    display: block;
+    position: relative;
+    float: left;
+    margin-bottom: 5px;
+    background-color: #FAF0F6;
+    /*margin: 2px;*/
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+    border-width: 1px;
+    overflow:hidden;
+}
+
+
 #open_home #home {
     display: inline-block;
-    padding: 5px;
     width: 50%;
-    margin: 20px 2px 7px 2px;
-    /*background-color: #e80909;*/
+    margin: 2px 2px 7px 2px;
     color: #FFF;
     border-radius: 5px;
     text-decoration: none;
@@ -113,7 +112,8 @@ p span {
 /* вид текста label */
 .hide + label,
 .hide:checked + label {
-    padding: 0;
+    padding: 0 0 0 0;
+    margin-left: 0px;
     color: green;
     cursor: pointer;
     border-bottom: 1px dotted green;
@@ -132,7 +132,7 @@ p span {
     box-shadow: inset 3px 3px 10px #7d8e8f;
     margin-top: 10px;
     margin-left: 20px;
-	margin-right: 10px;
+	  margin-right: 10px;
     padding: 10px;
 
 /* анимации при появлении */
@@ -229,21 +229,18 @@ input[type="submit"]:active {
     background: rgb(152,15,0);
     } /* при нажатии */
 
-
 #optimization {
-  display: inline-block;;
-  /*position: absolute;*/
-  /*float: left;*/
-  height: 5px;
+  display: inline-block;
+  position: absolute;
+  height: 20px;
   width: 50px;
-  /*left: -20%;*/
-  margin-top: 0px;
+  margin-left: 30px;
 }
 
 .loader-fb {
-  top: calc(65% - 5px);
-  left: 280px;
-  position: absolute !important;
+  top: calc(-5% - 0px);
+  left: 10%;
+  position: relative;
 }
 /* Demo specific styles end */
 
