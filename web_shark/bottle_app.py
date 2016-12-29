@@ -55,9 +55,10 @@ def yandex():
     return template(myfile)
 
 
-# @route('/google20b85008b048860b.html', method='GET')
-# def google():
-#     return template(exm_path + 'google20b85008b048860b.html')
+@route('/google20b85008b048860b.html', method='GET')
+def google():
+    myfile = os.path.join(config.exm, 'google20b85008b048860b.html')
+    return template(myfile)
 
 
 @route('/robots.txt', method='GET')
