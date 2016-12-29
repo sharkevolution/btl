@@ -49,11 +49,12 @@ class User(object):
         self.current_host = None  # Запоминаем хост пользователя
 
 
-# @route('/yandex_70e08e7dcee34207.html', method='GET')
-# def yandex():
-#     return template(exm_path + 'yandex_70e08e7dcee34207.html')
-#
-#
+@route('/yandex_a52e15ee3293d4fc.html', method='GET')
+def yandex():
+    myfile = os.path.join(config.exm, 'yandex_a52e15ee3293d4fc.html')
+    return template(myfile)
+
+
 # @route('/google20b85008b048860b.html', method='GET')
 # def google():
 #     return template(exm_path + 'google20b85008b048860b.html')
