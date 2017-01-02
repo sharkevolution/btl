@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="description" content="Оптимизация раскроя, алгоритм двумерной упаковки в полуограниченную полосу">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCNR</title>
     <script type="text/javascript" src="lib/jquery-1.10.1.min.js" charset="utf-8"></script>
@@ -12,7 +13,7 @@
 
 <body>
     <div id="wrapper">
-        <h2>Алгоритм двумерной упаковки в полуограниченную полосу</h2>
+        <h2>Алгоритм 2D упаковки в полуограниченную полосу</h2>
         <div id="open_home">
           <form id='home' name='optimus' enctype="multipart/form-data" method="post"
           onsubmit="submit_figure(this.form);return false;">
@@ -30,7 +31,8 @@
                     </p>
                 </form>
             </div>
-            <div id="map"
+            <div id="map">
+              <h3>Оплата расчета</h3>
               <form method="POST" action="https://api.privatbank.ua/p24api/ishop">
                 <input type="hidden" name="amt" value="0.00" />
                 <input type="hidden" name="ccy" value="UAH" />
@@ -256,8 +258,6 @@
       ga('create', 'UA-89708631-1', 'auto');
       ga('send', 'pageview');
 
-
    </script>
-
 </body>
 </html>
