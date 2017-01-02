@@ -64,7 +64,7 @@ def google():
 @route('/robots.txt', method='GET')
 def robots():
     """robot.txt, для того что-б поисковики индексировали все"""
-    return 'User-agent: *\nDisallow:\nHost: www.sharkevo.ru\nSitemap: /sitemap.xml\n\n'
+    return 'User-agent: *\nDisallow:\nHost: www.sharkevo.ru\n\n'
 
 
 @route('/sitemap.xml', method='GET')
