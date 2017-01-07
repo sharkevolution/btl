@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCNR</title>
     <script type="text/javascript" src="lib/jquery-1.10.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="lib/calc.js" charset="utf-8"></script>
     <link href="static/geo.css" rel="stylesheet" type="text/css">
     <link href="static/calc.css" rel="stylesheet" type="text/css">
 
@@ -33,54 +34,43 @@
                     </p>
                 </form>
             </div>
-
-            <!-- <div id="map">
-                <img class="top" src="static/tetris.jpg" />
-            </div> -->
             <div id="background"><!-- Main background -->
-
-                    <div id="result"></div>
-
-                     <div id="main">
-                          <div id="first-rows">
-                             <button class="del-bg" id="delete">D</button>
-                             <input type="text" value="0" size="4"/>
-                             <!-- <button value="F" class="btn-style operator opera-bg fall-back">F</button>
-                             <button value="C" class="btn-style opera-bg value align operator">C</button> -->
-                            </div>
-
-                           <div class="rows">
-                             <button value="7" class="btn-style num-bg num first-child">7</button>
-                             <button value="8" class="btn-style num-bg num">8</button>
-                             <button value="9" class="btn-style num-bg num">9</button>
-                             <!-- <button value="-" class="btn-style opera-bg operator">-</button> -->
-                             </div>
-
-                             <div class="rows">
-                             <button value="4" class="btn-style num-bg num first-child">4</button>
-                             <button value="5" class="btn-style num-bg num">5</button>
-                             <button value="6" class="btn-style num-bg num">6</button>
-                             <!-- <button value="*" class="btn-style opera-bg operator">x</button> -->
-                             </div>
-
-                             <div class="rows">
-                             <button value="1" class="btn-style num-bg num first-child">1</button>
-                             <button value="2" class="btn-style num-bg num">2</button>
-                             <button value="3" class="btn-style num-bg num">3</button>
-                             <!-- <button value="/" class="btn-style opera-bg operator">/</button> -->
-                             </div>
-
-                             <div class="rows">
-                             <button value="0" class="btn-style num-bg num">0</button>
-                             <button value="F" class="btn-style operator opera-bg fall-back">F</button>
-                             <button value="C" class="btn-style opera-bg value align operator">C</button>
-                             <!-- <button value="." class="btn-style num-bg period fall-back">.</button> -->
-                             <!-- <button value="=" id="eqn-bg" class="eqn align">=</button> -->
-                             </div>
-
+                <div id="result"></div>
+                   <div id="main">
+                      <div id="first-rows">
+                         <button class="del-bg" id="delete">D</button>
+                         <input type="text" id='size' value="" size="4" disabled=1 />
+                       </div>
+                      <div class="rows">
+                         <button value="7" class="btn-style num-bg num first-child">7</button>
+                         <button value="8" class="btn-style num-bg num">8</button>
+                         <button value="9" class="btn-style num-bg num">9</button>
+                       </div>
+                      <div class="rows">
+                         <button value="4" class="btn-style num-bg num first-child">4</button>
+                         <button value="5" class="btn-style num-bg num">5</button>
+                         <button value="6" class="btn-style num-bg num">6</button>
+                       </div>
+                         <div class="rows">
+                         <button value="1" class="btn-style num-bg num first-child">1</button>
+                         <button value="2" class="btn-style num-bg num">2</button>
+                         <button value="3" class="btn-style num-bg num">3</button>
                          </div>
-
+                      <div class="rows">
+                         <button value="0" class="btn-style num-bg num">0</button>
+                         <button value="F" id='figure' class="btn-style operator opera-bg fall-back">F</button>
+                         <button value="C" id='count' class="btn-style opera-bg value align operator">C</button>
+                       </div>
                      </div>
+                   </div>
+
+            <div id='infigure'>
+              <h4>Figure:</h4>
+              <h4>Count:</h4>
+            </div>
+                   <!-- <div id="map">
+                       <img class="top" src="static/tetris.jpg" />
+                   </div> -->
 
             <!-- <div id="open_help">
                 <input id="hd-1" class="hide" type="checkbox">
@@ -166,7 +156,6 @@
           </div>
 
     </div>
-
   <script type="text/javascript">
 
     var dis = 0;

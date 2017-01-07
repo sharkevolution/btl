@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 import os
-
 import logging
 import json
 import time
