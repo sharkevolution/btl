@@ -8,6 +8,7 @@
   display: block;
   position: relative;
   float: left;
+  width: 100%;
   background-color: #FAF0F6;
 }
 
@@ -21,9 +22,25 @@
 
 #infigure ul li{
   padding-bottom: 4px;
-  font-size:1em;
+  font-size:1.1em;
   font-weight: bold;
   font-family: monospace;
+}
+
+#cur {
+  display: block;
+  width: 45%;
+  min-width: 45%;
+  position: relative;
+  float: left;
+}
+
+#total {
+  display: block;
+  width: 53%;
+  min-width: 53%;
+  position: relative;
+  float: left;
 }
 
 
