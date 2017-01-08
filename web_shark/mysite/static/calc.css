@@ -8,17 +8,22 @@
   display: block;
   position: relative;
   float: left;
-
-  margin: 2px;
-  padding-left: 5px;
-  padding-bottom: 5px;
-
-  margin-top: 10px;
-  margin-bottom: 5px;
-  /*padding-left: 15px;*/
-  /*padding-right: 15px;*/
-  /*border-radius: 10px;*/
   background-color: #FAF0F6;
+}
+
+#infigure ul{
+  list-style-type: none;
+  margin-left: 0;
+  padding: 0;
+  padding-left: 5px;
+  margin-bottom: 2px;
+}
+
+#infigure ul li{
+  padding-bottom: 4px;
+  font-size:1em;
+  font-weight: bold;
+  font-family: monospace;
 }
 
 
