@@ -2,18 +2,23 @@
 
 #background {
     display: block;
-    /*width:300px;
-    height:400px;*/
-    /*background:gray;*/
-    width: 70%;
-    /*margin:50px auto;*/
 }
 
 #infigure {
   display: block;
-  float: left;
   position: relative;
-  width: 30%;
+  float: left;
+
+  margin: 2px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+
+  margin-top: 10px;
+  margin-bottom: 5px;
+  /*padding-left: 15px;*/
+  /*padding-right: 15px;*/
+  /*border-radius: 10px;*/
+  background-color: #FAF0F6;
 }
 
 

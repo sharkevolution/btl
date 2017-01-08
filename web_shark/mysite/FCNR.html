@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="description" content="Оптимизация раскроя, алгоритм двумерной упаковки в полуограниченную полосу">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCNR</title>
-    <script type="text/javascript" src="lib/jquery-1.10.1.min.js" charset="utf-8"></script>
+
     <script type="text/javascript" src="lib/calc.js" charset="utf-8"></script>
-    <link href="static/geo.css" rel="stylesheet" type="text/css">
+
+    <link href="static/scnr.css" rel="stylesheet" type="text/css">
     <link href="static/calc.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -35,109 +35,77 @@
                 </form>
             </div>
             <div id="background"><!-- Main background -->
-                <div id="result"></div>
                    <div id="main">
-                      <div id="first-rows">
-                         <button class="del-bg" id="delete">D</button>
-                         <input type="text" id='size' value="" size="4" disabled=1 />
-                       </div>
-                      <div class="rows">
-                         <button value="7" class="btn-style num-bg num first-child">7</button>
-                         <button value="8" class="btn-style num-bg num">8</button>
-                         <button value="9" class="btn-style num-bg num">9</button>
-                       </div>
-                      <div class="rows">
-                         <button value="4" class="btn-style num-bg num first-child">4</button>
-                         <button value="5" class="btn-style num-bg num">5</button>
-                         <button value="6" class="btn-style num-bg num">6</button>
-                       </div>
-                         <div class="rows">
+                       <div class="rows">
                          <button value="1" class="btn-style num-bg num first-child">1</button>
                          <button value="2" class="btn-style num-bg num">2</button>
                          <button value="3" class="btn-style num-bg num">3</button>
-                         </div>
+                         <button value="4" class="btn-style num-bg num first-child">4</button>
+                       </div>
+                       <div class="rows">
+                         <button value="5" class="btn-style num-bg num">5</button>
+                         <button value="6" class="btn-style num-bg num">6</button>
+                         <button value="7" class="btn-style num-bg num first-child">7</button>
+                         <button value="8" class="btn-style num-bg num">8</button>
+                        </div>
                       <div class="rows">
+                         <button value="9" class="btn-style num-bg num">9</button>
                          <button value="0" class="btn-style num-bg num">0</button>
                          <button value="F" id='figure' class="btn-style operator opera-bg fall-back">F</button>
                          <button value="C" id='count' class="btn-style opera-bg value align operator">C</button>
                        </div>
-                     </div>
-                   </div>
-
+                       <div id="first-rows">
+                          <button class="del-bg" id="delete">D</button>
+                          <input type="text" id='size' value="" size="4" disabled=1 />
+                        </div>
+                    </div>
+            </div>
             <div id='infigure'>
-              <h4>Figure:</h4>
-              <h4>Count:</h4>
-            </div>
-                   <!-- <div id="map">
-                       <img class="top" src="static/tetris.jpg" />
-                   </div> -->
-
-            <!-- <div id="open_help">
-                <input id="hd-1" class="hide" type="checkbox">
-                <label for="hd-1"><strong>Этап №1</strong> подготовка данных</label>
-                <div> Для работы необходимо создать в книге лист с названием "data"
-                  без кавычек. В ячейке A1 - пишем figure, В ячейке B1 - пишем count.
-                  Начиная с строки 2, вводим сплошной таблицей (без пустых строк)
-                  в столбец figure - размер фигуры, в столбец count - количество фигур.
-                  После окончания работы с файлом сохраняем книгу.
-                  Загружаем на сервер полученный файл при помощи
-                  "Загрузка данных из файла Excel".
-                  В случае удачной загрузки справа появится список размеров фигур
-                  и количество.</div>
-            </div>
-            <div id="open_help">
-                <input id="hd-2" class="hide" type="checkbox">
-                <label for="hd-2"><strong>Этап №2
-                </strong> оптимизация данных</label>
-                <div> При нажатии на кнопку Start optimization! автоматически
-                  программа начнет НЕМЕДЛЕННЫЙ РАСЧЕТ и ВОЗВРАТ результата в файл
-                  эксель!</div>
-            </div>
-            <div id="open_help">
-                <input id="hd-3" class="hide" type="checkbox">
-                <label for="hd-3"><strong>Этап №3</strong> время оптимизации</label>
-                <div> От размера подаваемых на вход данных будет зависеть время
-                  работы алгоритма, процесс оптимизации можно контролировать
-                  при помощи индикатора.</div>
-            </div> -->
+              <label for="name">Current figure:</label>
+              <br></br>
+              <label for="name">Current count:</label>
+             </div>
+            <div id="result"></div>
         </div>
 
           <div id="geolist">
+            <h3>Список и количество фигур</h3>
             <form name="f">
               <fieldset>
-              <input <input type="checkbox" value="Start"/><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
             <fieldset>
-              <input <input type="checkbox" value="Start"><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
             <fieldset>
-              <input <input type="checkbox" value="Start"><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
             <fieldset>
-              <input <input type="checkbox" value="Start"><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
             <fieldset>
-              <input <input type="checkbox" value="Start"><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
             <fieldset>
-              <input <input type="checkbox" value="Start"><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
             <fieldset>
-              <input <input type="checkbox" value="Start"><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
             <fieldset>
-              <input <input type="checkbox" value="Start"><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
             <fieldset>
-              <input <input type="checkbox" value="Start"><label for="raz">описание</label>
+              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
             </fieldset>
               </form>
-              <h3>Список и количество фигур</h3>
+
               <ul id='namepolygon'>
                   {% for zname in zona %}
                   <li><a>{{ zname }}</a></li>
                   {% endfor %}
               </ul>
+
           </div>
           <div id="map">
             <h3>Оплата расчета</h3>
