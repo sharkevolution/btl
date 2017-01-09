@@ -178,10 +178,15 @@ fieldset {
 
 .inp {
   vertical-align: middle;
-  transform: scale(1.4);
-  margin-right: 7px;
+  transform: scale(1.7);
+  -moz-transform: scale(1.7); /* Для Firefox */
+  -ms-transform: scale(1.7); /* Для IE */
+  -webkit-transform: scale(1.7); /* Для Safari, Chrome, iOS */
+  -o-transform: scale(1.7); /* Для Opera */  
+  margin-right: 10px;
 }
 
 #geolist label {
-  font-size: 1.2em;
+  font-size: 1.5em;
+  vertical-align: middle;
   }
