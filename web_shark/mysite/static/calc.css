@@ -44,10 +44,10 @@
 }
 
 
-/*button {
+button {
     border:0;
     color:#fff;
-}*/
+}
 
 /*#result {
     display:block;
@@ -134,8 +134,8 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 
 /* Adding background color to the number values */
  .num-bg {
-    /*background:#000;*/
-    /*color:#fff;*/
+    background:rgb(213, 185, 119);
+    color:#000;
     font-size:26px;
     cursor:pointer;
     outline:none;
@@ -143,8 +143,8 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 }
 
  .num-bg:active {
-    /*background:#000;*/
-    /*color:#fff;*/
+    background:rgb(13, 110, 98);
+    color:#fff;
     font-size:26px;
     cursor:pointer;
     outline:none;
@@ -153,8 +153,8 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 
 /*Adding background color to the operator values */
 .opera-bg {
-    /*background:#333;*/
-    /*color:#fff;*/
+    background:rgb(119, 174, 213);
+    color:#000;
     font-size:26px;
     cursor: pointer;
     outline:none;
@@ -162,8 +162,8 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 }
 
 .opera-bg:active {
-    /*background:#333;*/
-    /*color:#fff;*/
+    background:rgb(13, 110, 98);
+    color:#fff;
     font-size:26px;
     cursor: pointer;
     outline:none;
@@ -172,8 +172,8 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 
 /*Adding a background color to the delete button */
 .del-bg {
-    /*background:#24b4de;*/
-    /*color:#fff;*/
+    background:rgb(172, 95, 81);
+    color:#FFF;
     font-size:26px;
     cursor: pointer;
     outline:none;
@@ -181,12 +181,12 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 }
 
 .del-bg:active {
-    /*background:#24b4de;*/
-    /*color:#fff;*/
+    background:rgb(13, 110, 98);
+    color:#fff;
     font-size:26px;
     cursor: pointer;
     outline:none;
-    box-shadow: inset 4px 4px 4px #399cb9;
+    box-shadow: inset 2px 2px 2px #399cb9;
 }
 
 /*Adding a background color to the equals to button */
