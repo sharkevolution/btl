@@ -51,8 +51,8 @@
                       <div class="rows">
                          <button value="9" class="btn-style num-bg num">9</button>
                          <button value="0" class="btn-style num-bg num">0</button>
-                         <button value="F" id='figure' class="btn-style operator opera-bg fall-back">F</button>
-                         <button value="C" id='count' class="btn-style opera-bg value align operator">C</button>
+                         <button value="F" id='figure' class="btn-style opera-bg fall-back">F</button>
+                         <button value="C" id='count' class="btn-style opera-bg value align">C</button>
                        </div>
                        <div id="first-rows">
                           <button class="del-bg" id="delete">D</button>
@@ -94,35 +94,11 @@
         </div>
           <div id="geolist">
             <h3>Список и количество фигур</h3>
-            <form name="f">
-              <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-            <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-            <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-            <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-            <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-            <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-            <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-            <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-            <fieldset>
-              <input class='inp' type="checkbox" value="Start"><label for="raz">описание</label>
-            </fieldset>
-              </form>
+            <form id='listfruit' name="mylist">
+                <!-- <fieldset>
+                  <input class='inp operator' type="checkbox" value="Start"><label for="raz">описание</label>
+                </fieldset> -->
+            </form>
 
               <ul id='namepolygon'>
                   {% for zname in zona %}
