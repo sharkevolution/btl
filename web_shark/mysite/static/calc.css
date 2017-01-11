@@ -7,6 +7,7 @@
 #infigure {
   display: block;
   position: relative;
+  margin-top: 5px;
   float: left;
   width: 100%;
   background-color: #FAF0F6;
@@ -82,53 +83,56 @@ button {
 }*/
 
 input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
-    font-size: 30px;
+    font-size: 25px;
     padding: 3px 5px;
-    width: 100px;
-    margin-top:10px;
-    margin-left:5px;
+    width: 65px;
+    margin-top:5px;
+    margin-left:1px;
 }
 
+.btn-style:disabled {
+    background: #dddddd;
+}
 
 .rows {
-    width:300px;
-    margin-top:10px;
+    width:250px;
+    margin-top:5px;
 }
 
 #delete {
-    width:50px;
-    height:50px;
-    margin-left:5px;
+    width:40px;
+    height:40px;
+    margin-left:1px;
     border-radius:4px;
 }
 
 /* Aligning the division and dot button properly */
 .fall-back {
-    margin-left:3px !important;
+    margin-left:1px !important;
 }
 
 /* Aligning the addition and equals to button properly */
 .align {
-    margin-left: 6px !important;
+    margin-left: 1px !important;
 }
 
 /* Button styling */
 .btn-style {
-    width:50px;
-    height:50px;
-    margin-left:5px;
+    width:40px;
+    height:40px;
+    margin-left:1px;
     border-radius:4px;
 }
 
 .eqn {
-    width:50px;
-    height:50px;
-    margin-left:5px;
+    width:40px;
+    height:40px;
+    margin-left:1px;
     border-radius:4px;
 }
 
 .first-child {
- margin-left:5px;
+ margin-left:1px;
 }
 
 
@@ -208,7 +212,7 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
     box-shadow: inset 4px 4px 4px #1f7a29;
 }
 
-@-webkit-keyframes bgChange {
+/*@-webkit-keyframes bgChange {
     0% {
        background:#24b4de;
     }
@@ -220,4 +224,4 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
     100% {
         background:#399cb9;
     }
-}
+}*/

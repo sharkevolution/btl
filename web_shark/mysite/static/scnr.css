@@ -1,24 +1,48 @@
 /* Default CSS */
 
-body {
-    width: 100%;
-    height: 100%;
-    font-style: normal;
-    font-family: "Times New Roman", "Times", "Nimbus Roman No9 L", Serif;
-}
+html, body {-moz-user-select:none; -webkit-user-select:none; margin:0 auto; padding:0; min-width:320px; width:100%; height:100%;
+    font-family: font-family: "Times New Roman", "Times", "Nimbus Roman No9 L", Serif;}
+* {margin:0; padding:0;}
+
+h3 {
+  padding-left: 10px;
+  padding-bottom: 3px;}
 
 #wrapper {
-    /*padding-left: 20px;*/
-    padding-right: 20px;
     min-width: 320px;
-
-    min-height: 100%;
-    height:auto!important;
+    min-height: 85%;
+    width: 100%;
+    height: auto !important;
     height: 100%;
+    margin: 0 auto;
+    margin-bottom: -40px;
+    padding: 0 0 40px 0;
 }
+
+/* FOOTER ---------------------------------------------------------- */
+.footer {
+  display: block;
+  width: 100%;
+  height: 40px;
+  color: #F1F1F1;
+  background: #202E66;
+  font-size: 14px;
+  margin: 0 auto;
+  clear: both;
+  padding: 0;
+  text-align: center;
+  }
+
+.footer p {padding-top: 5px;}
+
+#namepolygon {
+  margin-left: 15px;
+}
+
 
 #open_home {
     display: inline-block;
+    padding-left: 5px;
     float: left;
     width: 50%;
     margin: 2px 2px 7px 2px;
@@ -29,9 +53,11 @@ body {
 }
 
 #form_step {
+    display: block;
     float: left;
     width: 30%;
     clear: left;
+    margin-left: 5px;
     margin-right: 20px;
     margin-bottom: 5px;
     min-width: 320px;
@@ -48,6 +74,7 @@ body {
 }
 
 #geolist {
+    display: block;
     position: relative;
     width: 20%;
     float: left;
@@ -106,6 +133,10 @@ input[type="submit"] {
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+}
+
+input[type="submit"]:disabled {
+    background: #dddddd;
 }
 
 input[type="submit"]:hover {
@@ -182,7 +213,7 @@ fieldset {
   -moz-transform: scale(1.7); /* Для Firefox */
   -ms-transform: scale(1.7); /* Для IE */
   -webkit-transform: scale(1.7); /* Для Safari, Chrome, iOS */
-  -o-transform: scale(1.7); /* Для Opera */  
+  -o-transform: scale(1.7); /* Для Opera */
   margin-right: 10px;
 }
 
