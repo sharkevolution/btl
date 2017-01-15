@@ -213,17 +213,3 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
     outline:none;
     box-shadow: inset 4px 4px 4px #1f7a29;
 }
-
-/*@-webkit-keyframes bgChange {
-    0% {
-       background:#24b4de;
-    }
-
-    50% {
-      background:#17a928;
-    }
-
-    100% {
-        background:#399cb9;
-    }
-}*/

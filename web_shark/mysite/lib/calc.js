@@ -173,20 +173,35 @@ var calc_resolution = function(){
 
   var resol_figure = 0;
   var resol_count = 0;
+  var fg = 0;
+  var unfg = {};
 
   for(var index in fruit) {
       var attr = fruit[index];
-      resol_figure += parseInt(attr['f']);
+      fg = parseInt(attr['f']);
       resol_count += parseInt(attr['c']);
-      // alert(parseInt(attr['f']));
+      resol_figure += fg * resol_count;
+
+      if (fg in unfg){
+        // unfg[fg] += 1;
+      }else {
+        unfg[fg] = 1;
+      }
+      // alert(parseInt(attr['f']))
     }
+
+  var p = 0;
+  for (var u in unfg){
+    p += unfg[u];
+  }
+
   if (resol_figure > 1250 & resol_count > 3){
     document.getElementById('start').disabled = false;
   } else {
     document.getElementById('start').disabled = true;
   }
 
-  document.getElementById('tof').childNodes.item(0).nodeValue = 'Total figure: ' + String(resol_figure);
+  document.getElementById('tof').childNodes.item(0).nodeValue = 'Total figure: ' + String(p);
   document.getElementById('tocn').childNodes.item(0).nodeValue = 'Total count : ' + String(resol_count);
 
 }

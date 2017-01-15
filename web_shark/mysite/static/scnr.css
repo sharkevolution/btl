@@ -125,27 +125,19 @@ input[type=text]:focus {
     border-color:#333;
 }
 
+input[type="submit"]:disabled {
+    background: #dddddd;
+}
+
 input[type="submit"] {
     padding:7px 10px;
     font-size: 80%;
-    background:#F08080;
+    background-color:#F08080;
     border:0 none;
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
-
-input[type="submit"]:disabled {
-    background: #dddddd;
-}
-
-input[type="submit"]:hover {
-    background: rgb(232,95,76);
-    } /* при наведении курсора мышки */
-input[type="submit"]:active {
-    background: rgb(152,15,0);
-    } /* при нажатии */
-
 
 .loader-fb {
   top: calc(-5% - 0px);
