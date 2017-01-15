@@ -1,4 +1,7 @@
 
+fruit = {};
+var idx_fruit = 0;
+
 window.onload = function() {
 
     var current,
@@ -6,17 +9,10 @@ window.onload = function() {
     limit,
     zero,
     period,
-    operator,
-    current_figure,
-    current_amount,
-    fruit;
+    operator;
 
     var current_figure = 0;
     var current_amount = 0;
-
-    var fruit_rm;
-    var fruit = {};
-    var idx_fruit;
 
     document.getElementById('size').value = 0;
     document.getElementById('figure').disabled = false;
@@ -25,79 +21,12 @@ window.onload = function() {
     document.getElementById('crf').childNodes.item(0).nodeValue = 'Figure: 0';
     document.getElementById('amf').childNodes.item(0).nodeValue = 'Amount: 0';
 
-    document.getElementById('tof').childNodes.item(0).nodeValue = 'Total figure: 0';
-    document.getElementById('tocn').childNodes.item(0).nodeValue = 'Total count : 0';
+    // document.getElementById('tof').childNodes.item(0).nodeValue = 'Total figure: 0';
+    // document.getElementById('tocn').childNodes.item(0).nodeValue = 'Total count : 0';
     document.getElementById('limcn').childNodes.item(0).nodeValue = 'Limit count : 700';
 
     var elem = document.querySelectorAll(".num");
     var len = elem.length;
-
-    function fruitnew(idx_fruit){
-
-      /* Добавление элементов html от количества данных в массиве fruit */
-      var fld = document.createElement('fieldset');
-      fld.className = 'fld' + String(idx_fruit);
-      // listfruit.appendChild(fld);
-      listfruit.insertBefore(fld, listfruit.children[0]);
-
-      var input_load = document.createElement('input');
-      input_load.className = 'inp operator';
-      input_load.type = 'checkbox';
-      input_load.value="Start";
-
-      fld.appendChild(input_load);
-
-      var label = document.createElement('label');
-      label.for = 'raz';
-
-      var str = String(fruit[idx_fruit].f) + ', ' + String(fruit[idx_fruit].c)
-      label.innerHTML = str;
-
-      fld.appendChild(label);
-    }
-
-    function fruitremove(){
-      /* Удаление данных из массива и списка на странице */
-
-      remcount = 0;
-      var cheks = document.getElementsByClassName('operator');
-      for (i = 0; i < cheks.length; i++){
-        if (cheks[i].checked == true){
-          remcount += 1;
-        }
-      }
-
-      if (remcount != 0){
-        for (s = 0; s < remcount + 1; s++){
-            var cheks = document.getElementsByClassName('operator');
-            for (p = 0; p < cheks.length; p++){
-                if (cheks[p].checked == true){
-                  fruit_rm = p;
-                  break;
-                }
-              }
-
-              invert = cheks.length - fruit_rm  - 1
-              // alert('удаляется в массиве: ' + fruit[invert].f)
-              delete fruit[invert];
-
-              rm = document.getElementById('listfruit').children[p];
-              rm.remove();
-
-              /* Пересоздание массива */
-              var new_fruit = {};
-              m = 0;
-              for(var h in fruit) {
-                new_fruit[m] = fruit[h];
-                // alert(new_fruit[m].f);
-                m += 1;
-              }
-              fruit = new_fruit;
-              idx_fruit -= 1;
-              // alert('idx' + idx_fruit);
-        }
-      }
-    }
 
     for(var i = 0; i < len; i++ ) {
 
@@ -144,11 +73,11 @@ window.onload = function() {
 
         if (current_figure > 0 && current_amount > 0){
 
-          var size = Object.keys(fruit).length
+          var size = Object.keys(window.fruit).length
           if (size == 0){
             idx_fruit = 0
           }
-          fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
+          window.fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
           fruitnew(idx_fruit);
           idx_fruit += 1;
         }
@@ -172,11 +101,11 @@ window.onload = function() {
 
         if (current_figure > 0 && current_amount > 0){
 
-          var size = Object.keys(fruit).length
+          var size = Object.keys(window.fruit).length
           if (size == 0){
             idx_fruit = 0
           }
-          fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
+          window.fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
           fruitnew(idx_fruit);
           idx_fruit += 1;
         }
@@ -199,6 +128,11 @@ window.onload = function() {
 
         fruitremove();
 
+        var w = 0;
+        for(var h in window.fruit) {
+          w += 1;
+        }
+        calc_resolution();
 
     },false);
 
@@ -219,4 +153,114 @@ window.onload = function() {
         }
       },false);
     }
+
+    calc_resolution();
+}
+
+var fruit_file = function(obj){
+  /*Передача аргументов в javascript */
+  for(var index in obj) {
+      var attr = obj[index];
+      fruit[idx_fruit] = {'f': attr[0], 'c': attr[1]};
+      fruitnew(idx_fruit);
+      idx_fruit += 1;
+  }
+}
+
+var calc_resolution = function(){
+  /* Подсчет размеров фигур и их количества для выдачи разрешения на запуск
+  расчета на стороне сервера */
+
+  var resol_figure = 0;
+  var resol_count = 0;
+
+  for(var index in fruit) {
+      var attr = fruit[index];
+      resol_figure += parseInt(attr['f']);
+      resol_count += parseInt(attr['c']);
+      // alert(parseInt(attr['f']));
+    }
+  if (resol_figure > 1250 & resol_count > 3){
+    document.getElementById('start').disabled = false;
+  } else {
+    document.getElementById('start').disabled = true;
+  }
+
+  document.getElementById('tof').childNodes.item(0).nodeValue = 'Total figure: ' + String(resol_figure);
+  document.getElementById('tocn').childNodes.item(0).nodeValue = 'Total count : ' + String(resol_count);
+
+}
+
+
+function fruitnew(idx_fruit){
+
+  /* Добавление элементов html от количества данных в массиве fruit */
+  var fld = document.createElement('fieldset');
+  fld.className = 'fld' + String(idx_fruit);
+  // listfruit.appendChild(fld);
+  listfruit.insertBefore(fld, listfruit.children[0]);
+
+  var input_load = document.createElement('input');
+  input_load.className = 'inp operator';
+  input_load.type = 'checkbox';
+  input_load.value="Start";
+
+  fld.appendChild(input_load);
+
+  var label = document.createElement('label');
+  label.for = 'raz';
+
+  var str = String(window.fruit[idx_fruit].f) + ', ' + String(window.fruit[idx_fruit].c)
+  label.innerHTML = str;
+
+  fld.appendChild(label);
+  calc_resolution();
+}
+
+function fruitremove(){
+  /* Удаление данных из массива и списка на странице */
+
+  remcount = 0;
+  var cheks = document.getElementsByClassName('operator');
+  for (i = 0; i < cheks.length; i++){
+    if (cheks[i].checked == true){
+      remcount += 1;
+    }
+  }
+
+  var fruit_rm;
+
+  if (remcount != 0){
+    for (s = 0; s < remcount; s++){
+        var cheks = document.getElementsByClassName('operator');
+        for (p = 0; p < cheks.length; p++){
+            if (cheks[p].checked == true){
+              fruit_rm = p;
+              break;
+            }
+          }
+
+          invert = cheks.length - fruit_rm  - 1
+          // alert('удаляется в массиве: ' + fruit[invert].f)
+          delete fruit[invert];
+
+          rm = document.getElementById('listfruit').children[p];
+
+          if (typeof rm !== 'undefined') {
+            rm.remove();
+          }
+
+          /* Пересоздание массива */
+          var new_fruit = {};
+          m = 0;
+          for(var h in fruit) {
+            new_fruit[m] = fruit[h];
+            // alert(new_fruit[m].f);
+            m += 1;
+          }
+          fruit = new_fruit;
+          idx_fruit -= 1;
+          // alert('idx' + idx_fruit);
+    }
+  }
 }

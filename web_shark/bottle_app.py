@@ -26,6 +26,19 @@ import genpass
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+def fruit_trsnsform(usdata, fruit):
+    """
+        Трансформация данных фигур и количества полученных от клиента в пригодный вид python
+
+    :param usdata:
+    :param fruit:
+    :return:
+    """
+
+    for b, v in list(fruit.items()):
+        usdata.pull_figure.append([int(v['f']), int(v['c'])])
+
+
 class Tender():
     """ Создание очереди решения задач заданных пользователями
 
@@ -42,7 +55,8 @@ class Pull_user(object):
 
 class User(object):
     def __init__(self):
-        self.pull_figure = []  # Список фигур пустый спсиок или загруженный ранее, под профилем пользователя
+        self.preload_figure = []  # Предварительный список загруженный из файла
+        self.pull_figure = []  # Список фигур и количества под профилем пользователя
         self.impfile = None  # Путь сохранения импортируемого файла
         self.outfile = None  # Путь сохранения файла с результатом расчета
         self.current_host = None  # Запоминаем хост пользователя
@@ -142,11 +156,11 @@ def do_load():
     new_path_figure = os.path.normpath(new_path_data)
     usdata.impfile = new_path_figure
 
-    # usdata.pull_figure = imexdata.readExcel(new_path_figure, 'data')
-    usdata.pull_figure = imexdata.dispatcher_extension(new_path_figure, 'data')
+    # Изменить загрузку из файла в preload
+    usdata.preload_figure = imexdata.dispatcher_extension(new_path_figure, 'data')
 
     myfile = os.path.join(config.exm, 'FCNR.html')
-    return template(myfile, private_code=gencode, zona=usdata.pull_figure)
+    return template(myfile, private_code=gencode, zona=usdata.preload_figure)
 
 
 @route('/lib/<filename>')
@@ -219,7 +233,7 @@ def index():
     usdata.current_host = current_host
 
     myfile = os.path.join(config.exm, 'FCNR.html')
-    return template(myfile, private_code=gencode, zona=usdata.pull_figure)
+    return template(myfile, private_code=gencode, zona=usdata.preload_figure)
 
 
 def do_save(resdict, gencode):
@@ -255,8 +269,12 @@ def shop_aj_getallitems():
     # https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Strict_mode
     # http://w-code.ru/jscript/ajax/ajax-xmlhttprequest
 
-    gencode = request.forms.get('unique')  # Получаем уникальный код сеанса пользователя
-    subscribe = request.forms.get('subscribe')  # Получаем статус подписки, 0 = подписано, 1 = отписаться
+    json_data = request.forms.get('json_name')
+    mydata = json.loads(json_data)
+
+    gencode = mydata['unique']  # Получаем уникальный код сеанса пользователя
+    subscribe = mydata['subscribe']  # Получаем статус подписки, 0 = подписано, 1 = отписаться
+    fruit = mydata['fruit']  # Получаем массив в словаре с указанием кол-ва фигур и значений
 
     if subscribe == '1':
         # Отписаться от заявки
@@ -317,6 +335,10 @@ def shop_aj_getallitems():
                     # Запуск расчета в отдельном потоке
                     if gencode in Pull.uname:
                         usdata = Pull.uname[gencode]
+
+                        # Обработка в словаре fruit от клиента с данными фигур и количества
+                        fruit_trsnsform(usdata, fruit)
+
                         onthr = level7.main_thread(usdata.pull_figure)
                         onthr.start()
 

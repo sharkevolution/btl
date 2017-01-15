@@ -20,8 +20,9 @@
         <div id="open_home">
           <form id='home' name='optimus' enctype="multipart/form-data" method="post"
           onsubmit="submit_figure(this.form);return false;">
-              <input type="submit" value="Start optimization!" id='start' name='tender'>
+              <input type="submit" value="Start optimization!" id='start' name='tender' value="">
               <input type="hidden" name="code" id="private" value="{{private_code}}">
+              <input type="hidden" id="resolution" value='0'>
           </form>
         </div>
         <div id="form_step">
@@ -100,11 +101,11 @@
                 </fieldset> -->
             </form>
 
-              <ul id='namepolygon'>
-                  {% for zname in zona %}
+              <!-- <ul id='namepolygon'> -->
+                  <!-- {% for zname in zona %}
                   <li><a>{{ zname }}</a></li>
-                  {% endfor %}
-              </ul>
+                  {% endfor %} -->
+              <!-- </ul> -->
           </div>
     </div>
     <div class="footer">
@@ -123,16 +124,11 @@
     var subscribe = 0;  /* Подписка на ожидание или решение заявки*/
 
     if (plf > 0){
-      document.getElementById('start').disabled = false;
+      // document.getElementById('start').disabled = false;
+      window.fruit_file(obj);
     } else {
-      document.getElementById('start').disabled = true;
+      // document.getElementById('start').disabled = true;
     }
-
-    // Передача аргументов в javascript
-    // for(var index in zona) {
-    //     var attr = zona[index];
-    //     alert(index, attr);
-    // }
 
     function submit_figure(event) {
       // alert('my');
@@ -269,10 +265,21 @@
         xmlhttp.onerror = Bad_server;
         // send the request in an async way
         xmlhttp.open("POST", "/getallitems.json", true);
-        // Передача id кода сеанса
-        arg = String("unique=" + window.unique);
-        arg = arg + "&" + String ("subscribe=" + window.subscribe);
-        xmlhttp.send(arg);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+        // u = 0;
+        // for(var index in window.fruit) {
+        //     u += 1;
+        // }
+        // alert(u);
+
+        var json_name = 'json_name=' + JSON.stringify(
+          {'unique':window.unique,
+           'subscribe': window.subscribe,
+           'fruit': window.fruit
+         });
+
+        xmlhttp.send(json_name);
       }
 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
