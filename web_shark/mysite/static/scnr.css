@@ -214,32 +214,32 @@ fieldset {
   vertical-align: middle;
   }
 
-  #myProgress {
-    display: block;
-    float: left;
-    position: relative;
-    width: 335px;
-    min-width: 320px;
-    height: 20px;
-    background-color: #ddd;
-    clear: left;
-    margin-left: 5px;
-    /*margin-right: 20px;*/
-    margin-bottom: 5px;
-    /*padding-left: 15px;*/
-    /*padding-right: 15px;*/
+#myProgress {
+  display: block;
+  float: left;
+  position: relative;
+  width: 335px;
+  min-width: 320px;
+  height: 20px;
+  background-color: #ddd;
+  clear: left;
+  margin-left: 5px;
+  /*margin-right: 20px;*/
+  margin-bottom: 5px;
+  /*padding-left: 15px;*/
+  /*padding-right: 15px;*/
 
-  }
+}
 
-  #myBar {
-    position: absolute;
-    width: 10%;
-    height: 100%;
-    background-color: #4CAF50;
-  }
+#myBar {
+  position: absolute;
+  width: 10%;
+  height: 100%;
+  background-color: #4CAF50;
+}
 
-  #label {
-    text-align: center;
-    line-height: 20px;
-    color: white;
-  }
+#label {
+  text-align: center;
+  line-height: 20px;
+  color: white;
+}
