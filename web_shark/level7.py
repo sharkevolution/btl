@@ -1125,9 +1125,11 @@ def consolidation_figures(fi, cn):
     # Генератор кармических задач для сущностей
     gen = perfomance._development()
 
+
     for b in range(perfomance.attempt):
 
         config.cloth, config.box, config.dist, config.lifecycle, config.sep, task_fate = next(gen)
+
         Plancalc.partial(fi, cn)
         Plancalc.report(config.cloth.long_strips, config.cloth.lim_figure)
 
@@ -1149,6 +1151,7 @@ def consolidation_figures(fi, cn):
 
         while reincarnation:
 
+            main_thread.progress += (100 / perfomance.attempt) / len(task_fate)
             logging.info('-')
             logging.info('---Wheel of reincarnation--- {0}'.format(reincarnation))
             logging.info('-')
@@ -1158,6 +1161,9 @@ def consolidation_figures(fi, cn):
             segment = len(layout) - 1
 
             logging.info('layout {0}'.format(layout))
+
+            if sum(init_count) is 0:
+                break
 
             # Количество итераций нахождения блочных сегментов
             while segment + 1:
@@ -1208,8 +1214,8 @@ def consolidation_figures(fi, cn):
             seven.extend(structure)
             reincarnation -= 1
 
-            if sum(init_count) is 0:
-                break
+            # if sum(init_count) is 0:
+            #     break
 
         seven.extend(bad_consol)
         res = _level_optimization(copy.deepcopy(seven))
@@ -1285,9 +1291,10 @@ def standart():
 class main_thread(threading.Thread):
     """Worker Thread Class."""
 
-    resdict = []  # Результат
-    stopping = None  # Подписка
+    resdict = []  # Результат в виде списка
+    stopping = None  # Подписка внешнего клиента
     flag_optimization = None
+    progress = 0  # Процент выполнения
 
     def __init__(self, pull_figure):
         """Init Worker Thread Class."""

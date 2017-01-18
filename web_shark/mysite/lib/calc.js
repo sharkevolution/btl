@@ -279,3 +279,29 @@ function fruitremove(){
     }
   }
 }
+
+// function moveprogress() {
+//   var elem = document.getElementById("myBar");
+//   var width = 0;
+//   var id = setInterval(frame, 10);
+//   function frame() {
+//     if (width >= 100) {
+//       clearInterval(id);
+//     } else {
+//       width++;
+//       elem.style.width = width + '%';
+//       document.getElementById("label").innerHTML = width * 1  + '%';
+//     }
+//   }
+// }
+
+function moveprogress(widthprogress) {
+  var elem = document.getElementById("myBar");
+
+  if (elem.style.width == widthprogress + '%'){
+
+  }else {
+    elem.style.width = widthprogress + '%';
+    document.getElementById("label").innerHTML = widthprogress * 1  + '%';
+  }
+}

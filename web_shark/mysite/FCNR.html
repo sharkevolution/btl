@@ -15,7 +15,7 @@
 
 <body>
     <div id="wrapper">
-        <h3>Алгоритм 2D упаковки в полуограниченную полосу</h3>
+        <h3>Алгоритм двумерной упаковки</h3>
         <!-- <strong>Внимание! Сайт в разработке, расчет работает без оплаты, через файл</strong> -->
         <div id="open_home">
           <form id='home' name='optimus' enctype="multipart/form-data" method="post"
@@ -28,10 +28,9 @@
 
         <div id="myProgress">
           <div id="myBar">
-            <div id="label">10%</div>
+            <div id="label">0%</div>
           </div>
         </div>
-
         <div id="form_step">
             <div id="poly">
                 <h3>Загрузка данных (.xlsx | .txt)</h3>
@@ -141,6 +140,7 @@
       // alert('my');
       // alert(window.dis);
       if (window.dis == 0){
+        moveprogress(0);
         window.subscribe = 0;
         window.intervalID = setInterval(eee, 2000);
       } else {
@@ -229,7 +229,7 @@
                 window.dis = 1;
                 status_opt('Please, reload page!');
                 clearInterval(window.intervalID);
-                optlost();
+                // optlost();
                 document.getElementById('start').disabled = true;
               }
             else if(jsonobj[1] == "wait"){
@@ -240,16 +240,16 @@
                   window.dis = 1;
                   var getoptm=document.getElementById('optimization');
                   if (!getoptm){
-                    optnew();
+                    // optnew();
                   }
                   status_opt('Calculation');
             }
             else if (jsonobj[1] == "result"){
-                window.dis = 1;
-                status_opt('Take the result!!!');
+                window.dis = 0;
+                status_opt('Start optimization!');
                 clearInterval(window.intervalID);
-                optlost();
-                document.getElementById('start').disabled = true;
+                // optlost();
+                document.getElementById('start').disabled = false;
                 location.href = '/result?unique=' + window.unique;
               } else {
                 alert('аннулирована заявка ' + jsonobj[1]);
@@ -258,6 +258,15 @@
                 // optlost();
                 Bad_server();
               }
+
+          var widthprogress = parseInt(jsonobj[4]);
+          // alert(widthprogress);
+
+          if (widthprogress > 0){
+            moveprogress(widthprogress);
+          } else {
+            moveprogress(0);
+          }
 
           } else {
               alert("data not available");

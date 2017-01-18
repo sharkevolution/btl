@@ -85,6 +85,8 @@ def _development():
 
     :return:
     """
+    global attempt
+
     q = collections.deque()
 
     cloth = _cloth(long_strips=1250, right_residue=90, lim_figure=8)
@@ -129,3 +131,4 @@ def _development():
         yield (develop)
 
     return 0
+

@@ -18,10 +18,11 @@ from bottle import jinja2_template as template, redirect
 # from gevent import monkey, pool; monkey.patch_all()
 from waitress import serve
 
-import config
-import imexdata
-import level7
-import genpass
+from web_shark import config
+from web_shark import imexdata
+from web_shark import level7
+from web_shark import genpass
+from web_shark import perfomance
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -286,6 +287,7 @@ def shop_aj_getallitems():
     # Ответ пользователю в формате json
     optimization = {}
     optimization[1] = 'stop'
+    optimization[4] = 0  # Процент выполнения
 
     if not gencode in Tender.gencode_time:
         # Запоминаем время нового сеанса пользователя
@@ -320,6 +322,15 @@ def shop_aj_getallitems():
             # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
             Tender.waiting_line.append(gencode)
 
+        if gencode in Tender.waiting_line:
+            # Запись процента выполнения расчета
+            if gencode == Tender.waiting_line[0]:
+                optimization[4] = level7.main_thread.progress
+            else:
+                optimization[4] = 0
+        else:
+            optimization[4] = 0
+
         if level7.main_thread.flag_optimization is None:
             # Расчет в текущем времени не выполняется ни по одной заявке
 
@@ -339,6 +350,7 @@ def shop_aj_getallitems():
                         # Обработка в словаре fruit от клиента с данными фигур и количества
                         fruit_trsnsform(usdata, fruit)
 
+                        level7.main_thread.progress = 0
                         onthr = level7.main_thread(usdata.pull_figure)
                         onthr.start()
 
@@ -366,6 +378,7 @@ def shop_aj_getallitems():
                 do_save(level7.main_thread.resdict, gencode)
                 level7.main_thread.resdict = []
                 level7.main_thread.flag_optimization = None
+                level7.main_thread.progress = 0
 
                 gendel = Tender.waiting_line.popleft() # Удаляем отработаный сеанс после работы алгоритма
                 Tender.curr_optimize_gencode = None
@@ -409,6 +422,7 @@ def shop_aj_getallitems():
 
         # Количество ожидающих пользователей
         optimization[2] = len(Tender.waiting_line)
+        # print(optimization[4])
 
         return json.dumps(optimization)
     else:

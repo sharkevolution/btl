@@ -9,7 +9,7 @@
   position: relative;
   margin-top: 5px;
   float: left;
-  width: 100%;
+  width: 90%;
   background-color: #FAF0F6;
 }
 
@@ -30,16 +30,16 @@
 
 #cur {
   display: block;
-  width: 45%;
-  min-width: 45%;
+  width: 40%;
+  min-width: 40%;
   position: relative;
   float: left;
 }
 
 #total {
   display: block;
-  width: 170px;
-  min-width: 170px;
+  width: 160px;
+  min-width: 160px;
   position: relative;
   float: left;
 }
