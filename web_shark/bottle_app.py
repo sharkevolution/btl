@@ -35,6 +35,7 @@ def fruit_trsnsform(usdata, fruit):
     :param fruit:
     :return:
     """
+    usdata.pull_figure = []
 
     for b, v in list(fruit.items()):
         usdata.pull_figure.append([int(v['f']), int(v['c'])])
@@ -218,7 +219,6 @@ def retresult():
     return static_file(filename, root=myfile, download=filename)
 
 
-
 @route('/', method='GET')
 def index():
     """ Главная точка входа на сайт
@@ -296,14 +296,17 @@ def shop_aj_getallitems():
     # Удаление сеансов превышающих порог времени ответа клиента
     for b, v in list(Tender.gencode_time.items()):
         differ = datetime.datetime.now() - v
-        if differ.seconds > 10:
-            # Время выхода на связь просрочено, удаляем сеанс пользователя
+
+        if differ.seconds > 3600:
+            # Клиент отсутствует более 1ч, удаляем как мусор
             if b in Pull.uname:
                 del (Pull.uname[b])
 
             if b in Tender.gencode_time:
                 del(Tender.gencode_time[b])
 
+        if differ.seconds > 10:
+            # Потеря активного соединения, удаляем окончательно пользователя, освобождаем паралельный поток
             if b in Tender.waiting_line:
                 Tender.waiting_line.remove(b)
 
@@ -318,9 +321,9 @@ def shop_aj_getallitems():
         # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
         Tender.gencode_time[gencode] = datetime.datetime.now()
 
-        if not gencode in Tender.waiting_line:
-            # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
-            Tender.waiting_line.append(gencode)
+        # if not gencode in Tender.waiting_line:
+        #     # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
+        #     Tender.waiting_line.append(gencode)
 
         if gencode in Tender.waiting_line:
             # Запись процента выполнения расчета
@@ -329,6 +332,8 @@ def shop_aj_getallitems():
             else:
                 optimization[4] = 0
         else:
+            # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
+            Tender.waiting_line.append(gencode)
             optimization[4] = 0
 
         if level7.main_thread.flag_optimization is None:
@@ -349,8 +354,11 @@ def shop_aj_getallitems():
 
                         # Обработка в словаре fruit от клиента с данными фигур и количества
                         fruit_trsnsform(usdata, fruit)
+                        # print(fruit)
 
                         level7.main_thread.progress = 0
+                        # onthr = level7.main_thread_two(usdata.pull_figure)
+                        # onthr.run()
                         onthr = level7.main_thread(usdata.pull_figure)
                         onthr.start()
 
@@ -420,9 +428,13 @@ def shop_aj_getallitems():
                         optimization[1] = 'stop'  # Флаг отказа оптимизации
                         optimization[3] = 'Превышено кол-во допустимых подключений'
 
+        elif level7.main_thread.flag_optimization == 'error':
+            optimization[1] = 'stop'
+            optimization[3] = 'Критическая ошибка в паралельном потоке!'
+
         # Количество ожидающих пользователей
         optimization[2] = len(Tender.waiting_line)
-        # print(optimization[4])
+        # print(optimization)
 
         return json.dumps(optimization)
     else:
@@ -459,3 +471,5 @@ app = default_app()
 # Waitress
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
 serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+
+# http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/

@@ -40,7 +40,6 @@ import perfomance
 # plt.rcParams['figure.figsize'] = [12, 9]
 # plt.rcParams['text.latex.unicode'] = True
 
-
 class Plancalc():
     """
     Расчет плановой емкости фигур в полосе
@@ -1010,12 +1009,21 @@ def _shark_gold(init_figure, init_count):
     return lattice_crystal
 
 
-def _sector_gold(init_figure, init_count, *args):
+def _sector_gold(init_figure, init_count, lentask, *args):
+
     block_pyramid = []  # Блочный список или пирамида
     fill = config.cloth.long_strips
     loop = config.box.loop
 
+    detail_percent = lentask / loop  # Расчет прогресса в выделенной доле
+
     for b in range(loop):
+
+        if main_thread.progress + detail_percent < 100.0:
+            main_thread.progress += detail_percent
+
+        # main_thread.progress += detail_percent
+        # print(main_thread.progress)
 
         flim = round(sum(init_count) * config.box.lim_list, 0)  # Допустимый остаток списка
         # balance Большая часть нерасчитанного остатка
@@ -1121,11 +1129,10 @@ def consolidation_figures(fi, cn):
 
     Essence = {}  # Хранение сущностей после выхода из колеса реинкарнаций
     gltm = 0  # Общий счетчик полученных раскладок
+    percent = (95 / perfomance.attempt)
 
     # Генератор кармических задач для сущностей
     gen = perfomance._development()
-
-
     for b in range(perfomance.attempt):
 
         config.cloth, config.box, config.dist, config.lifecycle, config.sep, task_fate = next(gen)
@@ -1151,7 +1158,6 @@ def consolidation_figures(fi, cn):
 
         while reincarnation:
 
-            main_thread.progress += (100 / perfomance.attempt) / len(task_fate)
             logging.info('-')
             logging.info('---Wheel of reincarnation--- {0}'.format(reincarnation))
             logging.info('-')
@@ -1159,10 +1165,17 @@ def consolidation_figures(fi, cn):
             all_structure = []  # Структура текущей реинкарнации
             layout = task_fate[reincarnation]  # Задача для текущей реинкарнации
             segment = len(layout) - 1
+            lentask = percent / len(task_fate) / len(layout)
+            # print('lentask', lentask)
 
             logging.info('layout {0}'.format(layout))
 
-            if sum(init_count) is 0:
+            if sum(init_count) == 0:
+                logging.info('bad start layout, sum init_count = {0}'.format(0))
+                limprogress = main_thread.progress + (percent / len(task_fate))
+                if limprogress < 100.0:
+                    main_thread.progress += percent / len(task_fate)
+                # print('bad', percent / len(task_fate))
                 break
 
             # Количество итераций нахождения блочных сегментов
@@ -1171,7 +1184,7 @@ def consolidation_figures(fi, cn):
                 correct_consol = []
 
                 logging.info('Отобрано фигур {0}  {1}'.format(b, sum(init_count)))
-                block_pyramid = _sector_gold(init_figure, init_count, [reincarnation, segment + 1])
+                block_pyramid = _sector_gold(init_figure, init_count, lentask , [reincarnation, segment + 1])
                 bad_consol = []
 
                 s = 0
@@ -1221,6 +1234,8 @@ def consolidation_figures(fi, cn):
         res = _level_optimization(copy.deepcopy(seven))
         Essence[gltm] = res
         gltm += 1
+
+    main_thread.progress = 100
 
     return Essence
 
@@ -1308,9 +1323,36 @@ class main_thread(threading.Thread):
         try:
             main_thread.resdict = start(self.pull_figure)
         except Exception as ex:
+            main_thread.flag_optimization = 'error'
             logging.info(ex)
 
         main_thread.flag_optimization = 'stop'
+
+
+class main_thread_two():
+    """Worker Thread Class."""
+
+    resdict = []  # Результат в виде списка
+    stopping = None  # Подписка внешнего клиента
+    flag_optimization = None
+    progress = 0  # Процент выполнения
+
+    def __init__(self, pull_figure):
+        """Init Worker Thread Class."""
+
+        self.pull_figure = pull_figure
+
+    def run(self):
+        main_thread.flag_optimization = 'start'
+
+        try:
+            main_thread.resdict = start(self.pull_figure)
+        except Exception as ex:
+            logging.info(ex)
+
+        main_thread.flag_optimization = 'stop'
+
+
 
 
 if __name__ == '__main__':
