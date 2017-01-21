@@ -284,7 +284,7 @@ def shop_aj_getallitems():
         # Подача заявки на подписку
         subscribe = False
 
-    # Ответ пользователю в формате json
+    # Готовим ответ пользователю в формате json
     optimization = {}
     optimization[1] = 'stop'
     optimization[4] = 0  # Процент выполнения
@@ -306,7 +306,7 @@ def shop_aj_getallitems():
                 del(Tender.gencode_time[b])
 
         if differ.seconds > 10:
-            # Потеря активного соединения, удаляем окончательно пользователя, освобождаем паралельный поток
+            # Потеря активного соединения, удаляем окончательно пользователя
             if b in Tender.waiting_line:
                 Tender.waiting_line.remove(b)
 
@@ -354,7 +354,6 @@ def shop_aj_getallitems():
 
                         # Обработка в словаре fruit от клиента с данными фигур и количества
                         fruit_trsnsform(usdata, fruit)
-                        # print(fruit)
 
                         level7.main_thread.progress = 0
                         # onthr = level7.main_thread_two(usdata.pull_figure)

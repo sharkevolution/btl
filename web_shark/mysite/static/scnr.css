@@ -237,9 +237,6 @@ fieldset {
   margin-left: 5px;
   margin-right: 20px;
   margin-bottom: 5px;
-  /*padding-left: 15px;*/
-  /*padding-right: 15px;*/
-
 }
 
 #myBar {
@@ -253,5 +250,18 @@ fieldset {
   text-align: center;
   line-height: 20px;
   color: white;
+}
 
+#smsdoc {
+  display: block;
+  float: left;
+  position: relative;
+  width: 335px;
+  min-width: 335px;
+  height: 20px;
+  background-color: #ddd;
+  clear: left;
+  margin-left: 5px;
+  margin-right: 20px;
+  margin-bottom: 5px;
 }
