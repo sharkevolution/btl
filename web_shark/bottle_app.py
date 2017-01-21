@@ -288,6 +288,7 @@ def shop_aj_getallitems():
     optimization = {}
     optimization[1] = 'stop'
     optimization[4] = 0  # Процент выполнения
+    optimization[3] = ""
 
     if not gencode in Tender.gencode_time:
         # Запоминаем время нового сеанса пользователя
