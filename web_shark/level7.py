@@ -1322,11 +1322,13 @@ class main_thread(threading.Thread):
 
         try:
             main_thread.resdict = start(self.pull_figure)
+            main_thread.flag_optimization = 'stop'
         except Exception as ex:
             main_thread.flag_optimization = 'error'
             logging.info(ex)
-
-        main_thread.flag_optimization = 'stop'
+            logging.info(self.pull_figure)
+            # print(ex)
+            # print(self.pull_figure)
 
 
 class main_thread_two():
@@ -1344,15 +1346,12 @@ class main_thread_two():
 
     def run(self):
         main_thread.flag_optimization = 'start'
+        main_thread.flag_optimization = 'stop'
 
         try:
             main_thread.resdict = start(self.pull_figure)
         except Exception as ex:
             logging.info(ex)
-
-        main_thread.flag_optimization = 'stop'
-
-
 
 
 if __name__ == '__main__':

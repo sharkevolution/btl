@@ -149,6 +149,11 @@ input[type="submit"] {
     border-radius: 5px;
 }
 
+input[type="submit"]:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
 .loader-fb {
   top: calc(-5% - 0px);
   left: 10%;

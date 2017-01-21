@@ -317,7 +317,7 @@ def shop_aj_getallitems():
             if b in Tender.gencode_time:
                 del(Tender.gencode_time[b])
 
-        if differ.seconds > 10:
+        if differ.seconds > 15:
             # Потеря активного соединения, удаляем окончательно пользователя
             if b in Tender.waiting_line:
                 Tender.waiting_line.remove(b)
@@ -329,7 +329,7 @@ def shop_aj_getallitems():
                 level7.main_thread.progress = 0
                 destroy_gencode(b)
                 optimization[1] = 'stop'
-                optimization[3] = 'превышен лимит ответа, расчет сброшен!'
+                optimization[3] = 'Превышен лимит ответа, расчет сброшен!'
 
     if gencode in Tender.gencode_time:
         # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
@@ -367,13 +367,20 @@ def shop_aj_getallitems():
                         fruit_trsnsform(usdata, fruit)
 
                         level7.main_thread.progress = 0
-                        # onthr = level7.main_thread_two(usdata.pull_figure)
-                        # onthr.run()
-                        onthr = level7.main_thread(usdata.pull_figure)
-                        onthr.start()
+                        if usdata.pull_figure:
+                            # Есть фигуры для решения
 
-                        Tender.curr_optimize_gencode = gencode  # Сохраняем инфр о коде пользователя в работе
-                        optimization[1] = 'start'  # Флаг запуска оптимизации
+                            # onthr = level7.main_thread_two(usdata.pull_figure)
+                            # onthr.run()
+                            onthr = level7.main_thread(usdata.pull_figure)
+                            onthr.start()
+
+                            Tender.curr_optimize_gencode = gencode  # Сохраняем инфр о коде пользователя в работе
+                            optimization[1] = 'start'  # Флаг запуска оптимизации
+                        else:
+                            destroy_gencode_waiting(gencode)
+                            optimization[1] = 'stop'  # Флаг отказа оптимизации
+                            optimization[3] = 'Нет данных ajax, перезагрузите страницу!'
                     else:
                         destroy_gencode(gencode)
                         optimization[1] = 'stop'  # Флаг отказа оптимизации
@@ -394,7 +401,14 @@ def shop_aj_getallitems():
                 # Заявка совпадает с анализируемым текущим сеансом
 
                 # Сохраняем результат
-                do_save(level7.main_thread.resdict, gencode)
+                if level7.main_thread.resdict:
+                    do_save(level7.main_thread.resdict, gencode)
+                    optimization[1] = 'result'
+                    optimization[3] = 'Окончание работы алгоритма!'
+                else:
+                    optimization[3] = 'Решение ранее сброшено, перезагрузите страницу'
+                    optimization[1] = 'stop'
+
                 level7.main_thread.resdict = []
                 level7.main_thread.flag_optimization = None
                 level7.main_thread.progress = 0
@@ -402,8 +416,6 @@ def shop_aj_getallitems():
                 gendel = Tender.waiting_line.popleft() # Удаляем отработаный сеанс после работы алгоритма
                 Tender.curr_optimize_gencode = None
 
-                optimization[1] = 'result'  # Флаг окончания оптимизации
-                optimization[3] = 'Окончание работы алгоритма!'
             else:
                 if subscribe:
                     # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
