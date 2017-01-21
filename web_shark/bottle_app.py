@@ -454,12 +454,13 @@ def shop_aj_getallitems():
                         optimization[3] = 'Превышен лимит подключений: {0}'.format(5)
 
         elif level7.main_thread.flag_optimization == 'error':
-            optimization[1] = 'stop'
-            optimization[3] = 'Критическая ошибка, перезагрузите страницу!'
-            level7.main_thread.stopping = True
-            level7.main_thread.progress = 0
+            if gencode == Tender.waiting_line[0]:
+                optimization[1] = 'stop'
+                optimization[3] = 'Критическая ошибка, перезагрузите страницу!'
+                level7.main_thread.stopping = True
+                level7.main_thread.progress = 0
 
-            destroy_gencode_waiting(gencode)
+                destroy_gencode_waiting(gencode)
 
         # Количество ожидающих пользователей
         if gencode in Tender.waiting_line:
