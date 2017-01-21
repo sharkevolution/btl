@@ -264,6 +264,12 @@ def destroy_gencode(gencode):
         Tender.waiting_line.remove(gencode)
 
 
+def destroy_gencode_waiting(gencode):
+
+    if gencode in Tender.waiting_line:
+        Tender.waiting_line.remove(gencode)
+
+
 @route('/getallitems.json', method='POST')
 def shop_aj_getallitems():
 
@@ -277,6 +283,8 @@ def shop_aj_getallitems():
     subscribe = mydata['subscribe']  # Получаем статус подписки, 0 = подписано, 1 = отписаться
     fruit = mydata['fruit']  # Получаем массив в словаре с указанием кол-ва фигур и значений
 
+    # print(gencode, subscribe)
+
     if subscribe == '1':
         # Отписаться от заявки
         subscribe = True
@@ -286,13 +294,14 @@ def shop_aj_getallitems():
 
     # Готовим ответ пользователю в формате json
     optimization = {}
-    optimization[1] = 'stop'
+    optimization[1] = 'stop'  # Начальное значение оптимизации
     optimization[4] = 0  # Процент выполнения
-    optimization[3] = ""
+    optimization[3] = ''  # Информация для клиента
 
     if not gencode in Tender.gencode_time:
         # Запоминаем время нового сеанса пользователя
         Tender.gencode_time[gencode] = datetime.datetime.now()
+        # print('init gencode')
 
     # Удаление сеансов превышающих порог времени ответа клиента
     for b, v in list(Tender.gencode_time.items()):
@@ -316,11 +325,12 @@ def shop_aj_getallitems():
                 level7.main_thread.stopping = True
                 destroy_gencode(b)
                 optimization[1] = 'stop'
-                optimization[3] = 'Внимание, превышен порог времени ответа клиента, расчет сброшен!'
+                optimization[3] = 'превышен лимит ответа, расчет сброшен!'
 
     if gencode in Tender.gencode_time:
         # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
         Tender.gencode_time[gencode] = datetime.datetime.now()
+        # print('fixe time gencode')
 
         # if not gencode in Tender.waiting_line:
         #     # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
@@ -345,7 +355,7 @@ def shop_aj_getallitems():
 
                 if subscribe:
                     # Пользователь отписался от выполнения заявки, необходимо изьять из очереди задач
-                    destroy_gencode(gencode)
+                    destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'  # Флаг отказа оптимизации
                     optimization[3] = 'Вы, отписались от решения заявки!'
                 else:
@@ -370,7 +380,7 @@ def shop_aj_getallitems():
             else:
                 if subscribe:
                     # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
-                    destroy_gencode(gencode)
+                    destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'  # Флаг отказа оптимизации
                     optimization[3] = 'Вы, отписались от решения заявки!'
                 else:
@@ -396,7 +406,7 @@ def shop_aj_getallitems():
             else:
                 if subscribe:
                     # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
-                    destroy_gencode(gencode)
+                    destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'  # Флаг отказа оптимизации
                     optimization[3] = 'Вы, отписались от решения заявки!'
                 else:
@@ -408,25 +418,25 @@ def shop_aj_getallitems():
                 if subscribe:
                     # !!!Критическая секция!!!, остановка работающего потока
                     level7.main_thread.stopping = True
-                    destroy_gencode(gencode)
+                    destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'
-                    optimization[3] = 'Вы, заявили об отказе подписки в процессе решения, поток остановлен!'
+                    optimization[3] = 'Вы, остановили поток решения!'
                 else:
                     optimization[1] = 'start'  # Флаг запуска оптимизации
             else:
                 if subscribe:
                     # Важно, необходимо удаление сеанса из очереди, пользователь отписался
-                    destroy_gencode(gencode)
+                    destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'
-                    optimization[3] = 'Вы, отписались от подписки!'
+                    optimization[3] = 'Вы, отказались от подписки!'
                 else:
                     # Ограничиваем кол-во запросов ajax на подключение
                     if len(Tender.waiting_line) <= 5:
                         optimization[1] = 'wait'  # Флаг ожидания оптимизации
                     else:
-                        destroy_gencode(gencode)
+                        destroy_gencode_waiting(gencode)
                         optimization[1] = 'stop'  # Флаг отказа оптимизации
-                        optimization[3] = 'Превышено кол-во допустимых подключений'
+                        optimization[3] = 'Превышен лимит подключений: {0}'.format(5)
 
         elif level7.main_thread.flag_optimization == 'error':
             optimization[1] = 'stop'

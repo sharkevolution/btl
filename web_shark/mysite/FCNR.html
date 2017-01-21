@@ -236,11 +236,11 @@
             var jsonobj = JSON.parse(xmlhttp.responseText);
 
             if (jsonobj[1] == "stop"){
-                window.dis = 1;
-                status_opt('Please, reload page!');
+                window.dis = 0;
+                status_opt('Start optimization!');
                 clearInterval(window.intervalID);
                 // optlost();
-                document.getElementById('start').disabled = true;
+                document.getElementById('start').disabled = false;
               }
             else if(jsonobj[1] == "wait"){
                 window.dis = 1;
@@ -278,18 +278,18 @@
             moveprogress(0);
           }
 
+          sms = jsonobj[3];
+          var smsdoc = document.getElementById('message');
+          smsdoc.innerHTML = sms;
+
           } else {
-              alert("data not available");
+              alert("Server, data not available");
               Bad_server();
               // window.dis = 0;
               // clearInterval(window.intervalID);
               // optlost();
             }
           }
-
-          var sms = parseInt(jsonobj[3]);
-          var smsdoc = document.getElementById('message'),
-	        smsdoc.innerHTML = sms;
 
         xmlhttp.onload = GetItems;
         xmlhttp.onerror = Bad_server;
