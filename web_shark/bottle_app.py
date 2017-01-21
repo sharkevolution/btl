@@ -345,6 +345,9 @@ def shop_aj_getallitems():
         else:
             # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
             Tender.waiting_line.append(gencode)
+            # Добавление в профиль пользовтаеля фигур и количества при старте подписки
+            usdata = Pull.uname[gencode]
+            fruit_trsnsform(usdata, fruit)
             optimization[4] = 0
 
         if level7.main_thread.flag_optimization is None:
@@ -362,9 +365,6 @@ def shop_aj_getallitems():
                     # Запуск расчета в отдельном потоке
                     if gencode in Pull.uname:
                         usdata = Pull.uname[gencode]
-
-                        # Обработка в словаре fruit от клиента с данными фигур и количества
-                        fruit_trsnsform(usdata, fruit)
 
                         level7.main_thread.progress = 0
                         if usdata.pull_figure:
