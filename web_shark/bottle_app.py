@@ -454,7 +454,7 @@ def shop_aj_getallitems():
             optimization[2] = ''
             optimization[5] = ''
 
-        print(optimization)
+        # print(optimization)
 
         return json.dumps(optimization)
     else:
