@@ -369,7 +369,6 @@ def shop_aj_getallitems():
                         level7.main_thread.progress = 0
                         if usdata.pull_figure:
                             # Есть фигуры для решения
-
                             # onthr = level7.main_thread_two(usdata.pull_figure)
                             # onthr.run()
                             onthr = level7.main_thread(usdata.pull_figure)
@@ -405,9 +404,9 @@ def shop_aj_getallitems():
                     do_save(level7.main_thread.resdict, gencode)
                     optimization[1] = 'result'
                     optimization[3] = 'Окончание работы алгоритма!'
-                else:
-                    optimization[3] = 'Решение ранее сброшено, перезагрузите страницу'
-                    optimization[1] = 'stop'
+                # else:
+                #     optimization[3] = 'Решение ранее сброшено, перезагрузите страницу'
+                #     optimization[1] = 'stop'
 
                 level7.main_thread.resdict = []
                 level7.main_thread.flag_optimization = None

@@ -431,6 +431,7 @@ class Ants_Distance(object):
             app_index = grad / (len(self.figure))
         except ZeroDivisionError:
             logging.info("Ошибка деление на нуль {0}  {1}".format(grad, len(self.figure)))
+            print()
             sys.exit()
 
         # Начальная отрицательная точка шкалы
@@ -1184,6 +1185,9 @@ def consolidation_figures(fi, cn):
                 correct_consol = []
 
                 logging.info('Отобрано фигур {0}  {1}'.format(b, sum(init_count)))
+
+                if sum(init_count) == 0:
+                    break
                 block_pyramid = _sector_gold(init_figure, init_count, lentask , [reincarnation, segment + 1])
                 bad_consol = []
 
@@ -1345,13 +1349,14 @@ class main_thread_two():
         self.pull_figure = pull_figure
 
     def run(self):
-        main_thread.flag_optimization = 'start'
-        main_thread.flag_optimization = 'stop'
 
+        main_thread.flag_optimization = 'start'
         try:
             main_thread.resdict = start(self.pull_figure)
+            main_thread.flag_optimization = 'stop'
         except Exception as ex:
             logging.info(ex)
+            main_thread.flag_optimization = 'error'
 
 
 if __name__ == '__main__':
