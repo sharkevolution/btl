@@ -138,6 +138,7 @@
     var obj = eval("{{zona}}");
     var plf = Object.keys(obj).length;
     var subscribe = 0;  /* Подписка на ожидание или решение заявки*/
+    var clone_fruit = window.fruit;
 
     if (plf > 0){
       // document.getElementById('start').disabled = false;
@@ -152,6 +153,8 @@
       if (window.dis == 0){
         moveprogress(0);
         window.subscribe = 0;
+
+        window.clone_fruit = window.fruit;
         window.intervalID = setInterval(eee, 2000);
       } else {
       /* Добавить обработчик если пользователь отписался от заявки на расчет */
@@ -315,10 +318,11 @@
         var json_name = 'json_name=' + JSON.stringify(
           {'unique':window.unique,
            'subscribe': window.subscribe,
-           'fruit': window.fruit
+           'fruit': window.clone_fruit
          });
 
         xmlhttp.send(json_name);
+        window.clone_fruit = {};
       }
 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
