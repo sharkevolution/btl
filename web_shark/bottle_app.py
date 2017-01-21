@@ -361,6 +361,7 @@ def shop_aj_getallitems():
                     destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'  # Флаг отказа оптимизации
                     optimization[3] = 'Вы, отписались от решения заявки!'
+                    Tender.curr_optimize_gencode = None
                 else:
                     # Запуск расчета в отдельном потоке
                     if gencode in Pull.uname:
@@ -459,6 +460,7 @@ def shop_aj_getallitems():
                 optimization[3] = 'Критическая ошибка, перезагрузите страницу!'
                 level7.main_thread.stopping = True
                 level7.main_thread.progress = 0
+                Tender.curr_optimize_gencode = None
 
                 destroy_gencode_waiting(gencode)
 
