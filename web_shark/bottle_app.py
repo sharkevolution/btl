@@ -297,6 +297,7 @@ def shop_aj_getallitems():
     optimization[1] = 'stop'  # Начальное значение оптимизации
     optimization[4] = 0  # Процент выполнения
     optimization[3] = ''  # Информация для клиента
+    optimization[5] = ''  # Номер пользователя в списке
 
     if not gencode in Tender.gencode_time:
         # Запоминаем время нового сеанса пользователя
@@ -323,6 +324,7 @@ def shop_aj_getallitems():
             if b == Tender.curr_optimize_gencode:
                 # !!!Критическая секция!!!, остановка работающего потока
                 level7.main_thread.stopping = True
+                level7.main_thread.progress = 0
                 destroy_gencode(b)
                 optimization[1] = 'stop'
                 optimization[3] = 'превышен лимит ответа, расчет сброшен!'
@@ -331,10 +333,6 @@ def shop_aj_getallitems():
         # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
         Tender.gencode_time[gencode] = datetime.datetime.now()
         # print('fixe time gencode')
-
-        # if not gencode in Tender.waiting_line:
-        #     # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
-        #     Tender.waiting_line.append(gencode)
 
         if gencode in Tender.waiting_line:
             # Запись процента выполнения расчета
@@ -377,6 +375,7 @@ def shop_aj_getallitems():
                     else:
                         destroy_gencode(gencode)
                         optimization[1] = 'stop'  # Флаг отказа оптимизации
+                        optimization[3] = 'Разрыв соединения, перезагрузите страницу!'
             else:
                 if subscribe:
                     # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
@@ -418,6 +417,7 @@ def shop_aj_getallitems():
                 if subscribe:
                     # !!!Критическая секция!!!, остановка работающего потока
                     level7.main_thread.stopping = True
+                    level7.main_thread.progress = 0
                     destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'
                     optimization[3] = 'Вы, остановили поток решения!'
@@ -440,11 +440,21 @@ def shop_aj_getallitems():
 
         elif level7.main_thread.flag_optimization == 'error':
             optimization[1] = 'stop'
-            optimization[3] = 'Критическая ошибка в паралельном потоке!'
+            optimization[3] = 'Критическая ошибка, перезагрузите страницу!'
+            level7.main_thread.stopping = True
+            level7.main_thread.progress = 0
+
+            destroy_gencode_waiting(gencode)
 
         # Количество ожидающих пользователей
-        optimization[2] = len(Tender.waiting_line)
-        # print(optimization)
+        if gencode in Tender.waiting_line:
+            optimization[2] = len(Tender.waiting_line)
+            optimization[5] = Tender.waiting_line.index(gencode)
+        else:
+            optimization[2] = ''
+            optimization[5] = ''
+
+        print(optimization)
 
         return json.dumps(optimization)
     else:

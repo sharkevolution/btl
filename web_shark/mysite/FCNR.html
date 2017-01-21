@@ -24,6 +24,8 @@
               <input type="hidden" name="code" id="private" value="{{private_code}}">
               <input type="hidden" id="resolution" value='0'>
           </form>
+          <div id="userapp">Всего в очереди:</div>
+          <div id="userindex">Номер в списке:</div>
         </div>
 
         <div id="myProgress">
@@ -31,9 +33,7 @@
             <div id="label">0%</div>
           </div>
         </div>
-        <div id="message">
-
-        </div>
+        <div id="message"></div>
         <div id="form_step">
             <div id="poly">
                 <h3>Загрузка данных (.xlsx | .txt)</h3>
@@ -281,6 +281,15 @@
           sms = jsonobj[3];
           var smsdoc = document.getElementById('message');
           smsdoc.innerHTML = sms;
+
+          appu = jsonobj[2];
+          var appdoc = document.getElementById('userapp');
+          appdoc.innerHTML = 'Всего в очереди: ' + appu;
+
+          uscur = jsonobj[5];
+          var usridx = document.getElementById('userindex');
+          usridx.innerHTML = 'Номер в списке: ' + uscur;
+
 
           } else {
               alert("Server, data not available");

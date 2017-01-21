@@ -6,7 +6,7 @@ html, body {-moz-user-select:none; -webkit-user-select:none; margin:0 auto; padd
 
 h3 {
   padding-left: 10px;
-  padding-bottom: 3px;}
+  padding-bottom: 15px;}
 
 #wrapper {
     min-width: 320px;
@@ -48,7 +48,7 @@ h3 {
 
 
 #open_home {
-    display: inline-block;
+    display: block;
     padding-left: 5px;
     float: left;
     width: 320px;
@@ -264,4 +264,35 @@ fieldset {
   margin-left: 5px;
   margin-right: 20px;
   margin-bottom: 5px;
+}
+
+
+#userapp {
+  display: block;
+  position: relative;
+  float: right;
+  width: 120px;
+  height: 20px;
+  background-color: #f2e7e7;
+  margin-left: 5px;
+  margin-bottom: 0px;
+  margin-top: -25px;
+  line-height: 20px;
+  font-size: 50%;
+  color: rgb(0, 0, 0);
+}
+
+#userindex {
+  display: block;
+  position: relative;
+  float: right;
+  width: 120px;
+  height: 20px;
+  background-color: #f2e7e7;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-top: -45px;
+  line-height: 20px;
+  font-size: 50%;
+  color: rgb(0, 0, 0);
 }
