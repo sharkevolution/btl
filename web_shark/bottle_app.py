@@ -327,7 +327,7 @@ def shop_aj_getallitems():
                 level7.main_thread.stopping = True
                 level7.main_thread.flag_optimization = None
                 level7.main_thread.progress = 0
-                destroy_gencode(b)
+                destroy_gencode_waiting(b)
                 optimization[1] = 'stop'
                 optimization[3] = 'Превышен лимит ответа, расчет сброшен!'
 
@@ -435,6 +435,7 @@ def shop_aj_getallitems():
                     destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'
                     optimization[3] = 'Вы, остановили поток решения!'
+                    Tender.curr_optimize_gencode = None
                 else:
                     optimization[1] = 'start'  # Флаг запуска оптимизации
             else:
