@@ -244,6 +244,7 @@ def do_save(resdict, gencode):
     usdata.outfile = os.path.normpath(fx)
 
     if not os.path.exists(usdata.outfile):
+        logging.info(resdict)
         imexdata.saveExcel(resdict, usdata.outfile)
     else:
         os.remove(usdata.outfile)
@@ -324,6 +325,7 @@ def shop_aj_getallitems():
             if b == Tender.curr_optimize_gencode:
                 # !!!Критическая секция!!!, остановка работающего потока
                 level7.main_thread.stopping = True
+                level7.main_thread.flag_optimization = None
                 level7.main_thread.progress = 0
                 destroy_gencode(b)
                 optimization[1] = 'stop'
@@ -418,6 +420,7 @@ def shop_aj_getallitems():
                     # !!!Критическая секция!!!, остановка работающего потока
                     level7.main_thread.stopping = True
                     level7.main_thread.progress = 0
+                    level7.main_thread.flag_optimization = None
                     destroy_gencode_waiting(gencode)
                     optimization[1] = 'stop'
                     optimization[3] = 'Вы, остановили поток решения!'
