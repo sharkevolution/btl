@@ -26,7 +26,7 @@ h3 {
   height: 60px;
   color: #F1F1F1;
   background: #202E66;
-  font-size: 14px;
+  font-size: 12px;
   margin: 0 auto;
   clear: both;
   padding: 0;
@@ -38,7 +38,7 @@ h3 {
 .ynm {
   display: block;
   float: left;
-  margin: 5px 5px 0px 5px;
+  margin: 10px 5px 0px 40px;
 }
 
 
@@ -52,6 +52,7 @@ h3 {
     padding-left: 5px;
     float: left;
     width: 320px;
+    height: 40px;
     margin: 2px 15px 7px 0px;
     color: #FFF;
     border-radius: 5px;
@@ -62,13 +63,13 @@ h3 {
 #form_step {
     display: block;
     float: left;
-    width: 320px;
+    width: 300px;
     clear: left;
     margin-left: 5px;
-    margin-right: 20px;
+    margin-right: 5px;
     margin-bottom: 5px;
-    min-width: 320px;
-    padding-left: 15px;
+    min-width: 300px;
+    padding-left: 5px;
     /*padding-right: 15px;*/
     border-radius: 10px;
     background-color: #FAF0F6;
@@ -86,15 +87,15 @@ h3 {
     position: relative;
     width: 20%;
     float: left;
-    min-width: 320px;
+    min-width: 300px;
     margin-left: 5px;
-    margin-right: 20px;
+    margin-right: 5px;
     margin-bottom: 5px;
     background-color: #FAF0F6;
     border-radius: 10px;
     border-width: 1px;
     vertical-align: bottom;
-    padding-left: 15px;
+    padding-left: 5px;
     padding-bottom: 15px;
     border: 1px solid rgb(200, 207, 206);
 }
@@ -234,13 +235,13 @@ fieldset {
   display: block;
   float: left;
   position: relative;
-  width: 335px;
-  min-width: 335px;
+  width: 300px;
+  min-width: 300px;
   height: 20px;
   background-color: #ddd;
   clear: left;
   margin-left: 5px;
-  margin-right: 20px;
+  margin-right: 5px;
   margin-bottom: 5px;
 }
 
@@ -261,13 +262,13 @@ fieldset {
   display: block;
   float: left;
   position: relative;
-  width: 335px;
-  min-width: 335px;
+  width: 300px;
+  min-width: 300px;
   height: 20px;
   background-color: #f2e7e7;
   clear: left;
   margin-left: 5px;
-  margin-right: 20px;
+  margin-right: 5px;
   margin-bottom: 5px;
   font-size: 80%;
 }
@@ -277,12 +278,12 @@ fieldset {
   display: block;
   position: relative;
   float: right;
-  width: 120px;
+  width: 122px;
   height: 20px;
-  background-color: #f2e7e7;
+  /*background-color: #f2e7e7;*/
   margin-left: 5px;
   margin-bottom: 0px;
-  margin-top: -25px;
+  margin-top: -20px;
   line-height: 20px;
   font-size: 50%;
   color: rgb(0, 0, 0);
@@ -292,12 +293,12 @@ fieldset {
   display: block;
   position: relative;
   float: right;
-  width: 120px;
+  width: 122px;
   height: 20px;
-  background-color: #f2e7e7;
+  /*background-color: #f2e7e7;*/
   margin-left: 5px;
   margin-bottom: 5px;
-  margin-top: -45px;
+  margin-top: -40px;
   line-height: 20px;
   font-size: 50%;
   color: rgb(0, 0, 0);
