@@ -9,148 +9,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script type="text/javascript" src="lib/calc.js" charset="utf-8"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="lib/TouchSwipe/jquery.touchSwipe.min.js"></script>
-    <script type="text/javascript" src="lib/swipe.js"></script>
-
 
     <link href="static/scnr.css" rel="stylesheet" type="text/css">
     <link href="static/calc.css" rel="stylesheet" type="text/css">
-    <link href="static/swipe.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
-  <div class="container">
-      <div id="sidebar">
-          <ul>
-              <li><a href="#">Инструкция</a></li>
-              <li><a href="#">Настройки</a></li>
-              <li><a href="#">Оплата</a></li>
-                  <li><a href="#">Обо мне</a></li>
-          </ul>
+  <div id="wrapper">
+      <h3>Алгоритм двумерной упаковки</h3>
+      <!-- <strong>Внимание! Сайт в разработке, расчет работает без оплаты, через файл</strong> -->
+      <div id="open_home">
+        <form id='home' name='optimus' enctype="multipart/form-data" method="post"
+        onsubmit="submit_figure(this.form);return false;">
+            <input type="submit" value="Start optimization!" id='start' name='tender' value="">
+            <input type="hidden" name="code" id="private" value="{{private_code}}">
+            <input type="hidden" id="resolution" value='0'>
+        </form>
+        <div id="userapp">Всего в очереди:</div>
+        <div id="userindex">Номер в списке:</div>
       </div>
-      <div class="main-content">
-          <div class="swipe-area"></div>
-          <a href="#" data-toggle=".container" id="sidebar-toggle">
-              <span class="bar"></span>
-              <span class="bar"></span>
-              <span class="bar"></span>
-          </a>
-          <div class="content">
 
-
-            <div id="wrapper">
-                <h3>Алгоритм двумерной упаковки</h3>
-                <!-- <strong>Внимание! Сайт в разработке, расчет работает без оплаты, через файл</strong> -->
-                <div id="open_home">
-                  <form id='home' name='optimus' enctype="multipart/form-data" method="post"
-                  onsubmit="submit_figure(this.form);return false;">
-                      <input type="submit" value="Start optimization!" id='start' name='tender' value="">
+      <div id="myProgress">
+        <div id="myBar">
+          <div id="label">0%</div>
+        </div>
+      </div>
+      <div id="message"></div>
+      <div id="form_step">
+          <div id="poly">
+              <h3>Загрузка данных (.xlsx | .txt)</h3>
+              <form id='myForm' action="/upload_figure" enctype="multipart/form-data" method="post">
+                  <p>
+                      <input type="file" onchange="submit_kml(this.form);" name="fkml">
                       <input type="hidden" name="code" id="private" value="{{private_code}}">
-                      <input type="hidden" id="resolution" value='0'>
-                  </form>
-                  <div id="userapp">Всего в очереди:</div>
-                  <div id="userindex">Номер в списке:</div>
-                </div>
-
-                <div id="myProgress">
-                  <div id="myBar">
-                    <div id="label">0%</div>
-                  </div>
-                </div>
-                <div id="message"></div>
-                <div id="form_step">
-                    <div id="poly">
-                        <h3>Загрузка данных (.xlsx | .txt)</h3>
-                        <form id='myForm' action="/upload_figure" enctype="multipart/form-data" method="post">
-                            <p>
-                                <input type="file" onchange="submit_kml(this.form);" name="fkml">
-                                <input type="hidden" name="code" id="private" value="{{private_code}}">
-                            </p>
-                        </form>
-                    </div>
-                    <div id="background"><!-- Main background -->
-                           <div id="main">
-                               <div class="rows">
-                                 <button value="1" class="btn-style num-bg num first-child">1</button>
-                                 <button value="2" class="btn-style num-bg num">2</button>
-                                 <button value="3" class="btn-style num-bg num">3</button>
-                                 <button value="4" class="btn-style num-bg num first-child">4</button>
-                               </div>
-                               <div class="rows">
-                                 <button value="5" class="btn-style num-bg num">5</button>
-                                 <button value="6" class="btn-style num-bg num">6</button>
-                                 <button value="7" class="btn-style num-bg num first-child">7</button>
-                                 <button value="8" class="btn-style num-bg num">8</button>
-                                </div>
-                              <div class="rows">
-                                 <button value="9" class="btn-style num-bg num">9</button>
-                                 <button value="0" class="btn-style num-bg num">0</button>
-                                 <button value="F" id='figure' class="btn-style opera-bg fall-back">F</button>
-                                 <button value="C" id='count' class="btn-style opera-bg value align">C</button>
-                               </div>
-                               <div id="first-rows">
-                                  <button class="del-bg" id="delete">D</button>
-                                  <input type="text" id='size' value="" size="4" disabled=1 />
-                                </div>
-                            </div>
-                    </div>
-                    <div id='infigure'>
-                      <div id='total'>
-                        <ul id='total_data'>
-                          <li id='tof'>Total figure:</li>
-                          <li id='tocn'>Total count :</li>
-                          <li id='limcn'>Limit count :</li>
-                        </ul>
-                      </div>
-                      <div id='cur'>
-                        <ul id='current_data'>
-                          <li id='crf'>Figure:</li>
-                          <li id='amf'>Amount:</li>
-                        </ul>
-                      </div>
-                     </div>
-
-                     <!-- <div id="map">
-                       <form method="POST" action="https://api.privatbank.ua/p24api/ishop">
-                         <input type="hidden" name="amt" value="0.00" />
-                         <input type="hidden" name="ccy" value="UAH" />
-                         <input type="hidden" name="merchant" value="124535" />
-                         <input type="hidden" name="order" value="12508" />
-                         <input type="hidden" name="details" value="упаковка" />
-                         <input type="hidden" name="ext_details" value="Алгоритм упаковки блоков в полуограниченную полосу" />
-                         <input type="hidden" name="pay_way" value="privat24" />
-                         <input type="hidden" name="return_url" value="http://sharkevo.ru" />
-                         <input type="hidden" name="server_url" value="http://payment" />
-                         <button type="submit"><img src="static/api_logo_2.jpg" border="0" /></button>
-                       </form>
-                     </div> -->
-
-                </div>
-                  <div id="geolist">
-                    <h3>Список и количество фигур</h3>
-                    <form id='listfruit' name="mylist">
-                        <!-- <fieldset>
-                          <input class='inp operator' type="checkbox" value="Start"><label for="raz">описание</label>
-                        </fieldset> -->
-                    </form>
-
-                      <!-- <ul id='namepolygon'> -->
-                          <!-- {% for zname in zona %}
-                          <li><a>{{ zname }}</a></li>
-                          {% endfor %} -->
-                      <!-- </ul> -->
-                  </div>
-            </div>
+                  </p>
+              </form>
           </div>
+          <div id="background"><!-- Main background -->
+                 <div id="main">
+                     <div class="rows">
+                       <button value="1" class="btn-style num-bg num first-child">1</button>
+                       <button value="2" class="btn-style num-bg num">2</button>
+                       <button value="3" class="btn-style num-bg num">3</button>
+                       <button value="4" class="btn-style num-bg num first-child">4</button>
+                     </div>
+                     <div class="rows">
+                       <button value="5" class="btn-style num-bg num">5</button>
+                       <button value="6" class="btn-style num-bg num">6</button>
+                       <button value="7" class="btn-style num-bg num first-child">7</button>
+                       <button value="8" class="btn-style num-bg num">8</button>
+                      </div>
+                    <div class="rows">
+                       <button value="9" class="btn-style num-bg num">9</button>
+                       <button value="0" class="btn-style num-bg num">0</button>
+                       <button value="F" id='figure' class="btn-style opera-bg fall-back">F</button>
+                       <button value="C" id='count' class="btn-style opera-bg value align">C</button>
+                     </div>
+                     <div id="first-rows">
+                        <button class="del-bg" id="delete">D</button>
+                        <input type="text" id='size' value="" size="4" disabled=1 />
+                      </div>
+                  </div>
+          </div>
+          <div id='infigure'>
+            <div id='total'>
+              <ul id='total_data'>
+                <li id='tof'>Total figure:</li>
+                <li id='tocn'>Total count :</li>
+                <li id='limcn'>Limit count :</li>
+              </ul>
+            </div>
+            <div id='cur'>
+              <ul id='current_data'>
+                <li id='crf'>Figure:</li>
+                <li id='amf'>Amount:</li>
+              </ul>
+            </div>
+           </div>
 
-
-
+           <!-- <div id="map">
+             <form method="POST" action="https://api.privatbank.ua/p24api/ishop">
+               <input type="hidden" name="amt" value="0.00" />
+               <input type="hidden" name="ccy" value="UAH" />
+               <input type="hidden" name="merchant" value="124535" />
+               <input type="hidden" name="order" value="12508" />
+               <input type="hidden" name="details" value="упаковка" />
+               <input type="hidden" name="ext_details" value="Алгоритм упаковки блоков в полуограниченную полосу" />
+               <input type="hidden" name="pay_way" value="privat24" />
+               <input type="hidden" name="return_url" value="http://sharkevo.ru" />
+               <input type="hidden" name="server_url" value="http://payment" />
+               <button type="submit"><img src="static/api_logo_2.jpg" border="0" /></button>
+             </form>
+           </div> -->
 
       </div>
+        <div id="geolist">
+          <h3>Список и количество фигур</h3>
+          <form id='listfruit' name="mylist">
+              <!-- <fieldset>
+                <input class='inp operator' type="checkbox" value="Start"><label for="raz">описание</label>
+              </fieldset> -->
+          </form>
 
-  </div>
+            <!-- <ul id='namepolygon'> -->
+                <!-- {% for zname in zona %}
+                <li><a>{{ zname }}</a></li>
+                {% endfor %} -->
+            <!-- </ul> -->
+        </div>
+</div>
 
   <div class="footer">
     <div class='ynm'>

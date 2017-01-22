@@ -2,22 +2,25 @@
 
 html, body {-moz-user-select:none; -webkit-user-select:none; margin:0 auto; padding:0; min-width:300px; width:100%; height:100%;
     font-family: font-family: "Times New Roman", "Times", "Nimbus Roman No9 L", Serif;
-  background-color: #DF314D}
+  }
 * {margin:0; padding:0;}
 
 h3 {
-  padding-left: 10px;
-  padding-bottom: 15px;}
+  /*margin-left: 20px;*/
+  padding-left: 5px;
+  padding-bottom: 10px;}
 
 #wrapper {
-    min-width: 320px;
-    /*min-height: 85%;*/
+
+    min-height: 800px;
+    height: 1px;
     width: 100%;
     height: auto !important;
-    height: 100%;
+    /*height: 100%;*/
     margin: 0 auto;
     margin-bottom: -60px;
     padding: 0 0 40px 0;
+    /*background-color: #DF314D;*/
 }
 
 /* FOOTER ---------------------------------------------------------- */
@@ -39,7 +42,7 @@ h3 {
 .ynm {
   display: block;
   float: left;
-  margin: 10px 5px 0px 40px;
+  margin: 10px 5px 0px 5px;
 }
 
 
