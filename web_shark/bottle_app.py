@@ -173,6 +173,14 @@ def server_lib(filename):
     return static_file(filename, root=myfile)
 
 
+@route('/lib/TouchSwipe/<filename>')
+def server_lib(filename):
+    fx = os.path.join(config.exm, 'lib/TouchSwipe')
+    myfile = os.path.normpath(fx)
+
+    return static_file(filename, root=myfile)
+
+
 @route('/static/<filename>')
 def server_static(filename):
 
