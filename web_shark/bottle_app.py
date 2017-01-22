@@ -317,19 +317,19 @@ def shop_aj_getallitems():
             if b in Tender.gencode_time:
                 del(Tender.gencode_time[b])
 
-        if differ.seconds > 15:
+        if not b == Tender.curr_optimize_gencode and differ.seconds > 7:
             # Потеря активного соединения, удаляем окончательно пользователя
             if b in Tender.waiting_line:
                 Tender.waiting_line.remove(b)
 
-            if b == Tender.curr_optimize_gencode:
-                # !!!Критическая секция!!!, остановка работающего потока
-                level7.main_thread.stopping = True
-                level7.main_thread.flag_optimization = None
-                level7.main_thread.progress = 0
-                destroy_gencode_waiting(b)
-                optimization[1] = 'stop'
-                optimization[3] = 'Превышен лимит ответа, расчет сброшен!'
+        if b == Tender.curr_optimize_gencode and differ.seconds > 3600:
+            # !!!Критическая секция!!!, остановка работающего потока
+            level7.main_thread.stopping = True
+            level7.main_thread.flag_optimization = None
+            level7.main_thread.progress = 0
+            destroy_gencode_waiting(b)
+            optimization[1] = 'stop'
+            optimization[3] = 'Превышен лимит ответа, расчет сброшен!'
 
     if gencode in Tender.gencode_time:
         # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
@@ -347,6 +347,7 @@ def shop_aj_getallitems():
             Tender.waiting_line.append(gencode)
             # Добавление в профиль пользовтаеля фигур и количества при старте подписки
             usdata = Pull.uname[gencode]
+
             fruit_trsnsform(usdata, fruit)
             optimization[4] = 0
 
