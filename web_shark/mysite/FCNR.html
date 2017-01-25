@@ -13,9 +13,40 @@
     <link href="static/scnr.css" rel="stylesheet" type="text/css">
     <link href="static/calc.css" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" href="css/pushy.css">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
 </head>
 
 <body>
+
+  <!-- Pushy Menu -->
+  <nav class="pushy pushy-left">
+      <ul>
+          <!-- Submenu -->
+          <li class="pushy-submenu">
+              <a href="#">Submenu</a>
+              <ul>
+                  <li class="pushy-link"><a href="#">Item 1</a></li>
+                  <li class="pushy-link"><a href="#">Item 2</a></li>
+                  <li class="pushy-link"><a href="#">Item 3</a></li>
+              </ul>
+          </li>
+          <li class="pushy-link"><a href="#">Item 1</a></li>
+          <li class="pushy-link"><a href="#">Item 2</a></li>
+      </ul>
+  </nav>
+
+  <!-- Site Overlay -->
+  <div class="site-overlay"></div>
+
+  <!-- Your Content -->
+  <div id="container">
+      <!-- Menu Button -->
+      <div class="menu-btn">&#9776; Menu</div>
+
   <div id="wrapper">
       <h3>Алгоритм двумерной упаковки</h3>
       <!-- <strong>Внимание! Сайт в разработке, расчет работает без оплаты, через файл</strong> -->
@@ -119,6 +150,8 @@
             <!-- </ul> -->
         </div>
 </div>
+
+  </div>
 
   <div class="footer">
     <div class='ynm'>
@@ -372,6 +405,8 @@
    </script>
    <noscript><div><img src="https://mc.yandex.ru/watch/42227109" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
    <!-- /Yandex.Metrika counter -->
+
+   <script src="js/pushy.min.js"></script>
 
 </body>
 </html>

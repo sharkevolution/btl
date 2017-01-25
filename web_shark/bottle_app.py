@@ -173,12 +173,35 @@ def server_lib(filename):
     return static_file(filename, root=myfile)
 
 
-@route('/lib/TouchSwipe/<filename>')
+@route('/scss/<filename>')
 def server_lib(filename):
-    fx = os.path.join(config.exm, 'lib/TouchSwipe')
+    fx = os.path.join(config.exm, 'scss')
     myfile = os.path.normpath(fx)
 
     return static_file(filename, root=myfile)
+
+@route('/css/<filename>')
+def server_lib(filename):
+    fx = os.path.join(config.exm, 'css')
+    myfile = os.path.normpath(fx)
+
+    return static_file(filename, root=myfile)
+
+
+@route('/img/<filename>')
+def server_lib(filename):
+    fx = os.path.join(config.exm, 'img')
+    myfile = os.path.normpath(fx)
+
+    return static_file(filename, root=myfile)
+
+@route('/js/<filename>')
+def server_lib(filename):
+    fx = os.path.join(config.exm, 'js')
+    myfile = os.path.normpath(fx)
+
+    return static_file(filename, root=myfile)
+
 
 
 @route('/static/<filename>')

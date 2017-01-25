@@ -1,5 +1,11 @@
 /* Default CSS */
 
+html, body{
+overflow-x: hidden;
+height: 100%;
+-webkit-overflow-scrolling: touch;
+}
+
 html, body {-moz-user-select:none; -webkit-user-select:none; margin:0 auto; padding:0; min-width:300px; width:100%; height:100%;
     font-family: font-family: "Times New Roman", "Times", "Nimbus Roman No9 L", Serif;
   }
@@ -307,4 +313,43 @@ fieldset {
   line-height: 20px;
   font-size: 50%;
   color: rgb(0, 0, 0);
+}
+
+
+.menu-btn {
+    width: 70px;
+    padding: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.pushy{
+    width: 400px; /* Changed the width to 400px */
+}
+
+.pushy-left{
+    transform: translate3d(-400px,0,0); /* Updated the values */
+    /* Don't forget the vendor prefixes */
+}
+
+.pushy-open-left #container,
+.pushy-open-left .push {
+    transform: translate3d(400px, 0, 0); /* Updated the values */
+}
+
+.pushy-right {
+    transform: translate3d(400px, 0, 0); /* Updated the values */
+    /* Don't forget the vendor prefixes */
+}
+
+.pushy-open-right #container,
+.pushy-open-right .push {
+    transform: translate3d(-400px, 0, 0); /* Updated the values */
+    /* Don't forget the vendor prefixes */
 }
