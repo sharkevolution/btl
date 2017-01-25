@@ -203,6 +203,14 @@ def server_lib(filename):
     return static_file(filename, root=myfile)
 
 
+@route('/font/<filename>')
+def server_lib(filename):
+    fx = os.path.join(config.exm, 'font')
+    myfile = os.path.normpath(fx)
+
+    return static_file(filename, root=myfile)
+
+
 
 @route('/static/<filename>')
 def server_static(filename):

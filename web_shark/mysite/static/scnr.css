@@ -1,5 +1,10 @@
 /* Default CSS */
 
+@font-face {
+    font-family: helveticaneue-mediumcond-webfont; /* Гарнитура шрифта */
+    src: url(fonts/helveticaneue-mediumcond-webfont.ttf); /* Путь к файлу со шрифтом */
+   }
+
 html, body{
 overflow-x: hidden;
 height: 100%;
@@ -7,14 +12,26 @@ height: 100%;
 }
 
 html, body {-moz-user-select:none; -webkit-user-select:none; margin:0 auto; padding:0; min-width:300px; width:100%; height:100%;
-    font-family: font-family: "Times New Roman", "Times", "Nimbus Roman No9 L", Serif;
+    font-family: 'helveticaneue-mediumcond-webfont', Helvetica,Arial,sans-serif;    /*"Times New Roman", "Times", "Nimbus Roman No9 L", Serif; */
   }
 * {margin:0; padding:0;}
 
-h3 {
-  /*margin-left: 20px;*/
+h1 {
+  font-weight: normal;
   padding-left: 5px;
-  padding-bottom: 10px;}
+  margin-left: 85px;
+  padding-bottom: 3px;
+  text-rendering: optimizelegibility;
+  list-style: 1.0em;
+}
+
+h3 {
+  font-weight: normal;
+  padding-left: 5px;
+  padding-bottom: 10px;
+  text-rendering: optimizelegibility;
+  list-style: 1.0em;
+}
 
 #wrapper {
 
@@ -23,7 +40,7 @@ h3 {
     width: 100%;
     height: auto !important;
     /*height: 100%;*/
-    margin: 0 auto;
+    /*margin-top: 38px;*/
     margin-bottom: -60px;
     padding: 0 0 40px 0;
     /*background-color: #DF314D;*/
@@ -317,11 +334,13 @@ fieldset {
 
 
 .menu-btn {
+    display: block;
+    float: left;
     width: 70px;
     padding: 5px;
     margin-left: 5px;
     margin-bottom: 5px;
-    margin-top: 2px;
+    margin-top: 5px;
     background: #000;
     color: #FFF;
     text-align: center;
@@ -352,4 +371,17 @@ fieldset {
 .pushy-open-right .push {
     transform: translate3d(-400px, 0, 0); /* Updated the values */
     /* Don't forget the vendor prefixes */
+}
+
+.navbar {
+    overflow: visible;
+    /*margin-bottom: 18px;*/
+}
+
+.navbar-fixed-top {
+    position:relative;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
 }
