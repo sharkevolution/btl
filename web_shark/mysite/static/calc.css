@@ -2,15 +2,29 @@
 
 #background {
     display: block;
+    width: 180px;
+    float: left;
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 7px;
 }
 
 #infigure {
   display: block;
   position: relative;
-  margin-top: 5px;
+  margin-top: 14px;
+  margin-left: 3px;
   float: left;
-  width: 90%;
-  background-color: #FAF0F6;
+  width: 112px;
+  /*background-color: #FAF0F6;*/
+}
+
+#infigure p {
+    margin: 0 0 9px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 5px;
 }
 
 #infigure ul{
@@ -23,25 +37,41 @@
 
 #infigure ul li{
   padding-bottom: 4px;
-  font-size:1.1em;
-  font-weight: bold;
-  font-family: monospace;
+  /*font-size: 13px;*/
+  /*line-height: 18px;*/
+  /*font-weight: bold;*/
+  font-family: "Helvetica Neue";
 }
 
 #cur {
   display: block;
-  width: 40%;
-  min-width: 40%;
+  /*width: 90%;*/
+  /*min-width: 90%;*/
   position: relative;
   float: left;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #dcdcdc;
+
+}
+
+#cur p {
+    margin: 0 0 9px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 5px;
 }
 
 #total {
   display: block;
-  width: 160px;
-  min-width: 160px;
+  /*width: 90%;*/
+  /*min-width: 90%;*/
   position: relative;
   float: left;
+  margin: 0 0 9px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-weight: normal;
 }
 
 
@@ -95,7 +125,7 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 }
 
 .rows {
-    width:250px;
+    /*width:250px;*/
     margin-top:5px;
 }
 

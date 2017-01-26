@@ -60,8 +60,8 @@
             <input type="hidden" name="code" id="private" value="{{private_code}}">
             <input type="hidden" id="resolution" value='0'>
         </form>
-        <div id="userapp">Всего в очереди:</div>
-        <div id="userindex">Номер в списке:</div>
+        <div id="userapp"><p>Всего в очереди:</p></div>
+        <div id="userindex"><p>Номер в списке:</p></div>
       </div>
 
       <div id="myProgress">
@@ -107,20 +107,21 @@
                   </div>
           </div>
           <div id='infigure'>
-            <div id='total'>
-              <ul id='total_data'>
-                <li id='tof'>Total figure:</li>
-                <li id='tocn'>Total count :</li>
-                <li id='limcn'>Limit count :</li>
-              </ul>
-            </div>
             <div id='cur'>
               <ul id='current_data'>
-                <li id='crf'>Figure:</li>
-                <li id='amf'>Amount:</li>
+                <li id='crf'><p>Figure:</p></li>
+                <li id='amf'><p>Count:</p></li>
+              </ul>
+            </div>
+            <div id='total'>
+              <ul id='total_data'>
+                <li id='tof'><p>Total figure:</p></li>
+                <li id='tocn'><p>Total count:</p></li>
+                <li id='limcn'><p>Limit count :</p></li>
               </ul>
             </div>
            </div>
+
 
            <!-- <div id="map">
              <form method="POST" action="https://api.privatbank.ua/p24api/ishop">

@@ -5,6 +5,12 @@
     src: url(fonts/helveticaneue-mediumcond-webfont.ttf); /* Путь к файлу со шрифтом */
    }
 
+   @font-face {
+       font-family: HelveticaNeue; /* Гарнитура шрифта */
+       src: url(fonts/HelveticaNeue.ttf); /* Путь к файлу со шрифтом */
+      }
+
+
 html, body{
 overflow-x: hidden;
 height: 100%;
@@ -78,9 +84,9 @@ h3 {
     display: block;
     padding-left: 5px;
     float: left;
-    width: 320px;
+    width: 300px;
     height: 40px;
-    margin: 2px 15px 7px 0px;
+    margin: 2px 15px 3px 0px;
     color: #FFF;
     border-radius: 5px;
     text-decoration: none;
@@ -98,15 +104,20 @@ h3 {
     min-width: 300px;
     padding-left: 5px;
     /*padding-right: 15px;*/
-    border-radius: 10px;
-    background-color: #FAF0F6;
-    border: 1px solid rgb(200, 207, 206);
+    /*border-radius: 10px;*/
+    /*background-color: #FAF0F6;*/
+    border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+    /*border: 1px solid rgb(200, 207, 206);*/
 }
 
 #form_step h3{
-    margin: 2px;
-    padding-left: 5px;
+    margin: 2px 1px;
+    padding-left: 0px;
     padding-bottom: 5px;
+    font-family: "helveticaneue-mediumcond-webfont",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight:normal;
 }
 
 #geolist {
@@ -118,19 +129,26 @@ h3 {
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 5px;
-    background-color: #FAF0F6;
-    border-radius: 10px;
-    border-width: 1px;
+    /*background-color: #FAF0F6;*/
+    /*border-radius: 10px;*/
+    border-bottom: 1px solid #dcdcdc;
+    /*border-width: 1px;*/
     vertical-align: bottom;
     padding-left: 5px;
     padding-bottom: 15px;
-    border: 1px solid rgb(200, 207, 206);
+    /*border: 1px solid rgb(200, 207, 206);*/
 }
 
 #geolist h3 {
-  margin: 2px;
-  padding-left: 5px;
+  /*padding-left: 5px;*/
+  /*padding-bottom: 5px;*/
+
+  margin: 2px 1px;
+  padding-left: 0px;
   padding-bottom: 5px;
+  font-family: "helveticaneue-mediumcond-webfont",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight:normal;
 }
 
 #geolist p {
@@ -263,14 +281,14 @@ fieldset {
   display: block;
   float: left;
   position: relative;
-  width: 300px;
-  min-width: 300px;
+  width: 305px;
+  min-width: 305px;
   height: 20px;
   background-color: #ddd;
   clear: left;
   margin-left: 5px;
-  margin-right: 5px;
-  margin-bottom: 5px;
+  /*margin-right: 5px;*/
+  margin-bottom: 2px;
 }
 
 #myBar {
@@ -284,19 +302,20 @@ fieldset {
   text-align: center;
   line-height: 20px;
   color: white;
+  font-size: 13px;
 }
 
 #message {
   display: block;
   float: left;
   position: relative;
-  width: 300px;
-  min-width: 300px;
+  width: 305px;
+  min-width: 305px;
   height: 20px;
   background-color: #f2e7e7;
   clear: left;
   margin-left: 5px;
-  margin-right: 5px;
+  /*margin-right: 5px;*/
   margin-bottom: 5px;
   font-size: 80%;
 }
@@ -306,7 +325,7 @@ fieldset {
   display: block;
   position: relative;
   float: right;
-  width: 122px;
+  width: 107px;
   height: 20px;
   /*background-color: #f2e7e7;*/
   margin-left: 5px;
@@ -321,7 +340,7 @@ fieldset {
   display: block;
   position: relative;
   float: right;
-  width: 122px;
+  width: 107px;
   height: 20px;
   /*background-color: #f2e7e7;*/
   margin-left: 5px;
