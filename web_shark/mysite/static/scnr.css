@@ -260,7 +260,7 @@ input[type="submit"]:active, :hover, :focus {
 
 fieldset {
   /*padding: 1em;*/
-  font:80%/1 sans-serif;
+  font:20px;
   border:0px;
   border-bottom: 1px solid rgb(200, 207, 206);
   width: 90%;
@@ -279,7 +279,7 @@ fieldset {
 }
 
 #geolist label {
-  font-size: 1.5em;
+  font-size: 17px;
   vertical-align: middle;
   }
 
