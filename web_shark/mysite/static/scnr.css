@@ -82,16 +82,22 @@ h3 {
 
 #open_home {
     display: block;
-    padding-left: 5px;
+    /*padding-left: 5px;*/
     float: left;
-    width: 300px;
+    width: 305px;
     height: 40px;
-    margin: 2px 15px 3px 0px;
+    margin: 2px 5px 3px 5px;
     color: #FFF;
     border-radius: 5px;
     text-decoration: none;
     font-size: 1.5em;
 }
+
+#open_home form{
+  display: block;
+  float: left;
+}
+
 
 #form_step {
     display: block;
@@ -284,10 +290,10 @@ fieldset {
   width: 305px;
   min-width: 305px;
   height: 20px;
-  background-color: #ddd;
+  background-color: #f2f6f6;
   clear: left;
   margin-left: 5px;
-  /*margin-right: 5px;*/
+  margin-right: 5px;
   margin-bottom: 2px;
 }
 
@@ -312,10 +318,10 @@ fieldset {
   width: 305px;
   min-width: 305px;
   height: 20px;
-  background-color: #f2e7e7;
+  background-color: #f2f6f6;
   clear: left;
   margin-left: 5px;
-  /*margin-right: 5px;*/
+  margin-right: 5px;
   margin-bottom: 5px;
   font-size: 80%;
 }
@@ -325,14 +331,14 @@ fieldset {
   display: block;
   position: relative;
   float: right;
-  width: 107px;
+  width: 120px;
   height: 20px;
   /*background-color: #f2e7e7;*/
   margin-left: 5px;
   margin-bottom: 0px;
-  margin-top: -20px;
+  /*margin-top: -20px;*/
   line-height: 20px;
-  font-size: 50%;
+  font-size: 13px;
   color: rgb(0, 0, 0);
 }
 
@@ -340,14 +346,14 @@ fieldset {
   display: block;
   position: relative;
   float: right;
-  width: 107px;
+  width: 120px;
   height: 20px;
   /*background-color: #f2e7e7;*/
   margin-left: 5px;
-  margin-bottom: 5px;
-  margin-top: -40px;
-  line-height: 20px;
-  font-size: 50%;
+  margin-bottom: 0px;
+  /*margin-top: -40px;*/
+  /*line-height: 20px;*/
+  font-size: 13px;
   color: rgb(0, 0, 0);
 }
 
