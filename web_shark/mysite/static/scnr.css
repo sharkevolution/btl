@@ -289,7 +289,7 @@ fieldset {
   position: relative;
   width: 305px;
   min-width: 305px;
-  height: 20px;
+  height: 10px;
   background-color: #f2f6f6;
   clear: left;
   margin-left: 5px;
@@ -306,9 +306,9 @@ fieldset {
 
 #label {
   text-align: center;
-  line-height: 20px;
+  line-height: 10px;
   color: white;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 #message {
@@ -317,13 +317,13 @@ fieldset {
   position: relative;
   width: 305px;
   min-width: 305px;
-  height: 20px;
+  height: 15px;
   background-color: #f2f6f6;
   clear: left;
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 5px;
-  font-size: 80%;
+  font-size: 13px;
 }
 
 
