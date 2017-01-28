@@ -53,8 +53,8 @@ window.onload = function() {
             }
 
             if (current_figure > 0 && current_amount > 0){
-              document.getElementById('crf').innerHTML = '0';
-              document.getElementById('amf').innerHTML = '0';
+              document.getElementById('crf').innerHTML = 0;
+              document.getElementById('amf').innerHTML = 0;
               current_figure = 0;
               current_amount = 0;
             }
@@ -125,8 +125,8 @@ window.onload = function() {
         document.getElementById('figure').disabled = false;
         document.getElementById('count').disabled = false;
 
-        document.getElementById('crf').childNodes.item(0).nodeValue = 'Figure: 0';
-        document.getElementById('amf').childNodes.item(0).nodeValue = 'Amount: 0';
+        document.getElementById('crf').childNodes.item(0).nodeValue = 0;
+        document.getElementById('amf').childNodes.item(0).nodeValue = 0;
 
         current_figure = 0;
         current_amount = 0;
