@@ -336,7 +336,7 @@ fieldset {
   display: block;
   position: relative;
   float: right;
-  width: 115px;
+  width: 100px;
   /*height: 20px;*/
   /*background-color: #f2e7e7;*/
   margin-left: 5px;
@@ -364,7 +364,7 @@ fieldset {
 
 
 .menu-btn {
-    display: block;
+    /*display: block;*/
     float: left;
     width: 70px;
     padding: 4px;
@@ -424,6 +424,7 @@ fieldset {
     /*position:relative;*/
     /*z-index: 1030;*/
     width: 305px;
+    height: 42px;
     margin: 2px 5px 0px 5px;
 }
 
@@ -435,4 +436,5 @@ fieldset {
 .tab-style td, th {
     display: table-cell;
     vertical-align:middle;
+    padding-bottom: 1px;
 }
