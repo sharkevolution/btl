@@ -87,7 +87,7 @@ h3 {
     width: 305px;
     height: 40px;
     margin: 2px 5px 3px 5px;
-    color: #FFF;
+    /*color: #FFF;*/
     border-radius: 5px;
     text-decoration: none;
     font-size: 20px;
@@ -96,6 +96,7 @@ h3 {
 #open_home form{
   display: block;
   float: left;
+  padding-left: 5px;
 }
 
 
@@ -161,6 +162,10 @@ h3 {
     margin: 2px;
     padding-left: 5px;
     border-style: solid;
+}
+
+#geolist form{
+  width:150px;
 }
 
 #map {
@@ -263,7 +268,7 @@ fieldset {
   font:20px;
   border:0px;
   border-bottom: 1px solid rgb(200, 207, 206);
-  width: 90%;
+  width: 95%;
   line-height: 35px;
   padding-left: 10px;
   }
@@ -322,7 +327,7 @@ fieldset {
   clear: left;
   margin-left: 5px;
   margin-right: 5px;
-  margin-bottom: 5px;
+  /*margin-bottom: 5px;*/
   font-size: 13px;
 }
 
@@ -337,7 +342,7 @@ fieldset {
   margin-left: 5px;
   margin-bottom: 0px;
   /*margin-top: -20px;*/
-  line-height: 20px;
+  /*line-height: 20px;*/
   font-size: 12px;
   color: rgb(0, 0, 0);
 }
@@ -347,12 +352,12 @@ fieldset {
   position: relative;
   float: right;
   width: 120px;
-  height: 20px;
+  height: 18px;
   /*background-color: #f2e7e7;*/
   margin-left: 5px;
-  margin-bottom: 0px;
+  margin-top: 3px;
   /*margin-top: -40px;*/
-  /*line-height: 20px;*/
+  line-height: 0px;
   font-size: 12px;
   color: rgb(0, 0, 0);
 }
@@ -407,6 +412,16 @@ fieldset {
     position:relative;
     top: 0;
     right: 0;
-    left: 0;
+    left: 5px;
     z-index: 1030;
+}
+
+.tab-style {
+  border:0px 0px;
+  color: #000;
+}
+
+.tab-style td, th {
+    display: table-cell;
+    vertical-align:middle;
 }

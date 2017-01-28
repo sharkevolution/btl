@@ -60,8 +60,21 @@
             <input type="hidden" name="code" id="private" value="{{private_code}}">
             <input type="hidden" id="resolution" value='0'>
         </form>
-        <div id="userapp"><p>Всего в очереди:</p></div>
-        <div id="userindex"><p>Номер в списке:</p></div>
+        <div id="userapp">
+          <table class="tab-style">
+             <tr>
+                <td>В очереди</td>
+                <td id='usapp'></td>
+             </tr>
+          </table>
+        </div>
+        <div id="userindex">
+          <table class="tab-style">
+             <tr>
+                <td>Номер</td>
+                <td id='usidx'></td>
+             </tr>
+          </table>
       </div>
 
       <div id="myProgress">
@@ -108,20 +121,44 @@
           </div>
           <div id='infigure'>
             <div id='cur'>
-              <ul id='current_data'>
+              <!-- <ul id='current_data'>
                 <li id='crf'><p>Figure:</p></li>
                 <li id='amf'><p>Count:</p></li>
-              </ul>
+              </ul> -->
+              <table class="tab-style">
+                 <tr>
+                    <td>Figure</td>
+                    <td id='crf'>0</td>
+                 </tr>
+                 <tr>
+                    <td>Count</td>
+                    <td id='amf'>0</td>
+                 </tr>
+              </table>
             </div>
+
             <div id='total'>
-              <ul id='total_data'>
+              <!-- <ul id='total_data'>
                 <li id='tof'><p>Total figure:</p></li>
                 <li id='tocn'><p>Total count:</p></li>
                 <li id='limcn'><p>Limit count :</p></li>
-              </ul>
+              </ul> -->
+              <table class="tab-style">
+                 <tr>
+                    <td>Total figure</td>
+                    <td id='tof'>0</td>
+                 </tr>
+                 <tr>
+                    <td>Total count</td>
+                    <td id='tocn'>0</td>
+                 </tr>
+                 <tr>
+                    <td>Limit count</td>
+                    <td id='limcn'>0</td>
+                 </tr>
+              </table>
             </div>
            </div>
-
 
            <!-- <div id="map">
              <form method="POST" action="https://api.privatbank.ua/p24api/ishop">
@@ -153,7 +190,7 @@
                 {% endfor %} -->
             <!-- </ul> -->
         </div>
-</div>
+    </div>
 
   </div>
 

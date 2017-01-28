@@ -2,7 +2,7 @@
 
 #background {
     display: block;
-    width: 180px;
+    width: 190px;
     float: left;
     position: relative;
     margin-top: 5px;
@@ -12,10 +12,10 @@
 #infigure {
   display: block;
   position: relative;
-  margin-top: 14px;
+  margin-top: 10px;
   margin-left: 3px;
   float: left;
-  width: 112px;
+  width: 105px;
   /*background-color: #FAF0F6;*/
 }
 
@@ -37,38 +37,28 @@
 
 #infigure ul li{
   padding-bottom: 4px;
-  /*font-size: 13px;*/
-  /*line-height: 18px;*/
-  /*font-weight: bold;*/
   font-family: "Helvetica Neue";
 }
 
 #cur {
   display: block;
-  /*width: 90%;*/
-  /*min-width: 90%;*/
   position: relative;
   float: left;
-  margin-bottom: 10px;
   border-bottom: 1px solid #dcdcdc;
-
-}
-
-#cur p {
-    margin: 0 0 9px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-    line-height: 5px;
+  margin: 0 0 5px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 15px;
+  font-weight: normal;
+  padding-bottom: 5px;
 }
 
 #total {
   display: block;
-  /*width: 90%;*/
-  /*min-width: 90%;*/
   position: relative;
   float: left;
-  margin: 0 0 9px;
+  margin: 0 0 10px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 13px;
   font-weight: normal;

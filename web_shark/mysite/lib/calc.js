@@ -19,14 +19,14 @@ window.onload = function() {
     document.getElementById('count').disabled = false;
 
     // alert('ok');
-    document.getElementById('crf').innerHTML = "<p>" + 'Figure: 0' + "</p>";
-    document.getElementById('amf').innerHTML = "<p>" + 'Count:&nbsp 0' + "</p>";
+    document.getElementById('crf').innerHTML = 0;
+    document.getElementById('amf').innerHTML = 0;
     // document.getElementById('crf').childNodes.item(0).nodeValue = "<p>" + 'Figure: 0' + "/p";
     // document.getElementById('amf').childNodes.item(0).nodeValue = "<p>" + 'Count: 0' + "</p>";
 
     // document.getElementById('tof').childNodes.item(0).nodeValue = 'Total figure: 0';
     // document.getElementById('tocn').childNodes.item(0).nodeValue = 'Total count : 0';
-    document.getElementById('limcn').innerHTML = "<p>" + 'Limit count : 700' + "</p>";
+    document.getElementById('limcn').innerHTML = 700;
     // document.getElementById('limcn').childNodes.item(0).nodeValue = 'Limit count : 700';
 
     var elem = document.querySelectorAll(".num");
@@ -53,8 +53,8 @@ window.onload = function() {
             }
 
             if (current_figure > 0 && current_amount > 0){
-              document.getElementById('crf').innerHTML = "<p>" + 'Figure: 0' + "</p>";
-              document.getElementById('amf').innerHTML = "<p>" + 'Count:&nbsp 0' + "</p>";
+              document.getElementById('crf').innerHTML = '0';
+              document.getElementById('amf').innerHTML = '0';
               current_figure = 0;
               current_amount = 0;
             }
@@ -72,7 +72,7 @@ window.onload = function() {
         document.getElementById('size').value = 0;
 
         var str = String(ch2)
-        document.getElementById('crf').innerHTML = "<p>" + 'Figure:' + ch2 + "</p>";
+        document.getElementById('crf').innerHTML = ch2;
         current_figure = ch2;
 
         if (current_figure > 0 && current_amount > 0){
@@ -101,7 +101,7 @@ window.onload = function() {
 
         var str = String(ch2)
         // document.getElementById('amf').childNodes.item(0).nodeValue = 'Amount: ' + ch2;
-        document.getElementById('amf').innerHTML = "<p>" + 'Count:&nbsp' + ch2 + "</p>";
+        document.getElementById('amf').innerHTML = ch2;
         current_amount = ch2;
 
         if (current_figure > 0 && current_amount > 0){
@@ -206,8 +206,8 @@ var calc_resolution = function(){
     document.getElementById('start').disabled = true;
   }
 
-  document.getElementById('tof').innerHTML = '<p>' + 'Total figure: ' + String(p) + '</p>';
-  document.getElementById('tocn').innerHTML = '<p>' + 'Total count: ' + String(resol_count) + '</p>';
+  document.getElementById('tof').innerHTML = String(p);
+  document.getElementById('tocn').innerHTML = String(resol_count);
 
 }
 
