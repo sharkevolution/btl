@@ -96,7 +96,7 @@ h3 {
 #open_home form{
   display: block;
   float: left;
-  padding-left: 5px;
+  /*padding-left: 5px;*/
 }
 
 
@@ -337,7 +337,7 @@ fieldset {
   position: relative;
   float: right;
   width: 115px;
-  height: 20px;
+  /*height: 20px;*/
   /*background-color: #f2e7e7;*/
   margin-left: 5px;
   margin-bottom: 0px;
@@ -375,6 +375,18 @@ fieldset {
     color: #FFF;
     text-align: center;
     cursor: pointer;
+}
+
+.start_module{
+  display: block;
+  float: left;
+  position: relative;
+  width: 305px;
+  min-width: 305px;
+  height: 35px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 

@@ -56,27 +56,25 @@
 
       <!-- <strong>Внимание! Сайт в разработке, расчет работает без оплаты, через файл</strong> -->
       <div id="open_home">
-        <form id='home' name='optimus' enctype="multipart/form-data" method="post"
-        onsubmit="submit_figure(this.form);return false;">
-            <input type="submit" value="Start optimization!" id='start' name='tender' value="">
-            <input type="hidden" name="code" id="private" value="{{private_code}}">
-            <input type="hidden" id="resolution" value='0'>
-        </form>
-        <div id="userapp">
-          <table class="tab-style">
-             <tr>
-                <td>В очереди</td>
-                <td id='usapp'></td>
-             </tr>
-          </table>
-        </div>
-        <div id="userindex">
-          <table class="tab-style">
-             <tr>
-                <td>Номер</td>
-                <td id='usidx'></td>
-             </tr>
-          </table>
+        <div class="start_module">
+          <form id='home' name='optimus' enctype="multipart/form-data" method="post"
+          onsubmit="submit_figure(this.form);return false;">
+              <input type="submit" value="Start optimization!" id='start' name='tender' value="">
+              <input type="hidden" name="code" id="private" value="{{private_code}}">
+              <input type="hidden" id="resolution" value='0'>
+          </form>
+          <div id="userapp">
+            <table class="tab-style">
+               <tr>
+                  <td>В очереди</td>
+                  <td id='usapp'></td>
+               </tr>
+               <tr>
+                  <td>Номер</td>
+                  <td id='usidx'></td>
+               </tr>
+            </table>
+          </div>
       </div>
 
       <div id="myProgress">
@@ -371,11 +369,11 @@
           smsdoc.innerHTML = sms;
 
           appu = jsonobj[2];
-          var appdoc = document.getElementById('userapp');
+          var appdoc = document.getElementById('usapp');
           appdoc.innerHTML = appu;
 
           uscur = jsonobj[5];
-          var usridx = document.getElementById('userindex');
+          var usridx = document.getElementById('usidx');
           usridx.innerHTML = uscur;
 
 
