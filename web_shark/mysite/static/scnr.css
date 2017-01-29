@@ -137,7 +137,7 @@ h3 {
     font-weight:normal;
 }
 
-#geolist {
+.geolist {
     display: block;
     position: relative;
     /*width: 20%;*/
@@ -156,7 +156,7 @@ h3 {
     /*border: 1px solid rgb(200, 207, 206);*/
 }
 
-#geolist h3 {
+.geolist h3 {
   /*padding-left: 5px;*/
   /*padding-bottom: 5px;*/
 
@@ -168,13 +168,13 @@ h3 {
   font-weight:normal;
 }
 
-#geolist p {
+.geolist p {
     margin: 2px;
     padding-left: 5px;
     border-style: solid;
 }
 
-#geolist form{
+.geolist form{
   width:150px;
 }
 
@@ -293,7 +293,7 @@ fieldset {
   margin-right: 10px;
 }
 
-#geolist label {
+.geolist label {
   font-size: 17px;
   vertical-align: middle;
   }
