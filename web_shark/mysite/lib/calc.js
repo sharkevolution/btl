@@ -21,13 +21,7 @@ window.onload = function() {
     // alert('ok');
     document.getElementById('crf').innerHTML = 0;
     document.getElementById('amf').innerHTML = 0;
-    // document.getElementById('crf').childNodes.item(0).nodeValue = "<p>" + 'Figure: 0' + "/p";
-    // document.getElementById('amf').childNodes.item(0).nodeValue = "<p>" + 'Count: 0' + "</p>";
-
-    // document.getElementById('tof').childNodes.item(0).nodeValue = 'Total figure: 0';
-    // document.getElementById('tocn').childNodes.item(0).nodeValue = 'Total count : 0';
     document.getElementById('limcn').innerHTML = 700;
-    // document.getElementById('limcn').childNodes.item(0).nodeValue = 'Limit count : 700';
 
     var elem = document.querySelectorAll(".num");
     var len = elem.length;

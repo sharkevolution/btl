@@ -226,6 +226,12 @@ def redir_home():
     redirect('/')
 
 
+@route('/mystory', method='GET')
+def my_story():
+    myfile = os.path.join(config.exm, 'mypage.html')
+    return template(myfile)
+
+
 @route('/<page>', method='POST')
 def do_page(page):
 
