@@ -8,12 +8,54 @@
     <meta name="Keywords" content="раскрой, штрипс, раскладка, упаковка, ножи, перестановки, оптимизация, алгоритм, двумерная упаковка">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter42227109 = new Ya.Metrika({
+                        id:42227109,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true
+                    });
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/42227109" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script type="text/javascript">
+
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-89708631-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
     <script async src="lib/calc.js" charset="utf-8"></script>
+    <script async src="js/pushy.min.js" charset="utf-8"></script>
     <!-- <script type="text/javascript" src="lib/calc.js" charset="utf-8"></script> -->
 
-    <link href="static/scnr.css" rel="stylesheet" type="text/css">
+    <!-- <link href="static/scnr.css" rel="stylesheet" type="text/css">
     <link href="static/calc.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/pushy.css">
+    <link rel="stylesheet" href="css/pushy.css"> -->
 
     <!-- jQuery -->
     <script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js" charset="utf-8"></script>
@@ -206,6 +248,28 @@
       &#169; 2017 Shark Evolution.<br>striboga@yandex.ru +(380)732-218-247
     </p>
   </div>
+
+  <noscript id="deferred-styles">
+      <!-- <link rel="stylesheet" type="text/css" href="small.css"/> -->
+      <link href="static/scnr.css" rel="stylesheet" type="text/css">
+      <link href="static/calc.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="css/pushy.css">
+
+  </noscript>
+
+    <script>
+          var loadDeferredStyles = function() {
+            var addStylesNode = document.getElementById("deferred-styles");
+            var replacement = document.createElement("div");
+            replacement.innerHTML = addStylesNode.textContent;
+            document.body.appendChild(replacement)
+            addStylesNode.parentElement.removeChild(addStylesNode);
+          };
+          var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+              webkitRequestAnimationFrame || msRequestAnimationFrame;
+          if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+          else window.addEventListener('load', loadDeferredStyles);
+        </script>
 
   <script type="text/javascript">
 
@@ -408,46 +472,7 @@
         window.clone_fruit = {};
       }
 
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-89708631-1', 'auto');
-      ga('send', 'pageview');
-
    </script>
-
-   <!-- Yandex.Metrika counter -->
-   <script type="text/javascript">
-       (function (d, w, c) {
-           (w[c] = w[c] || []).push(function() {
-               try {
-                   w.yaCounter42227109 = new Ya.Metrika({
-                       id:42227109,
-                       clickmap:true,
-                       trackLinks:true,
-                       accurateTrackBounce:true
-                   });
-               } catch(e) { }
-           });
-
-           var n = d.getElementsByTagName("script")[0],
-               s = d.createElement("script"),
-               f = function () { n.parentNode.insertBefore(s, n); };
-           s.type = "text/javascript";
-           s.async = true;
-           s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-           if (w.opera == "[object Opera]") {
-               d.addEventListener("DOMContentLoaded", f, false);
-           } else { f(); }
-       })(document, window, "yandex_metrika_callbacks");
-   </script>
-   <noscript><div><img src="https://mc.yandex.ru/watch/42227109" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-   <!-- /Yandex.Metrika counter -->
-
-   <script src="js/pushy.min.js"></script>
 
 </body>
 </html>
