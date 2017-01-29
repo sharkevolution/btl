@@ -49,9 +49,18 @@
 
     </script>
 
-    <script async="async" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js" charset="utf-8"></script>
-    <script async="async" src="js/pushy.min.js" charset="utf-8"></script>
-    <script async="async" src="lib/calc.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      function addScript(src){
+        var script = document.createElement('script');
+        script.src = src;
+        script.async = false; // чтобы гарантировать порядок
+        document.head.appendChild(script);
+      }
+
+      addScript("https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js");
+      addScript("js/pushy.min.js");
+      addScript("lib/calc.js");
+    </script>
 
     <noscript id="deferred-styles">
         <link href="static/scnr.css" rel="stylesheet" type="text/css">
