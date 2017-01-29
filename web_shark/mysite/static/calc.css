@@ -1,6 +1,6 @@
 @font-face {
     font-family: HelveticaNeue; /* Гарнитура шрифта */
-    src: url(fonts/HelveticaNeue.ttf); /* Путь к файлу со шрифтом */
+    src: url(font/HelveticaNeue.ttf); /* Путь к файлу со шрифтом */
    }
 
 #background {
