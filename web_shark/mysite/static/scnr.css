@@ -1,8 +1,8 @@
 /* Default CSS */
 
 @font-face {
-    font-family: helveticaneue-mediumcond-webfont; /* Гарнитура шрифта */
-    src: url(fonts/helveticaneue-mediumcond-webfont.ttf); /* Путь к файлу со шрифтом */
+    font-family: HelveticaMedCd; /* Гарнитура шрифта */
+    src: url(fonts/HelveticaMedCd.ttf); /* Путь к файлу со шрифтом */
    }
 
    @font-face {
@@ -18,7 +18,7 @@ height: 100%;
 }
 
 html, body {-moz-user-select:none; -webkit-user-select:none; margin:0 auto; padding:0; min-width:300px; width:100%; height:100%;
-    font-family: 'helveticaneue-mediumcond-webfont', Helvetica,Arial,sans-serif;    /*"Times New Roman", "Times", "Nimbus Roman No9 L", Serif; */
+    font-family: HelveticaMedCd,Arial,sans-serif;    /*"Times New Roman", "Times", "Nimbus Roman No9 L", Serif; */
     /*background-image: url(wite_ground-3.png);*/
   }
 * {margin:0; padding:0;}
@@ -132,7 +132,7 @@ h3 {
     margin: 4px 1px;
     padding-left: 0px;
     padding-bottom: 5px;
-    font-family: "helveticaneue-mediumcond-webfont",Helvetica,Arial,sans-serif;
+    font-family: HelveticaMedCd,Arial,sans-serif;
     font-size: 16px;
     font-weight:normal;
 }
@@ -163,7 +163,7 @@ h3 {
   margin: 2px 1px;
   padding-left: 0px;
   padding-bottom: 5px;
-  font-family: "helveticaneue-mediumcond-webfont",Helvetica,Arial,sans-serif;
+  font-family: HelveticaMedCd,Arial,sans-serif;
   font-size: 16px;
   font-weight:normal;
 }
