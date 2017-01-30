@@ -7,3 +7,5 @@ python-dateutil
 numpy
 jinja2
 waitress
+wsgigzip
+cherrypy
