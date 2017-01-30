@@ -563,7 +563,7 @@ Pull = Pull_user()
 app = wsgigzip.GzipMiddleware(bottle.default_app())
 
 cherrypy.config.update({'server.socket_host': "0.0.0.0",
-                        'server.socket_port': 5000})
+                        'server.socket_port': int(os.environ.get("PORT", 5000))})
 cherrypy.tree.graft(app)
 cherrypy.engine.start()
 cherrypy.engine.block()
