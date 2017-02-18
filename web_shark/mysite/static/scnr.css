@@ -107,9 +107,13 @@ h3 {
 #open_home form{
   display: block;
   float: left;
+  /*width: 230px;*/
   /*padding-left: 5px;*/
 }
 
+#myForm {
+  width: 230px;
+}
 
 #form_step {
     display: block;
@@ -435,9 +439,13 @@ fieldset {
 .navbar-fixed-top {
     /*z-index: 1030;*/
     width: 100%;
-    height: 42px;
+    height: 57px;
     margin: 0px 5px 0px 5px;
     background: #FFF;
+}
+
+.navbar-fixed-top h6{
+  margin-left: 5px;
 }
 
 .tab-style {
@@ -510,26 +518,62 @@ fieldset {
 
 .poly {
   display:block;
+  position: relative;
+  float: left;
   width: 100%;
 }
 
 .load_file {
   display: block;
+  position: relative;
   float: left;
   width: 230px;
 }
 
 .help_load {
   display: block;
-  display:block;
   float: right;
+  position: relative;
   width: 50px;
+  height: 50px;
   margin-right: 5px;
-  margin-top: 3px;
+  margin-top: 2px;
+  align-content: center;
+  /*background-image:url(Gnome-Preferences-Other-64.png);*/
 }
 
-.help_load img{
+.help_load a{
+  text-decoration: none;
+}
+
+.help-style {
+    width:50px;
+    height:30px;
+    margin-left:1px;
+    border-radius:4px;
+
+    background:rgb(0, 0, 0);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    text-shadow: rgba(255,255,255,.5) 0 -1px 0, rgba(0,0,0,0.18) 0 .18em .15em;
+    color:#FFF;
+    font-size:12px;
+    cursor: pointer;
+    outline:none;
+    /*border-bottom:3px solid #399cb9;*/
+}
+
+.help-style:active {
+    /*background:rgb(13, 110, 98);*/
+    background:rgb(213, 185, 119);
+    color:#000;
+    font-size:12px;
+    cursor: pointer;
+    outline:none;
+    box-shadow: inset 2px 2px 2px #399cb9;
+}
+
+/*.help_load img{
   margin:0 auto;
   width: 50px;
   height: 50px;
-}
+}*/
