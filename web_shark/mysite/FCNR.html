@@ -130,7 +130,8 @@
       </div>
       <div id="message"></div>
       <div id="form_step">
-          <div id="poly">
+          <div class="poly">
+            <div class="load_file">
               <h3>Загрузка данных (.xlsx | .txt)</h3>
               <form id='myForm' action="/upload_figure" enctype="multipart/form-data" method="post">
                   <p>
@@ -138,6 +139,10 @@
                       <input type="hidden" name="code" id="private" value="{{private_code}}">
                   </p>
               </form>
+            </div>
+            <div class="help_load">
+              <a href="#"><img src="static/Gnome-Preferences-Other-64.png" alt="Пример"></a>
+            </div>
           </div>
           <div id="background"><!-- Main background -->
                  <div id="main">

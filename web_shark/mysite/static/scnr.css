@@ -507,3 +507,29 @@ fieldset {
     padding-left: 5px;
     padding-bottom: 15px;
 }
+
+.poly {
+  display:block;
+  width: 100%;
+}
+
+.load_file {
+  display: block;
+  float: left;
+  width: 230px;
+}
+
+.help_load {
+  display: block;
+  display:block;
+  float: right;
+  width: 50px;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+
+.help_load img{
+  margin:0 auto;
+  width: 50px;
+  height: 50px;
+}
