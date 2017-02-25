@@ -23,6 +23,7 @@ html, body {-moz-user-select:none; -webkit-user-select:none; margin:0 auto; padd
   }
 * {margin:0; padding:0;}
 
+
 h1 {
   font-family: HelveticaMedCd,Arial,sans-serif;
   font-weight: normal;
@@ -95,8 +96,9 @@ h3 {
 #open_home {
     display: block;
     float: left;
+    position: relative;
     width: 305px;
-    margin: 2px 5px 3px 5px;
+    margin: 2px 5px 3px 0px;
     /*color: #FFF;*/
     border-radius: 5px;
     text-decoration: none;
@@ -589,4 +591,42 @@ fieldset {
 
 .top-title {
   margin-left: 10px;
+}
+
+
+.rightbox {
+  margin-left: 320px;
+}
+
+@media screen and (max-width: 980px) {
+  .rightbox {
+    display: block;
+    float: left;
+    position: relative;
+    width: 305px;
+    margin: 2px 5px 3px 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    background:#FFF;
+    clear: both;
+
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #dcdcdc;
+    vertical-align: bottom;
+    padding-left: 5px;
+    padding-bottom: 15px;
+
+  }
+
+  .rightbox h3 {
+  margin: 2px 1px;
+  padding-left: 0px;
+  padding-bottom: 5px;
+  font-family: HelveticaMedCd,Arial,sans-serif;
+  font-size: 16px;
+  font-weight:normal;
+  }
 }
