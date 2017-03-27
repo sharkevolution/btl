@@ -496,7 +496,7 @@ class Ants_Distance(object):
                     if self.figure[senior_figure] == self.figure[
                         younger_figure] and self.plato is 1:
                         # Коэфициент блочности одинаковых фигур "Плато"
-                        ds = round(self.figure[senior_figure] / 100, 0) * 100
+                        ds = round(self.figure[senior_figure] / 100, 1) * 100
                     else:
                         ds = self.figure[senior_figure] / self.figure[
                             younger_figure] * 100
@@ -508,7 +508,7 @@ class Ants_Distance(object):
                     if self.figure[senior_figure] == self.figure[
                         younger_figure] and self.plato is 1:
                         # Коэфициент блочности одинаковых фигур "Плато"
-                        ds = round(self.figure[senior_figure] / 100, 0) * 10
+                        ds = round(self.figure[senior_figure] / 100, 1) * 10
                     else:
                         ds = self.figure[younger_figure] / self.figure[
                             senior_figure] * 100
@@ -1188,7 +1188,7 @@ def consolidation_figures(fi, cn):
 
                 if sum(init_count) == 0:
                     break
-                block_pyramid = _sector_gold(init_figure, init_count, lentask , [reincarnation, segment + 1])
+                block_pyramid = _sector_gold(init_figure, init_count, lentask, [reincarnation, segment + 1])
                 bad_consol = []
 
                 s = 0

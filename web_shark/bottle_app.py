@@ -560,6 +560,7 @@ Pull = Pull_user()
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
+# --------------------------------------------------------------
 app = wsgigzip.GzipMiddleware(bottle.default_app())
 
 cherrypy.config.update({'server.socket_host': "0.0.0.0",
@@ -567,5 +568,6 @@ cherrypy.config.update({'server.socket_host': "0.0.0.0",
 cherrypy.tree.graft(app)
 cherrypy.engine.start()
 cherrypy.engine.block()
+#----------------------------------------------------------------
 
 # http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
