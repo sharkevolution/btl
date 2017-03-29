@@ -433,7 +433,6 @@ class Ants_Distance(object):
         except ZeroDivisionError:
             logging.info("Ошибка деление на нуль {0}  {1}".format(grad, len(self.figure)))
             main_thread.flag_optimization = 'error'
-            time.sleep(10)
             sys.exit()
 
         # Начальная отрицательная точка шкалы
@@ -781,7 +780,6 @@ class Ants_Main(Ants_Distance):
                 except ZeroDivisionError:
                     logging.info('Деление на ноль _construction')
                     main_thread.flag_optimization = 'error'
-                    # time.sleep(10)
                     sys.exit()
 
             # Получение случайного числа в интервале (сумма знаментеля)
@@ -975,7 +973,6 @@ class Ants_Main(Ants_Distance):
             if main_thread.stopping:
                 main_thread.flag_optimization = None
                 main_thread.stopping = False
-                # time.sleep(10)
                 sys.exit()
 
             # *******************************************
