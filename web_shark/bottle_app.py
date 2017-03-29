@@ -513,6 +513,7 @@ def shop_aj_getallitems():
                 Tender.curr_optimize_gencode = None
 
                 destroy_gencode_waiting(gencode)
+                level7.main_thread.flag_optimization = None
 
         # Количество ожидающих пользователей
         if gencode in Tender.waiting_line:
@@ -551,8 +552,8 @@ Unxtime = Epoch()
 main_log()
 Pull = Pull_user()
 
-# app = default_app()
-# run(app, host='0.0.0.0', port=5000)
+app = default_app()
+run(app, host='0.0.0.0', port=5000)
 # bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
 # bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
 
@@ -561,13 +562,13 @@ Pull = Pull_user()
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # --------------------------------------------------------------
-app = wsgigzip.GzipMiddleware(bottle.default_app())
-
-cherrypy.config.update({'server.socket_host': "0.0.0.0",
-                        'server.socket_port': int(os.environ.get("PORT", 5000))})
-cherrypy.tree.graft(app)
-cherrypy.engine.start()
-cherrypy.engine.block()
+# app = wsgigzip.GzipMiddleware(bottle.default_app())
+#
+# cherrypy.config.update({'server.socket_host': "0.0.0.0",
+#                         'server.socket_port': int(os.environ.get("PORT", 5000))})
+# cherrypy.tree.graft(app)
+# cherrypy.engine.start()
+# cherrypy.engine.block()
 #----------------------------------------------------------------
 
 # http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/

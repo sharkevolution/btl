@@ -16,6 +16,7 @@
 import os
 import sys
 import math
+import time
 import copy
 import random
 import collections
@@ -431,7 +432,8 @@ class Ants_Distance(object):
             app_index = grad / (len(self.figure))
         except ZeroDivisionError:
             logging.info("Ошибка деление на нуль {0}  {1}".format(grad, len(self.figure)))
-            print()
+            main_thread.flag_optimization = 'error'
+            time.sleep(10)
             sys.exit()
 
         # Начальная отрицательная точка шкалы
@@ -496,7 +498,7 @@ class Ants_Distance(object):
                     if self.figure[senior_figure] == self.figure[
                         younger_figure] and self.plato is 1:
                         # Коэфициент блочности одинаковых фигур "Плато"
-                        ds = round(self.figure[senior_figure] / 100, 1) * 100
+                        ds = round(self.figure[senior_figure] / 100, 2) * 100
                     else:
                         ds = self.figure[senior_figure] / self.figure[
                             younger_figure] * 100
@@ -508,7 +510,7 @@ class Ants_Distance(object):
                     if self.figure[senior_figure] == self.figure[
                         younger_figure] and self.plato is 1:
                         # Коэфициент блочности одинаковых фигур "Плато"
-                        ds = round(self.figure[senior_figure] / 100, 1) * 10
+                        ds = round(self.figure[senior_figure] / 100, 2) * 10
                     else:
                         ds = self.figure[younger_figure] / self.figure[
                             senior_figure] * 100
@@ -778,6 +780,8 @@ class Ants_Main(Ants_Distance):
                     sumWeight += q
                 except ZeroDivisionError:
                     logging.info('Деление на ноль _construction')
+                    main_thread.flag_optimization = 'error'
+                    # time.sleep(10)
                     sys.exit()
 
             # Получение случайного числа в интервале (сумма знаментеля)
@@ -971,6 +975,7 @@ class Ants_Main(Ants_Distance):
             if main_thread.stopping:
                 main_thread.flag_optimization = None
                 main_thread.stopping = False
+                # time.sleep(10)
                 sys.exit()
 
             # *******************************************
