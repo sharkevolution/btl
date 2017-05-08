@@ -50,6 +50,7 @@
 
     </script>
 
+    <script src="lib/calc.js"></script>
     <script type="text/javascript">
       function addScript(src){
         var script = document.createElement('script');
@@ -59,7 +60,6 @@
       }
       addScript("https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js");
       addScript("js/pushy.min.js");
-      addScript("lib/calc.js");
     </script>
 
     <noscript id="deferred-styles">
@@ -280,6 +280,7 @@
   function ready(){
     if (window.plf > 0){
       // document.getElementById('start').disabled = false;
+      alert('vvvvvvvvvv');
         window.fruit_file(obj);
     } else {
       // document.getElementById('start').disabled = true;

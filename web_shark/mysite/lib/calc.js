@@ -197,6 +197,7 @@ var calc_resolution = function(){
 
 var fruit_file = function(obj){
   /*Передача аргументов в javascript */
+  alert('aaaaaa');
   for(var index in obj) {
       var attr = obj[index];
       fruit[idx_fruit] = {'f': attr[0], 'c': attr[1]};
