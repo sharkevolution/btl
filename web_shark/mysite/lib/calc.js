@@ -154,17 +154,7 @@ window.onload = function() {
     }
 
     calc_resolution();
-}
-
-var fruit_file = function(obj){
-  /*Передача аргументов в javascript */
-  for(var index in obj) {
-      var attr = obj[index];
-      fruit[idx_fruit] = {'f': attr[0], 'c': attr[1]};
-      fruitnew(idx_fruit);
-      idx_fruit += 1;
-  }
-}
+};
 
 var calc_resolution = function(){
   /* Подсчет размеров фигур и их количества для выдачи разрешения на запуск
@@ -205,6 +195,15 @@ var calc_resolution = function(){
 
 }
 
+var fruit_file = function(obj){
+  /*Передача аргументов в javascript */
+  for(var index in obj) {
+      var attr = obj[index];
+      fruit[idx_fruit] = {'f': attr[0], 'c': attr[1]};
+      fruitnew(idx_fruit);
+      idx_fruit += 1;
+  }
+}
 
 function fruitnew(idx_fruit){
 

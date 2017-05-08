@@ -277,13 +277,18 @@
     var subscribe = 0;  /* Подписка на ожидание или решение заявки*/
     var clone_fruit = window.fruit;
 
-    if (plf > 0){
+  function ready(){
+    if (window.plf > 0){
       // document.getElementById('start').disabled = false;
-      window.fruit_file(obj);
+        window.fruit_file(obj);
     } else {
       // document.getElementById('start').disabled = true;
     }
+  };
+  document.addEventListener("DOMContentLoaded", ready);
+   </script>
 
+  <script type="text/javascript">
     function submit_figure(event) {
       // alert('my');
       // alert(window.dis);
@@ -467,7 +472,6 @@
         xmlhttp.send(json_name);
         window.clone_fruit = {};
       }
-
    </script>
 
    <script>

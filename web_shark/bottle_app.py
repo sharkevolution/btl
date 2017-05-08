@@ -176,14 +176,14 @@ def server_lib(filename):
 
 
 @route('/scss/<filename>')
-def server_lib(filename):
+def server_scss(filename):
     fx = os.path.join(config.exm, 'scss')
     myfile = os.path.normpath(fx)
 
     return static_file(filename, root=myfile)
 
 @route('/css/<filename>')
-def server_lib(filename):
+def server_css(filename):
     fx = os.path.join(config.exm, 'css')
     myfile = os.path.normpath(fx)
 
@@ -191,14 +191,14 @@ def server_lib(filename):
 
 
 @route('/img/<filename>')
-def server_lib(filename):
+def server_img(filename):
     fx = os.path.join(config.exm, 'img')
     myfile = os.path.normpath(fx)
 
     return static_file(filename, root=myfile)
 
 @route('/js/<filename>')
-def server_lib(filename):
+def server_js(filename):
     fx = os.path.join(config.exm, 'js')
     myfile = os.path.normpath(fx)
 
@@ -206,7 +206,7 @@ def server_lib(filename):
 
 
 @route('/font/<filename>')
-def server_lib(filename):
+def server_font(filename):
     fx = os.path.join(config.exm, 'font')
     myfile = os.path.normpath(fx)
 
