@@ -502,22 +502,22 @@
    	//Check to see if the window is top if not then display button
    	$(window).scroll(function(){
    		if ($(this).scrollTop() > 100) {
-   			$('.scrollToTop').fadeIn();
+   			$("#scroller").fadeIn();
    		} else {
-   			$('.scrollToTop').fadeOut();
+   			$("#scroller").fadeOut();
    		}
    	});
 
    	//Click event to scroll to top
-   	$('.scrollToTop').click(function(){
-   		$('html, body').animate({scrollTop : 0},800);
+   	$("#scroller").click(function(){
+   		$("html, body").animate({scrollTop : 0},400);
    		return false;
    	});
 
    });
   </script>
 
-   <a href="#" class="scrollToTop" style="display: none;">Scroll To Top</a>
+   <div id="scroller" class="b-top" style="display: none;"><span class="b-top-but"></span></div>
 
 </body>
 </html>
