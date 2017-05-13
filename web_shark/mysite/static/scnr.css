@@ -642,9 +642,7 @@ fieldset {
 	position:fixed;
 	left:0;
 	bottom:90px;
-	/*width:34%;*/
-	/*margin-left:54%;*/
-  right: 60px;
+  right: 55px;
 	/*opacity: 0.8;
 	filter:alpha(opacity=50);*/
 }
@@ -652,7 +650,8 @@ fieldset {
 .b-top:hover {
 	opacity:1;
 	filter:alpha(opacity=100);
-	cursor:pointer;}
+	cursor:pointer;
+}
 
 .b-top-but {
 	z-index:2600;
