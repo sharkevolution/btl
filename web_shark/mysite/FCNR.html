@@ -9,6 +9,10 @@
     <meta name="Keywords" content="раскрой, штрипс, раскладка, упаковка, ножи, перестановки, оптимизация, алгоритм, двумерная упаковка">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="js/pushy.min.js"></script>
+    <link rel="stylesheet" href="static/scnr.css" type="text/css">
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (d, w, c) {
@@ -51,20 +55,20 @@
     </script>
 
     <script src="lib/calc.js"></script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       function addScript(src){
         var script = document.createElement('script');
         script.src = src;
         script.async = false; // чтобы гарантировать порядок
         document.head.appendChild(script);
       }
-      addScript("https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js");
+      // addScript("https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js");
       addScript("js/pushy.min.js");
-    </script>
+    </script> -->
 
     <noscript id="deferred-styles">
         <!-- <link rel="stylesheet" media="(max-width: 640px)" href="static/scnr.css" type="text/css"> -->
-        <link href="static/scnr.css" rel="stylesheet" type="text/css">
+        <!-- <link href="static/scnr.css" rel="stylesheet" type="text/css"> -->
         <link href="static/calc.css" rel="stylesheet" type="text/css">
         <link href="css/pushy.css" rel="stylesheet" type="text/css">
     </noscript>
@@ -101,7 +105,7 @@
         <p>Алгоритм оптимального раскроя штрипса</p>
       </div>
     </div>
-
+  </div>
   <div id="wrapper">
       <div id="open_home">
         <div class="start_module">
@@ -491,6 +495,29 @@
            if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
            else window.addEventListener('load', loadDeferredStyles);
    </script>
+
+  <script>
+   $(document).ready(function(){
+
+   	//Check to see if the window is top if not then display button
+   	$(window).scroll(function(){
+   		if ($(this).scrollTop() > 100) {
+   			$('.scrollToTop').fadeIn();
+   		} else {
+   			$('.scrollToTop').fadeOut();
+   		}
+   	});
+
+   	//Click event to scroll to top
+   	$('.scrollToTop').click(function(){
+   		$('html, body').animate({scrollTop : 0},800);
+   		return false;
+   	});
+
+   });
+  </script>
+
+   <a href="#" class="scrollToTop" style="display: none;">Scroll To Top</a>
 
 </body>
 </html>
