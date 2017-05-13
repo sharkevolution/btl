@@ -31,7 +31,7 @@ h1 {
   padding-left: 5px;
   margin-left: 85px;
   padding-bottom: 3px;
-  list-style: 1.0em;
+  /*list-style: 1.0em;*/
 
     text-shadow: 0 1px 0 #ccc,
                  0 2px 0 #c9c9c9,
@@ -53,7 +53,7 @@ h3 {
   padding-left: 5px;
   padding-bottom: 10px;
   text-rendering: optimizelegibility;
-  list-style: 1.0em;
+  /*list-style: 1.0em;*/
 }
 
 #wrapper {
@@ -283,7 +283,7 @@ input[type="submit"]:active, :hover, :focus {
 
 fieldset {
   /*padding: 1em;*/
-  font:20px;
+  font-size: 20px;
   border:0px;
   border-bottom: 1px solid rgb(200, 207, 206);
   width: 95%;
@@ -453,7 +453,7 @@ fieldset {
 }
 
 .tab-style {
-  border:0px 0px;
+  border:0;
   color: #000;
 }
 
@@ -636,26 +636,6 @@ fieldset {
     margin: 1px 7px 7px 0; /* Отступы вокруг картинки */
    }
 
-.scrollToTop{
-   	width:100px;
-   	height:130px;
-   	padding:10px;
-   	text-align:center;
-   	background: whiteSmoke;
-   	font-weight: bold;
-   	color: #444;
-   	text-decoration: none;
-   	position:fixed;
-   	top:75px;
-   	right:40px;
-   	/*display:none;*/
-   	background: url('../img/Arrow-x.png') no-repeat 0px 20px;
-}
-
-.scrollToTop:hover{
-   	text-decoration:none;
-}
-
 
 .b-top {
 	z-index:2600;
@@ -665,8 +645,8 @@ fieldset {
 	/*width:34%;*/
 	/*margin-left:54%;*/
   right: 60px;
-	opacity: 0.5;
-	filter:alpha(opacity=50);
+	/*opacity: 0.8;
+	filter:alpha(opacity=50);*/
 }
 
 .b-top:hover {
