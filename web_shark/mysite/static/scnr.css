@@ -631,13 +631,12 @@ fieldset {
   }
 
   .rightbox p {
-      margin: 2px;
-      /*padding-left: 5px;*/
-      /*border-style: solid;*/
-      font-family: HelveticaMedCd,Arial,sans-serif;
-      font-weight: normal;
-      text-rendering: optimizelegibility;
-      font-size: 12px;
+    margin: 2px 1px;
+    padding-left: 0px;
+    padding-bottom: 5px;
+    font-family: HelveticaMedCd,Arial,sans-serif;
+    font-size: 12px;
+    font-weight:normal;
   }
 
 
