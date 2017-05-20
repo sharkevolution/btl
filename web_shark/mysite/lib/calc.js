@@ -53,6 +53,7 @@ window.onload = function() {
               current_amount = 0;
             }
           }
+          clearSelection();
      },false);
     }
 
@@ -81,6 +82,7 @@ window.onload = function() {
         }
 
       }
+      clearSelection();
 
     },false);
 
@@ -110,6 +112,7 @@ window.onload = function() {
         }
 
       }
+      clearSelection();
 
     },false);
 
@@ -132,6 +135,7 @@ window.onload = function() {
           w += 1;
         }
         calc_resolution();
+        clearSelection();
 
     },false);
 
@@ -303,3 +307,11 @@ function moveprogress(widthprogress) {
     document.getElementById("label").innerHTML = widthprogress * 1  + '%';
   }
 }
+
+  function clearSelection() {
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges();
+    } else { // старый IE
+      document.selection.empty();
+    }
+  }
