@@ -13,7 +13,7 @@ from dateutil.tz import tzutc, tzlocal
 
 import bottle
 from bottle import route, run, request, static_file, default_app
-from bottle import jinja2_template as template, redirect
+from bottle import jinja2_template as template, redirect, response
 
 # from gevent import monkey, pool; monkey.patch_all()
 # from waitress import serve
@@ -163,6 +163,7 @@ def do_load():
     # Изменить загрузку из файла в preload
     usdata.preload_figure = imexdata.dispatcher_extension(new_path_figure, 'data')
 
+    response.set_cookie("account", 'shark', secret='some-secret-key')
     myfile = os.path.join(config.exm, 'FCNR.html')
     return template(myfile, private_code=gencode, zona=usdata.preload_figure)
 
@@ -279,6 +280,10 @@ def index():
     Pull.uname[gencode] = User()
     usdata = Pull.uname[gencode]
     usdata.current_host = current_host
+
+    expire_date = datetime.datetime.now()
+    expire_date = expire_date + datetime.timedelta(days=2)
+    response.set_cookie("account", 'shark', secret='some-secret-key', expires=expire_date)
 
     myfile = os.path.join(config.exm, 'FCNR.html')
     return template(myfile, private_code=gencode, zona=usdata.preload_figure)
