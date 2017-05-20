@@ -681,3 +681,13 @@ fieldset {
 	background:#D8D5C2 url('../img/Arrow-x.png') no-repeat 50% 0px;
 	border-radius:7px;
 }
+
+.twit {
+  display: block;
+  float: left;
+  margin: 5px 0px 0px 5px;
+  width:32px;
+  height:32px;
+  background:url('../img/twitter.png') -0px 0 no-repeat;
+  background-size: cover;
+}
