@@ -657,9 +657,7 @@ fieldset {
 	position:fixed;
 	left:0;
 	bottom:90px;
-  right: 55px;
-	/*opacity: 0.8;
-	filter:alpha(opacity=50);*/
+  right: 40px;
 }
 
 .b-top:hover {
@@ -672,20 +670,20 @@ fieldset {
 	z-index:2600;
 	position:absolute;
 	display:block;
-	/*left:56px;*/
+	width: 32px;
+  height: 32px;
 	bottom:0;
 	margin:0 0 0 100%;
-	padding:48px 24px 0px;
 	color:white;
-	background:#D8D5C2 url('../img/Arrow-x.png') no-repeat 50% 0px;
+	background:url('../img/Arrow-x.png') no-repeat 50% 0px;
 	border-radius:7px;
+  background-size: cover;
 }
 
 .twit {
   display: block;
   float: left;
   margin: 5px 0px 0px 5px;
-  
   width:32px;
   height:32px;
   background:url('../img/twitter.png') -0px 0 no-repeat;
