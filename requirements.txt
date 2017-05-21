@@ -1,6 +1,7 @@
 bottle
 gunicorn
 gevent
+gevent-websocket
 openpyxl
 pytz
 python-dateutil
