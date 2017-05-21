@@ -168,57 +168,9 @@ def do_load():
     return template(myfile, private_code=gencode, zona=usdata.preload_figure)
 
 
-@route('/lib/<filename>')
-def server_lib(filename):
-    fx = os.path.join(config.exm, 'lib')
-    myfile = os.path.normpath(fx)
-
-    return static_file(filename, root=myfile)
-
-
-@route('/scss/<filename>')
-def server_scss(filename):
-    fx = os.path.join(config.exm, 'scss')
-    myfile = os.path.normpath(fx)
-
-    return static_file(filename, root=myfile)
-
-@route('/css/<filename>')
-def server_css(filename):
-    fx = os.path.join(config.exm, 'css')
-    myfile = os.path.normpath(fx)
-
-    return static_file(filename, root=myfile)
-
-
-@route('/img/<filename>')
-def server_img(filename):
-    fx = os.path.join(config.exm, 'img')
-    myfile = os.path.normpath(fx)
-
-    return static_file(filename, root=myfile)
-
-@route('/js/<filename>')
-def server_js(filename):
-    fx = os.path.join(config.exm, 'js')
-    myfile = os.path.normpath(fx)
-
-    return static_file(filename, root=myfile)
-
-
-@route('/font/<filename>')
-def server_font(filename):
-    fx = os.path.join(config.exm, 'font')
-    myfile = os.path.normpath(fx)
-
-    return static_file(filename, root=myfile)
-
-
-
-@route('/static/<filename>')
-def server_static(filename):
-
-    fx = os.path.join(config.exm, 'static')
+@route('/<name>/<filename>')
+def server_static(name, filename):
+    fx = os.path.join(config.exm, name)
     myfile = os.path.normpath(fx)
     return static_file(filename, root=myfile)
 
