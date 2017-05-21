@@ -15,7 +15,7 @@ import bottle
 from bottle import route, run, request, static_file, default_app
 from bottle import jinja2_template as template, redirect, response
 
-# from gevent import monkey, pool; monkey.patch_all()
+from gevent import monkey, pool; monkey.patch_all()
 # from waitress import serve
 import cherrypy
 import wsgigzip
@@ -512,20 +512,20 @@ Pull = Pull_user()
 # app = default_app()
 # run(app, host='0.0.0.0', port=5000)
 # bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
-# bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
+bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # Waitress
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # --------------------------------------------------------------
-app = wsgigzip.GzipMiddleware(bottle.default_app())
-
-cherrypy.config.update({'server.socket_host': "0.0.0.0",
-                        'server.socket_port': int(os.environ.get("PORT", 5000))})
-cherrypy.tree.graft(app)
-cherrypy.engine.start()
-cherrypy.engine.block()
+# app = wsgigzip.GzipMiddleware(bottle.default_app())
+#
+# cherrypy.config.update({'server.socket_host': "0.0.0.0",
+#                         'server.socket_port': int(os.environ.get("PORT", 5000))})
+# cherrypy.tree.graft(app)
+# cherrypy.engine.start()
+# cherrypy.engine.block()
 #----------------------------------------------------------------
 
 # http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
