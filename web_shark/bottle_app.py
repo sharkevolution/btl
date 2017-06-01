@@ -26,6 +26,13 @@ from web_shark import level7
 from web_shark import genpass
 from web_shark import perfomance
 
+# import dropbox
+#
+# dbx = dropbox.Dropbox('3XLapBh9QeAAAAAAAAAAGaqI8f2xBwQNwX4pxksBTCQFXDWR6OV5zXgZgkj1XIeK')
+# nn = dbx.users_get_current_account()
+# print(nn)
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -512,20 +519,20 @@ Pull = Pull_user()
 # app = default_app()
 # run(app, host='0.0.0.0', port=5000)
 # bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
-bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+# bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # Waitress
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # --------------------------------------------------------------
-# app = wsgigzip.GzipMiddleware(bottle.default_app())
-#
-# cherrypy.config.update({'server.socket_host': "0.0.0.0",
-#                         'server.socket_port': int(os.environ.get("PORT", 5000))})
-# cherrypy.tree.graft(app)
-# cherrypy.engine.start()
-# cherrypy.engine.block()
+app = wsgigzip.GzipMiddleware(bottle.default_app())
+
+cherrypy.config.update({'server.socket_host': "0.0.0.0",
+                        'server.socket_port': int(os.environ.get("PORT", 5000))})
+cherrypy.tree.graft(app)
+cherrypy.engine.start()
+cherrypy.engine.block()
 #----------------------------------------------------------------
 
 # http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
