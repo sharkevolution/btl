@@ -95,9 +95,9 @@ def _development():
     dist = _dist(distance_model=0, model_fx=0)
 
     task_fate = {}
-    # layout_task = []
-    # layout_task.extend([8] * 3)
-    # task_fate[3] = layout_task
+    layout_task = []
+    layout_task.extend([8] * 3)
+    task_fate[3] = layout_task
     #
     layout_task = []
     layout_task.extend([6] * 3)

@@ -15,7 +15,7 @@ import bottle
 from bottle import route, run, request, static_file, default_app
 from bottle import jinja2_template as template, redirect, response
 
-from gevent import monkey, pool; monkey.patch_all()
+# from gevent import monkey, pool; monkey.patch_all()
 # from waitress import serve
 import cherrypy
 import wsgigzip

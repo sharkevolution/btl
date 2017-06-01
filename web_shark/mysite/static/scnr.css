@@ -609,7 +609,7 @@ fieldset {
   margin-left: 320px;
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 1920px) {
   .rightbox {
     display: block;
     float: left;
