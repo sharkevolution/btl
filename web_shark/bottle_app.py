@@ -528,8 +528,8 @@ Pull = Pull_user()
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
-urlparse.uses_netloc.append("postgres")
-url = urlparse(os.environ['USERS_DB_URL'])
+# urlparse.uses_netloc.append("postgres")
+url = urlparse(os.environ['DATABASE_URL'])
 dbname = url.path[1:]
 user = url.username
 password = url.password
