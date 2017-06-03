@@ -1,12 +1,10 @@
 bottle
 gunicorn
-gevent
-gevent-websocket
+bottle-pgsql
 openpyxl
 pytz
 python-dateutil
 numpy
 jinja2
-waitress
 wsgigzip
 cherrypy
