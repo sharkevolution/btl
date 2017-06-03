@@ -26,6 +26,8 @@ from web_shark import level7
 from web_shark import genpass
 # from web_shark import perfomance
 
+import logging
+
 import psycopg2
 from urllib.parse import urlparse
 
@@ -544,6 +546,16 @@ con = psycopg2.connect(
             host=host
             )
 
+
+level = logging.INFO
+handler = logging.StreamHandler()
+handler.setLevel(level)
+handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+logger = logging.getLogger('info')
+logger.addHandler(handler)
+logger.setLevel(level) #even if not required...
+
+logger.info('logging test' + str(con))
 
 # --------------------------------------------------------------
 app = wsgigzip.GzipMiddleware(bottle.default_app())
