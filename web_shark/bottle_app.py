@@ -500,35 +500,21 @@ def shop_aj_getallitems():
 
 
 def main_log():
-    # myfile = os.path.join(config.exm, 'myapp.log')
-    # logging.basicConfig(filename=myfile, level=logging.INFO, filemode='w')
-    # logging.info('Started')
 
-    logger = logging.getLogger('simple_example')
-    logger.setLevel(logging.INFO)
+    level = logging.INFO
+    handler = logging.StreamHandler()
+    handler.setLevel(level)
+    handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+    logger = logging.getLogger('info')
+    logger.addHandler(handler)
+    logger.setLevel(level)  # even if not required...
 
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
-
-    # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    # ch.setFormatter(formatter)
-
-    logger.addHandler(ch)
-    logger.info('start')
+    return logger
 
 
+logger = main_log()
 Unxtime = Epoch()
-main_log()
 Pull = Pull_user()
-
-# app = default_app()
-# run(app, host='0.0.0.0', port=5000)
-# bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
-# bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
-
-# Waitress
-# web: waitress-serve --port=$PORT cardisle.wsgi:application
-# serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # urlparse.uses_netloc.append("postgres")
 url = urlparse(os.environ["USERS_DB_URL"])
@@ -546,16 +532,17 @@ con = psycopg2.connect(
             host=host
             )
 
-
-level = logging.INFO
-handler = logging.StreamHandler()
-handler.setLevel(level)
-handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-logger = logging.getLogger('info')
-logger.addHandler(handler)
-logger.setLevel(level) #even if not required...
-
 logger.info('logging test' + str(con))
+
+
+# app = default_app()
+# run(app, host='0.0.0.0', port=5000)
+# bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
+# bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+
+# Waitress
+# web: waitress-serve --port=$PORT cardisle.wsgi:application
+# serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # --------------------------------------------------------------
 app = wsgigzip.GzipMiddleware(bottle.default_app())
