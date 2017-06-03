@@ -27,7 +27,6 @@ from web_shark import genpass
 # from web_shark import perfomance
 
 import psycopg2
-import urlparse3
 from urllib.parse import urlparse
 
 # import dropbox
@@ -530,30 +529,21 @@ Pull = Pull_user()
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # urlparse.uses_netloc.append("postgres")
-# url = urlparse(os.environ['DATABASE_URL'])
-# dbname = url.path[1:]
-# user = url.username
-# password = url.password
-# host = url.hostname
-# port = url.port
-#
-# con = psycopg2.connect(
-#             dbname=dbname,
-#             user=user,
-#             password=password,
-#             host=host,
-#             port=port
-#             )
+url = urlparse(os.environ["USERS_DB_URL"])
+dbname = url.path[1:]
+user = url.username
+password = url.password
+host = url.hostname
+port = url.port
 
-# urlparse.uses_netloc.append("postgres")
-url = urlparse3.parse_url(os.environ["USERS_DB_URL"])
-conn = psycopg2.connect(
-database=url.path[1:],
-user=url.username,
-password=url.password,
-host=url.hostname,
-port=url.port
-)
+con = psycopg2.connect(
+            dbname=dbname,
+            user=user,
+            password=password,
+            host=host,
+            port=port
+            )
+
 
 # --------------------------------------------------------------
 app = wsgigzip.GzipMiddleware(bottle.default_app())
