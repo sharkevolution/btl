@@ -540,8 +540,8 @@ con = psycopg2.connect(
             dbname=dbname,
             user=user,
             password=password,
-            host=host,
-            port=port
+            port=port,
+            host=host
             )
 
 
