@@ -9,4 +9,3 @@ jinja2
 wsgigzip
 cherrypy
 psycopg2
-urlparse3
