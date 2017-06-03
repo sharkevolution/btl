@@ -24,7 +24,10 @@ from web_shark import config
 from web_shark import imexdata
 from web_shark import level7
 from web_shark import genpass
-from web_shark import perfomance
+# from web_shark import perfomance
+
+import psycopg2
+from urllib.parse import urlparse
 
 # import dropbox
 #
@@ -524,6 +527,20 @@ Pull = Pull_user()
 # Waitress
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
+
+print(conn)
 
 # --------------------------------------------------------------
 app = wsgigzip.GzipMiddleware(bottle.default_app())

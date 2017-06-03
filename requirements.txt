@@ -8,3 +8,4 @@ numpy
 jinja2
 wsgigzip
 cherrypy
+psycopg2
