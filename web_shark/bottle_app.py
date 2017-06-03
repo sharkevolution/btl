@@ -529,7 +529,7 @@ Pull = Pull_user()
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 
-url = urlparse.urlparse(os.environ['DATABASE_URL'])
+url = urlparse(os.environ['DATABASE_URL'])
 dbname = url.path[1:]
 user = url.username
 password = url.password
