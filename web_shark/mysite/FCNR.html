@@ -104,7 +104,7 @@
     </div>
   </div>
   <div id="wrapper">
-      <div id="open_home">
+      <div class="open_home">
         <div class="start_module">
           <form id='home' name='optimus' enctype="multipart/form-data" method="post"
           onsubmit="submit_figure(this.form);return false;">
@@ -244,20 +244,34 @@
                 {% endfor %} -->
             <!-- </ul> -->
         </div>
-        <div class="geolist">
+        <div class="geolist field_settings">
           <h3>Расчетные показатели на сайте</h3>
+          <div class='knox'>
+          <form>
+            <input type="range" id="rangeInput" name="rangeInput" min="1" max="10" value="8"
+                   oninput="amount.value=rangeInput.value">
+            <output name="amount" for="rangeInput">8</output>
+          </form>
+          <div class='comnt'><output>&nbsp ножей</output></div>
+        </div>
+
+        <div class='canvas_width'>
+        <form>
+          <input type="range" id="rangeInput_1" name="rangeInput_1" min="90" max="200" value="90" step="5"
+                 oninput="amount.value=rangeInput_1.value">
+          <output name="amount" for="rangeInput_1">90</output>
+        </form>
+          <div class='comnt'><output>&nbsp миним. остаток</output></div>
+        </div>
           <p>
-            Ширина полосы 1250мм
+            Ширина полосы 1250 мм
           </p>
-          <p>
-            Количество ножей 8ед
-          </p>
-          <p>
+          <!-- <p>
             Минимальный остаток 90мм
           </p><br>
           <p>
             Фактические возможности настройки алгоритма (ширина, остаток, кол-во ножей) - без ограничений
-          </p>
+          </p> -->
         </div>
     </div>
     <div class='rightbox'>

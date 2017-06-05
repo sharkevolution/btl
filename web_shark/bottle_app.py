@@ -516,23 +516,50 @@ logger = main_log()
 Unxtime = Epoch()
 Pull = Pull_user()
 
-# urlparse.uses_netloc.append("postgres")
-url = urlparse(os.environ["USERS_DB_URL"])
-dbname = url.path[1:]
-user = url.username
-password = url.password
-host = url.hostname
-port = url.port
-
-con = psycopg2.connect(
-            dbname=dbname,
-            user=user,
-            password=password,
-            port=port,
-            host=host
-            )
-
-logger.info('logging test' + str(con))
+# try:
+#     # urlparse.uses_netloc.append("postgres")
+#     url = urlparse(os.environ["USERS_DB_URL"])
+#     dbname = url.path[1:]
+#     user = url.username
+#     password = url.password
+#     host = url.hostname
+#     port = url.port
+#
+#     conn = psycopg2.connect(
+#                 dbname=dbname,
+#                 user=user,
+#                 password=password,
+#                 port=port,
+#                 host=host
+#                 )
+#
+# except Exception as ex:
+#
+#     # user=<username> password=<password>
+#     conn = psycopg2.connect('dbname=mylocaldb user='' password='' host=localhost port=5432')
+#
+#
+# cur = conn.cursor()
+#
+# command = """
+#         SELECT relname, pg_class.relkind as relkind FROM pg_class, pg_namespace
+#             WHERE pg_class.relnamespace=pg_namespace.oid
+#                 AND pg_class.relkind IN ('v', 'r')
+#                 AND pg_namespace.nspname='my_schema'
+#                 AND relname = 'my_table';
+# """
+#
+#
+# new_table =  """
+#         CREATE TABLE vendors (
+#             vendor_id SERIAL PRIMARY KEY,
+#             vendor_name VARCHAR(255) NOT NULL
+#         )
+#         """
+#
+#
+#
+# logger.info('logging test' + str(con))
 
 
 # app = default_app()

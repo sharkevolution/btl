@@ -104,7 +104,7 @@ h3 {
 }
 
 
-#open_home {
+.open_home {
     display: block;
     float: left;
     position: relative;
@@ -117,7 +117,7 @@ h3 {
     background:#FFF;
 }
 
-#open_home form{
+.open_home form{
   display: block;
   float: left;
   /*width: 230px;*/
@@ -699,4 +699,34 @@ fieldset {
   height:32px;
   background:url('../img/twitter.png') -0px 0 no-repeat;
   background-size: cover;
+}
+
+.knox{
+  display: block;
+  float: left;
+  width: 300px;}
+
+.canvas_width{
+  display: block;
+  float: left;
+  width: 300px;}
+
+.knox form{width: 150px;}
+.canvas_width form{width: 150px;}
+
+
+.field_settings{text-align:left; line-height:25px;}
+.field_settings output{float:right;}
+.comnt{float:left;}
+
+#rangeInput{width: 100px;}
+#rangeInput_1{width: 100px;}
+
+.comnt output {
+  margin: 2px 1px;
+  padding-left: 0px;
+  padding-bottom: 5px;
+  font-family: HelveticaMedCd,Arial,sans-serif;
+  font-size: 12px;
+  font-weight:normal;
 }
