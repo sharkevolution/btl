@@ -32,6 +32,7 @@ from numpy import array
 # from matplotlib import cm, style
 # from mpl_toolkits.mplot3d import axes3d
 
+import config
 import imexdata
 import perfomance
 
@@ -79,7 +80,7 @@ class Plancalc():
         logging.info('*' * 30)
 
 
-class config():
+class config_param():
     # Статический класс для передачи переменных в функции и классы
     lifecycle = None
     cloth = None
@@ -101,8 +102,8 @@ def _calc_permutation(matrix_result):
 
     for b in matrix_result:
         y = len(b)
-        if y < config.cloth.lim_figure:
-            r = [0 for h in range(0, config.cloth.lim_figure - y)]
+        if y < config_param.cloth.lim_figure:
+            r = [0 for h in range(0, config_param.cloth.lim_figure - y)]
             b.extend(r)
         matrix.append(b)
 
@@ -241,7 +242,7 @@ def shark(init_figure, init_count, cycle=15, shark_life=300):
                        evaparation=0.15,
                        alfaweight=1.0,
                        visible_route=7.0,
-                       size_fncr=config.cloth.long_strips, lim_figure=config.cloth.lim_figure)
+                       size_fncr=config_param.cloth.long_strips, lim_figure=config_param.cloth.lim_figure)
 
         my.calc_distance()
         my.main()
@@ -255,7 +256,7 @@ def shark(init_figure, init_count, cycle=15, shark_life=300):
         if sum(init_figure) == 0:
             break
 
-    if sum(init_figure) > my.size_fncr - config.cloth.right_residue:
+    if sum(init_figure) > my.size_fncr - config_param.cloth.right_residue:
         # Если полос более чем 1 осталось тогда применять дооптимизацию
         # с шириной 1250мм-90мм
 
@@ -269,8 +270,8 @@ def shark(init_figure, init_count, cycle=15, shark_life=300):
                            evaparation=0.15,
                            alfaweight=1.0,
                            visible_route=1.0,
-                           size_fncr=config.cloth.long_strips - config.cloth.right_residue,
-                           lim_figure=config.cloth.lim_figure)
+                           size_fncr=config_param.cloth.long_strips - config_param.cloth.right_residue,
+                           lim_figure=config_param.cloth.lim_figure)
 
             my.calc_distance()
             my.main()
@@ -296,7 +297,7 @@ def _wheel_ratio(allgroup, golden_ratio_figure):
     """
 
     # Коэфициент отбора по максимальному количеству одинаковых фигур
-    alfa_effect = config.box.alfa_effect
+    alfa_effect = config_param.box.alfa_effect
     reverse_figure = {b: 0 for b in allgroup}
     for b in allgroup:
         d = reverse_figure[b]
@@ -349,7 +350,7 @@ def _golden_ratio_structure(init_figure, init_count):
         for r in range(0, b[1], 1):
             allgroup.append(b[0])
 
-    golden_ratio_figure = int(round(len(allgroup) * config.box.section, 0))
+    golden_ratio_figure = int(round(len(allgroup) * config_param.box.section, 0))
     agr, balance = _wheel_ratio(allgroup, golden_ratio_figure)
 
     newlist = set(agr)
@@ -387,9 +388,9 @@ class Ants_Distance(object):
         self.figure_descending = []  # Список фигур отсортир по убыванию
 
         # Глобальная модель расчета фиксированній магнит или функция
-        self.model = config.dist.distance_model
+        self.model = config_param.dist.distance_model
 
-        self.view_formula = config.dist.model_fx  # Номер функции от 0
+        self.view_formula = config_param.dist.model_fx  # Номер функции от 0
         self.modvalue = 2  # Поправочный добавочный коэфициент,
         # смещающий все значения расстояний, отрицательные значения становятся +
 
@@ -400,7 +401,7 @@ class Ants_Distance(object):
         self.init_count = init_count
         self.figure = {}
 
-        self.plato = config.box.plato  # Флаг блочности одинаковых фигур в матрице расстояний
+        self.plato = config_param.box.plato  # Флаг блочности одинаковых фигур в матрице расстояний
 
     def _relax_figure(self):
         """ Преобразование списка фигур в словарь
@@ -987,15 +988,15 @@ def _shark_gold(init_figure, init_count):
 
     lattice_crystal = []  # Результат оптимизации
 
-    for b in range(config.sep.gold_cycle):
+    for b in range(config_param.sep.gold_cycle):
         my = Ants_Main(init_figure, init_count,
-                       life_ants=config.sep.gold_life,
+                       life_ants=config_param.sep.gold_life,
                        elit_ants=5,
                        start_pheromon=0.0001,
                        evaparation=0.15,
                        alfaweight=2.2,
                        visible_route=0.5,
-                       size_fncr=config.cloth.long_strips, lim_figure=config.cloth.lim_figure)
+                       size_fncr=config_param.cloth.long_strips, lim_figure=config_param.cloth.lim_figure)
 
         my.calc_distance()
         my.main()
@@ -1015,8 +1016,8 @@ def _shark_gold(init_figure, init_count):
 def _sector_gold(init_figure, init_count, lentask, *args):
 
     block_pyramid = []  # Блочный список или пирамида
-    fill = config.cloth.long_strips
-    loop = config.box.loop
+    fill = config_param.cloth.long_strips
+    loop = config_param.box.loop
 
     detail_percent = lentask / loop  # Расчет прогресса в выделенной доле
 
@@ -1028,7 +1029,7 @@ def _sector_gold(init_figure, init_count, lentask, *args):
         # main_thread.progress += detail_percent
         # print(main_thread.progress)
 
-        flim = round(sum(init_count) * config.box.lim_list, 0)  # Допустимый остаток списка
+        flim = round(sum(init_count) * config_param.box.lim_list, 0)  # Допустимый остаток списка
         # balance Большая часть нерасчитанного остатка
         fraction_black = []  # Черный список, включает неоптим. полосы и balance
 
@@ -1049,11 +1050,11 @@ def _sector_gold(init_figure, init_count, lentask, *args):
             init_figure = fraction_black
         else:
             if args[0][0] is 1 and args[0][1] <= 1:
-                shark_life = config.lifecycle.shark_last
-                cycle = config.lifecycle.cycle_last
+                shark_life = config_param.lifecycle.shark_last
+                cycle = config_param.lifecycle.cycle_last
             else:
-                shark_life = config.lifecycle.shark_regular
-                cycle = config.lifecycle.cycle_regular
+                shark_life = config_param.lifecycle.shark_regular
+                cycle = config_param.lifecycle.cycle_regular
 
             result = shark(init_figure, init_count, cycle, shark_life)
             for z in result:
@@ -1083,7 +1084,7 @@ def _level_optimization(event):
     matrix_result = sorted(event, reverse=False)
 
     for x in matrix_result:
-        if not sum(x) == config.cloth.long_strips:
+        if not sum(x) == config_param.cloth.long_strips:
             line += 1
         logging.info(x)
 
@@ -1138,19 +1139,19 @@ def consolidation_figures(fi, cn):
     gen = perfomance._development()
     for b in range(perfomance.attempt):
 
-        config.cloth, config.box, config.dist, config.lifecycle, config.sep, task_fate = next(gen)
+        config_param.cloth, config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(gen)
 
         Plancalc.partial(fi, cn)
-        Plancalc.report(config.cloth.long_strips, config.cloth.lim_figure)
+        Plancalc.report(config_param.cloth.long_strips, config_param.cloth.lim_figure)
 
         logging.info('-' * 30)
         logging.info('Fate {0}'.format(b + 1))
         logging.info('-' * 30)
-        logging.info('{0}'.format(config.cloth))
-        logging.info('{0}'.format(config.box))
-        logging.info('{0}'.format(config.dist))
-        logging.info('{0}'.format(config.lifecycle))
-        logging.info('{0}'.format(config.sep))
+        logging.info('{0}'.format(config_param.cloth))
+        logging.info('{0}'.format(config_param.box))
+        logging.info('{0}'.format(config_param.dist))
+        logging.info('{0}'.format(config_param.lifecycle))
+        logging.info('{0}'.format(config_param.sep))
         logging.info('{0}'.format(task_fate))
 
         init_figure = fi
@@ -1275,7 +1276,7 @@ def start(pull_figure):
     logging.info('*' * 30)
     logging.info(str(ex[0]))
 
-    return [Essence[ex[0]], config.cloth.long_strips]
+    return [Essence[ex[0]], config_param.cloth.long_strips]
 
 
 def standart():
@@ -1290,23 +1291,21 @@ def standart():
     logging.basicConfig(filename=exm_path, level=logging.INFO, filemode='w')
     logging.info('Started')
 
-    filename = os.path.join(exm, 'result', 'standart_shark.xlsx')
+    filename = os.path.join(config.exm, 'result', 'standart_shark.xlsx')
     normpathfile = os.path.normpath(filename)
 
     # Генератор кармических задач для сущностей
     gen = perfomance._development()
-    config.cloth, config.box, config.dist, config.lifecycle, config.sep, task_fate = next(gen)
+    config_param.cloth, config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(gen)
     Plancalc.partial(init_figure, init_count)
-    Plancalc.report(config.cloth.long_strips, config.cloth.lim_figure)
+    Plancalc.report(config_param.cloth.long_strips, config_param.cloth.lim_figure)
 
     lattice_crystal = shark(init_figure, init_count)
     lattice_crystal_sort = sorted(lattice_crystal)
     res = _level_optimization(copy.deepcopy(lattice_crystal_sort))
 
-    imexdata.saveExcel([res, config.cloth.long_strips], normpathfile)
+    imexdata.saveExcel([res, config_param.cloth.long_strips], normpathfile)
 
-    # for b in lattice_crystal_sort:
-    #     print(b)
 
 
 class main_thread(threading.Thread):
@@ -1363,16 +1362,16 @@ class main_thread_two():
 
 if __name__ == '__main__':
 
-    init_figure = [250, 150, 200, 160, 170, 330, 130, 300, 350, 180, 230,
-                   270, 280, 310, 380, 110, 210, 220, 240, 340, 360, 370,
-                   390, 400, 450, 500, 600, 660, 320]
-
-    init_count = [60, 50, 40, 30, 30, 25, 25, 20, 20, 15, 10, 10, 10, 10, 10,
-                  10, 5, 5, 5, 5, 5, 5, 5, 3, 3, 2, 1, 1, 5]
-
-    # init_figure = [100, 160, 270, 350, 200, 250, 330, 320]
+    # init_figure = [250, 150, 200, 160, 170, 330, 130, 300, 350, 180, 230,
+    #                270, 280, 310, 380, 110, 210, 220, 240, 340, 360, 370,
+    #                390, 400, 450, 500, 600, 660, 320]
     #
-    # init_count = [5, 3, 3, 3, 5, 5, 5, 2]
+    # init_count = [60, 50, 40, 30, 30, 25, 25, 20, 20, 15, 10, 10, 10, 10, 10,
+    #               10, 5, 5, 5, 5, 5, 5, 5, 3, 3, 2, 1, 1, 5]
+
+    init_figure = [100, 160, 270, 350, 200, 250, 330, 320]
+
+    init_count = [5, 3, 3, 3, 5, 5, 5, 2]
 
     # init_figure = [650, 600, 420, 390, 380, 370, 360, 340, 330, 320, 290,
     #                280, 270, 260, 250, 250, 240, 230, 220, 210, 200, 200,
@@ -1381,4 +1380,9 @@ if __name__ == '__main__':
     # init_count = [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 8, 2, 2, 2, 3, 3,
     #               10, 3, 3, 2, 3, 2, 6, 1, 1, 1, 2]
 
-    # standart()
+    init_figure = [150, 190, 250, 210, 170, 180, 90, 200, 270, 290, 100, 110, 220, 130, 230, 350, 160, 300, 310, 370, 390, 410, 430, 450, 490]
+
+    init_count = [14, 14, 10, 8, 6, 2, 5, 5 ,5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1]
+
+
+    standart()

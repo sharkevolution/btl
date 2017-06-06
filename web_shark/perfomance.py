@@ -90,38 +90,42 @@ def _development():
     q = collections.deque()
 
     cloth = _cloth(long_strips=1250, right_residue=90, lim_figure=8)
-    lifecycle = _lifecycle(cycle_regular=5, cycle_last=15, shark_regular=50, shark_last=300)
+    lifecycle = _lifecycle(cycle_regular=10, cycle_last=15, shark_regular=60, shark_last=300)
     separation = _sep(gold_cycle=15, gold_life=100)
     dist = _dist(distance_model=0, model_fx=0)
 
     task_fate = {}
-    layout_task = []
-    layout_task.extend([8] * 3)
-    task_fate[3] = layout_task
+    # layout_task = []
+    # layout_task.extend([8] * 3)
+    # task_fate[3] = layout_task
     #
     layout_task = []
-    layout_task.extend([6] * 3)
+    # layout_task.extend([5] * 1)
+    layout_task.extend([4] * 2)
     task_fate[2] = layout_task
 
     layout_task = []
-    layout_task.extend([1] * 3)
+    layout_task.extend([1] * 10)
     layout_task.extend([2] * 5)
-    layout_task.extend([3] * 5)
-    layout_task.extend([4] * 3)
-
+    layout_task.extend([3] * 3)
     task_fate[1] = layout_task
 
-    box = _box(section=0.26, lim_list=0.10, alfa_effect=7.2, plato=1, loop=20)
+    # layout_task = []
+    # layout_task.extend([1] * 10)
+    # task_fate[1] = layout_task
+
+    box = _box(section=0.27, lim_list=0.10, alfa_effect=7.2, plato=1, loop=20)
     q.append([cloth, box, dist, lifecycle, separation, task_fate])
 
-    box = _box(section=0.25, lim_list=0.10, alfa_effect=7.2, plato=1, loop=20)
+    box = _box(section=0.26, lim_list=0.15, alfa_effect=7.1, plato=1, loop=20)
     q.append([cloth, box, dist, lifecycle, separation, task_fate])
 
-    box = _box(section=0.24, lim_list=0.15, alfa_effect=7.1, plato=1, loop=20)
+    box = _box(section=0.25, lim_list=0.2, alfa_effect=7.0, plato=1, loop=20)
     q.append([cloth, box, dist, lifecycle, separation, task_fate])
 
-    box = _box(section=0.23, lim_list=0.20, alfa_effect=7.0, plato=1, loop=20)
+    box = _box(section=0.24, lim_list=0.25, alfa_effect=6.9, plato=1, loop=20)
     q.append([cloth, box, dist, lifecycle, separation, task_fate])
+
 
     # Организация циклического конвеера задач
     for b in range(attempt):
