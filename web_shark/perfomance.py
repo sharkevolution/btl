@@ -100,14 +100,14 @@ def _development():
     # task_fate[3] = layout_task
     #
     layout_task = []
-    # layout_task.extend([5] * 1)
-    layout_task.extend([4] * 2)
+    layout_task.extend([5] * 1)
     task_fate[2] = layout_task
 
     layout_task = []
     layout_task.extend([1] * 10)
     layout_task.extend([2] * 5)
     layout_task.extend([3] * 3)
+    layout_task.extend([4] * 2)
     task_fate[1] = layout_task
 
     # layout_task = []
