@@ -299,8 +299,10 @@ def shop_aj_getallitems():
     gencode = mydata['unique']  # Получаем уникальный код сеанса пользователя
     subscribe = mydata['subscribe']  # Получаем статус подписки, 0 = подписано, 1 = отписаться
     fruit = mydata['fruit']  # Получаем массив в словаре с указанием кол-ва фигур и значений
+    knox = mydata['knox']
+    limright = mydata['limright']
 
-    # print(gencode, subscribe)
+    # print(knox, limright)
 
     if subscribe == '1':
         # Отписаться от заявки
@@ -389,9 +391,11 @@ def shop_aj_getallitems():
                         level7.main_thread.progress = 0
                         if usdata.pull_figure:
                             # Есть фигуры для решения
-                            # onthr = level7.main_thread_two(usdata.pull_figure)
+
+                            # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright))
                             # onthr.run()
-                            onthr = level7.main_thread(usdata.pull_figure)
+
+                            onthr = level7.main_thread(usdata.pull_figure, int(knox), int(limright))
                             onthr.start()
 
                             Tender.curr_optimize_gencode = gencode  # Сохраняем инфр о коде пользователя в работе
@@ -563,7 +567,7 @@ Pull = Pull_user()
 
 
 # app = default_app()
-# run(app, host='0.0.0.0', port=5000)
+# run(app, host='0.0.0.0', port=5000, debug=True)
 # bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
 # bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 

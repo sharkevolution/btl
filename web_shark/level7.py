@@ -1107,7 +1107,7 @@ def _level_optimization(event):
     return res
 
 
-def consolidation_figures(fi, cn):
+def consolidation_figures(fi, cn, knox, limright):
     """ Главный сборщик упорядоченных болчных структур с минимальным остатком
 
     :param fi:
@@ -1139,7 +1139,10 @@ def consolidation_figures(fi, cn):
     gen = perfomance._development()
     for b in range(perfomance.attempt):
 
-        config_param.cloth, config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(gen)
+        # config_param.cloth, config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(gen)
+        config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(gen)
+
+        config_param.cloth = perfomance._cloth(long_strips=1250, right_residue=limright, lim_figure=knox)
 
         Plancalc.partial(fi, cn)
         Plancalc.report(config_param.cloth.long_strips, config_param.cloth.lim_figure)
@@ -1247,7 +1250,7 @@ def consolidation_figures(fi, cn):
     return Essence
 
 
-def start(pull_figure):
+def start(pull_figure, knox, limright):
 
     logging.info('Started')
     logging.info('Start optimization: {0}'.format(str(datetime.datetime.now())))
@@ -1255,7 +1258,7 @@ def start(pull_figure):
     init_figure = [b[0] for b in pull_figure]
     init_count = [b[1] for b in pull_figure]
 
-    Essence = consolidation_figures(init_figure, init_count)
+    Essence = consolidation_figures(init_figure, init_count, knox, limright)
 
     logging.info('End >>>> {0}'.format(str(datetime.datetime.now())))
 
@@ -1316,17 +1319,19 @@ class main_thread(threading.Thread):
     flag_optimization = None
     progress = 0  # Процент выполнения
 
-    def __init__(self, pull_figure):
+    def __init__(self, pull_figure, knox=8, limright=90):
         """Init Worker Thread Class."""
 
         threading.Thread.__init__(self)
         self.pull_figure = pull_figure
+        self.knox = knox
+        self.limright = limright
 
     def run(self):
         main_thread.flag_optimization = 'start'
 
         try:
-            main_thread.resdict = start(self.pull_figure)
+            main_thread.resdict = start(self.pull_figure, self.knox, self.limright)
             main_thread.flag_optimization = 'stop'
         except Exception as ex:
             main_thread.flag_optimization = 'error'
@@ -1344,16 +1349,18 @@ class main_thread_two():
     flag_optimization = None
     progress = 0  # Процент выполнения
 
-    def __init__(self, pull_figure):
+    def __init__(self, pull_figure,  knox=8, limright=90):
         """Init Worker Thread Class."""
 
         self.pull_figure = pull_figure
+        self.knox = knox
+        self.limright = limright
 
     def run(self):
 
         main_thread.flag_optimization = 'start'
         try:
-            main_thread.resdict = start(self.pull_figure)
+            main_thread.resdict = start(self.pull_figure, self.knox, self.limright)
             main_thread.flag_optimization = 'stop'
         except Exception as ex:
             logging.info(ex)

@@ -372,6 +372,9 @@
         //   h += 1;
         // }
         // alert(h);
+        window.knox = document.getElementById('rangeInput').value;
+        window.limright = document.getElementById('rangeInput_1').value;
+
         window.intervalID = setInterval(eee, 2000);
       } else {
       /* Добавить обработчик если пользователь отписался от заявки на расчет */
@@ -535,7 +538,9 @@
         var json_name = 'json_name=' + JSON.stringify(
           {'unique':window.unique,
            'subscribe': window.subscribe,
-           'fruit': window.clone_fruit
+           'fruit': window.clone_fruit,
+           'knox': window.knox,
+           'limright': window.limright
          });
 
         xmlhttp.send(json_name);
