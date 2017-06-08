@@ -1141,7 +1141,6 @@ def consolidation_figures(fi, cn, knox, limright):
 
         # config_param.cloth, config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(gen)
         config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(gen)
-
         config_param.cloth = perfomance._cloth(long_strips=1250, right_residue=limright, lim_figure=knox)
 
         Plancalc.partial(fi, cn)
