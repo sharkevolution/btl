@@ -94,38 +94,48 @@ def _development():
     separation = _sep(gold_cycle=15, gold_life=100)
     dist = _dist(distance_model=0, model_fx=0)
 
-    task_fate = {}
-    # layout_task = []
-    # layout_task.extend([8] * 3)
-    # task_fate[3] = layout_task
-    #
+    # Программа развития сущщности "A"
+    task_fate_A = {}
+
     layout_task = []
     layout_task.extend([5] * 1)
-    task_fate[2] = layout_task
+    task_fate_A[2] = layout_task
 
     layout_task = []
     layout_task.extend([1] * 10)
     layout_task.extend([2] * 5)
     layout_task.extend([3] * 3)
     layout_task.extend([4] * 2)
-    task_fate[1] = layout_task
+    task_fate_A[1] = layout_task
 
-    # layout_task = []
-    # layout_task.extend([1] * 10)
-    # task_fate[1] = layout_task
+    # Программа развития сущщности "B"
+    task_fate_B = {}
 
-    box = _box(section=0.27, lim_list=0.10, alfa_effect=7.2, plato=1, loop=25)
+    layout_task = []
+    layout_task.extend([3] * 1)
+    task_fate_B[2] = layout_task
+
+    layout_task = []
+    layout_task.extend([1] * 5)
+    layout_task.extend([2] * 3)
+    task_fate_B[1] = layout_task
+
+
+    box = _box(section=0.26, lim_list=0.10, alfa_effect=7.2, plato=1, loop=25)
     # q.append([cloth, box, dist, lifecycle, separation, task_fate])
-    q.append([box, dist, lifecycle, separation, task_fate])
+    q.append([box, dist, lifecycle, separation, task_fate_A])
 
-    box = _box(section=0.26, lim_list=0.15, alfa_effect=7.1, plato=1, loop=25)
-    q.append([box, dist, lifecycle, separation, task_fate])
+    box = _box(section=0.25, lim_list=0.15, alfa_effect=7.1, plato=1, loop=25)
+    q.append([box, dist, lifecycle, separation, task_fate_B])
 
-    box = _box(section=0.25, lim_list=0.20, alfa_effect=7.0, plato=1, loop=25)
-    q.append([box, dist, lifecycle, separation, task_fate])
+    box = _box(section=0.24, lim_list=0.20, alfa_effect=7.0, plato=1, loop=25)
+    q.append([box, dist, lifecycle, separation, task_fate_A])
 
-    box = _box(section=0.24, lim_list=0.25, alfa_effect=6.9, plato=1, loop=25)
-    q.append([box, dist, lifecycle, separation, task_fate])
+    box = _box(section=0.23, lim_list=0.25, alfa_effect=6.9, plato=1, loop=25)
+    q.append([box, dist, lifecycle, separation, task_fate_B])
+
+    box = _box(section=0.22, lim_list=0.30, alfa_effect=6.8, plato=1, loop=25)
+    q.append([box, dist, lifecycle, separation, task_fate_A])
 
 
     # Организация циклического конвеера задач

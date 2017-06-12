@@ -4,13 +4,13 @@
 """
     ***************************************************************************
 
-                                Shark evolution version: 1.0.3
+                                Shark evolution version: 1.0.4
 
     ***************************************************************************
     Алгоритм: Shark evolution
     Разработчик: Ситала Николай
     mailbox: titan2169@yandex.ru
-    Date: 11.12.2016
+    Date: 12.06.2017
 """
 
 import os
@@ -36,6 +36,7 @@ import config
 import imexdata
 import perfomance
 
+
 # style.use('fivethirtyeight')
 # plt.rcParams['font.size'] = 8
 # plt.rcParams['font.family'] = 'Verdana'
@@ -51,7 +52,7 @@ class Plancalc():
     fact_capcity = 0.0  # Фактический объем фигур
     plan_residue = 0.0  # Планируемый отход
     plan_rows = 0.0  # Планируется строк
-    plan_min_column = 0.0 # Необходимо мимнимум столбцов
+    plan_min_column = 0.0  # Необходимо мимнимум столбцов
     relax = []  # Релаксированный список фигур
 
     def partial(fg, ct):
@@ -94,6 +95,8 @@ def _calc_permutation(matrix_result):
     Расчет кол-ва перестановок
     :return:
     """
+
+    # _test_tuning()
 
     perm = {'00': 0, '01': 1, '10': 1, '11': 1, '02': 1, '12': 1, '20': 0, '21': 1, '22': 1}
 
@@ -147,6 +150,181 @@ def _calc_permutation(matrix_result):
         matrix_state.append(tmp)
 
     return matrix_state
+
+
+def runbeg(study_matrix, tuning_state, orm):
+
+    index_column = 0
+
+    try:
+        while index_column < config_param.cloth.lim_figure:
+            curow = 0
+            cx = index_column + 1
+
+            while curow < len(study_matrix) and cx < config_param.cloth.lim_figure:
+
+                # Срез значений по анализируемому стобцу
+                analiz = [study_matrix[b][index_column] for b in range(len(study_matrix))]
+
+                # Текущее анализируемое значение на возможность перестановок
+                fx = study_matrix[curow][cx]
+
+                if fx is 0:
+                    cx = index_column + 1
+                    curow += 1
+
+                elif fx in analiz:
+                    # Блок поиска значения в анализируемом столбце и организация перестановок
+                    btun = tuning_state[curow][index_column]
+                    nx = study_matrix[curow][index_column]
+
+                    if not fx == nx and btun > 1:
+                        # Рокировка значений
+                        study_matrix[curow][index_column] = fx
+                        study_matrix[curow][cx] = nx
+
+                        if index_column == 0:
+
+                            trix = copy.deepcopy(study_matrix)
+                            cpm = trix[curow]  # Извлекаем вложенный необходимый список
+                            trix.pop(curow)  # Удаляем из общего массива влож. список
+
+                            # Формируем новый срез с учетом удаления
+                            newanz = [trix[b][index_column] for b in range(len(trix))]
+                            index_fx = [b for b in range(len(newanz)) if fx == newanz[b]]
+
+                            try:
+                                max_fx = max(index_fx)
+                            except Exception as ex:
+                                pass
+
+                            # Вставляем изяътый ранее срез
+                            trix.insert(max_fx + 1, cpm)
+
+                            # Расчет кол-ва перестановок ножей, если меньше то сохраняем новую матрицу
+                            tmp = _calc_permutation(trix)
+
+                            t = 0
+                            for x in tmp:
+                                t += sum(x)
+                            if orm >= t:
+                                if orm > t:
+                                    orm = t
+                                study_matrix = copy.deepcopy(trix)
+
+                                return 1, study_matrix, orm
+
+                            else:
+                                study_matrix[curow][index_column] = nx
+                                study_matrix[curow][cx] = fx
+
+                if cx < config_param.cloth.lim_figure:
+                    cx += 1
+                else:
+                    cx = index_column + 1
+                    curow += 1
+
+            index_column += 1
+
+    except Exception as ex:
+        pass
+
+    return 0, study_matrix, orm
+
+
+def _block_tuning(matrix_result):
+    """
+    Тюнинг блочных фигур, до-упаковка одинаковых фигур и снижение кол-ва перестановок ножей 
+    :param matrix_result: 
+    :return: 
+    """
+    tun = {'00': 0, '10': 1, '01': 1, '11': 2, '20': 1, '21': 2, '02': 1, '12': 2, '22': 2}
+
+    matrix = []  # Матрица состояний перестановок для каждой ячейки
+    tuning_state = []
+
+    for b in matrix_result:
+        y = len(b)
+        if y < config_param.cloth.lim_figure:
+            r = [0 for h in range(0, config_param.cloth.lim_figure - y)]
+            b.extend(r)
+        matrix.append(b)
+
+    for y in range(len(matrix)):
+        tmp = []
+        for x in range(len(matrix[y])):
+            f = matrix[y][x]
+            if f > 0:
+                if y > 0:
+                    triangle_B1 = matrix[y - 1][x]
+                else:
+                    triangle_B1 = 'N'
+                if y == len(matrix) - 1:
+                    triangle_B3 = 'N'
+                else:
+                    triangle_B3 = matrix[y + 1][x]
+
+                # Треугольник состояний
+                if f == triangle_B1:
+                    status_B1 = 0
+                elif triangle_B1 == 'N':
+                    status_B1 = 2
+                else:
+                    status_B1 = 1
+
+                if f == triangle_B3:
+                    status_B3 = 0
+                elif triangle_B3 == 'N':
+                    status_B3 = 2
+                else:
+                    status_B3 = 1
+
+                # if x > 0:
+                #     status_B3 = tmp[x - 1]
+
+                keystat = str(status_B1) + str(status_B3)
+                valrng = tun[keystat]
+            else:
+                valrng = 0
+            tmp.append(valrng)
+        tuning_state.append(tmp)
+
+    return matrix, tuning_state
+
+
+def _test_tuning(matrix_result):
+    # matrix_result = [
+    #     [130, 120],
+    #     [250, 250, 250, 250, 250],
+    #     [250, 250, 250, 250, 250],
+    #     [250, 250, 250, 250, 250],
+    #     [250, 250, 250, 250, 250],
+    #     [250, 250, 250, 250, 250],
+    #     [340, 300, 200, 160, 140, 110],
+    #     [380, 310, 310, 250],
+    #     [450, 430, 220, 150],
+    #     [500, 400, 350],
+    #     [580, 570, 100]
+    # ]
+
+    orignal_matrix = _calc_permutation(matrix_result)  # Расчет перестановок ножей
+    orm = 0
+    for x in orignal_matrix:
+        orm += sum(x)
+
+    m = 1
+    while m:
+        try:
+            # Циклическая доукомплектация блоков
+            study_matrix = copy.deepcopy(matrix_result)
+            matrix, tuning_state = _block_tuning(study_matrix)  # Расчет весовой функции
+            m, study_matrix, orm = runbeg(study_matrix, tuning_state, orm)
+            matrix_result = copy.deepcopy(study_matrix)
+
+        except Exception as ex:
+            pass
+
+    return _calc_permutation(matrix_result)
 
 
 def _line_analyzer(matrix_result):
@@ -968,7 +1146,6 @@ class Ants_Main(Ants_Distance):
             self._construction()
             self._best_solution(iter_time)
 
-
             # *******************************************
             # Досрочный выход в случае отказа от подписки
             if main_thread.stopping:
@@ -976,7 +1153,7 @@ class Ants_Main(Ants_Distance):
                 main_thread.stopping = False
                 sys.exit()
 
-            # *******************************************
+                # *******************************************
 
         # self._hist3d(self.pheromon)
 
@@ -1014,7 +1191,6 @@ def _shark_gold(init_figure, init_count):
 
 
 def _sector_gold(init_figure, init_count, lentask, *args):
-
     block_pyramid = []  # Блочный список или пирамида
     fill = config_param.cloth.long_strips
     loop = config_param.box.loop
@@ -1093,7 +1269,8 @@ def _level_optimization(event):
     logging.info('-')
 
     logging.info('permutation start')
-    matrix_state = _calc_permutation(matrix_result)
+    # matrix_state = _calc_permutation(matrix_result)
+    matrix_state = _test_tuning(matrix_result)
     mp = 0
     for x in matrix_state:
         mp += sum(x)
@@ -1101,7 +1278,8 @@ def _level_optimization(event):
 
     logging.info('permutation end')
 
-    res = {'matrix_result': matrix_result, 'matrix_state': matrix_state, 'full_line': len(matrix_result), 'bad_line': line,
+    res = {'matrix_result': matrix_result, 'matrix_state': matrix_state, 'full_line': len(matrix_result),
+           'bad_line': line,
            'permutation': mp}
 
     return res
@@ -1250,7 +1428,6 @@ def consolidation_figures(fi, cn, knox, limright):
 
 
 def start(pull_figure, knox, limright):
-
     logging.info('Started')
     logging.info('Start optimization: {0}'.format(str(datetime.datetime.now())))
 
@@ -1298,7 +1475,8 @@ def standart():
 
     # Генератор кармических задач для сущностей
     gen = perfomance._development()
-    config_param.cloth, config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(gen)
+    config_param.cloth, config_param.box, config_param.dist, config_param.lifecycle, config_param.sep, task_fate = next(
+        gen)
     Plancalc.partial(init_figure, init_count)
     Plancalc.report(config_param.cloth.long_strips, config_param.cloth.lim_figure)
 
@@ -1307,7 +1485,6 @@ def standart():
     res = _level_optimization(copy.deepcopy(lattice_crystal_sort))
 
     imexdata.saveExcel([res, config_param.cloth.long_strips], normpathfile)
-
 
 
 class main_thread(threading.Thread):
@@ -1348,7 +1525,7 @@ class main_thread_two():
     flag_optimization = None
     progress = 0  # Процент выполнения
 
-    def __init__(self, pull_figure,  knox=8, limright=90):
+    def __init__(self, pull_figure, knox=8, limright=90):
         """Init Worker Thread Class."""
 
         self.pull_figure = pull_figure
@@ -1367,7 +1544,6 @@ class main_thread_two():
 
 
 if __name__ == '__main__':
-
     # init_figure = [250, 150, 200, 160, 170, 330, 130, 300, 350, 180, 230,
     #                270, 280, 310, 380, 110, 210, 220, 240, 340, 360, 370,
     #                390, 400, 450, 500, 600, 660, 320]
@@ -1386,9 +1562,9 @@ if __name__ == '__main__':
     # init_count = [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 8, 2, 2, 2, 3, 3,
     #               10, 3, 3, 2, 3, 2, 6, 1, 1, 1, 2]
 
-    init_figure = [150, 190, 250, 210, 170, 180, 90, 200, 270, 290, 100, 110, 220, 130, 230, 350, 160, 300, 310, 370, 390, 410, 430, 450, 490]
+    init_figure = [150, 190, 250, 210, 170, 180, 90, 200, 270, 290, 100, 110, 220, 130, 230, 350, 160, 300, 310, 370,
+                   390, 410, 430, 450, 490]
 
-    init_count = [14, 14, 10, 8, 6, 2, 5, 5 ,5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1]
-
+    init_count = [14, 14, 10, 8, 6, 2, 5, 5, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1]
 
     standart()

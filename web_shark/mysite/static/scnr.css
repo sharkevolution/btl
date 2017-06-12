@@ -712,9 +712,14 @@ fieldset {
   float: left;
   width: 300px;}
 
+.canvas_matrix{
+    display: block;
+    float: left;
+    width: 300px;}
+
 .knox form{width: 150px;}
 .canvas_width form{width: 150px;}
-
+.canvas_matrix form{width: 190px;}
 
 .field_settings{text-align:left; line-height:25px;}
 .field_settings output{float:right;}
@@ -722,6 +727,7 @@ fieldset {
 
 #rangeInput{width: 100px;}
 #rangeInput_1{width: 100px;}
+#rangeInput_2{width: 145px;}
 
 .comnt output {
   margin: 2px 1px;

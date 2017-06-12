@@ -392,9 +392,11 @@ def shop_aj_getallitems():
                         if usdata.pull_figure:
                             # Есть фигуры для решения
 
+                            # Работа в одном процессе (блокирующий режим)
                             # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright))
                             # onthr.run()
 
+                            # Работа в отдельном процессе системы (многопоточный режим)
                             onthr = level7.main_thread(usdata.pull_figure, int(knox), int(limright))
                             onthr.start()
 
@@ -566,8 +568,8 @@ Pull = Pull_user()
 # logger.info('logging test' + str(con))
 
 
-# app = default_app()
-# run(app, host='0.0.0.0', port=5000, debug=True)
+app = default_app()
+run(app, host='0.0.0.0', port=5000, debug=True)
 # bottle.run(server='gunicorn', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, workers=4)
 # bottle.run(server='gevent', host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
@@ -576,13 +578,13 @@ Pull = Pull_user()
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # --------------------------------------------------------------
-app = wsgigzip.GzipMiddleware(bottle.default_app())
-
-cherrypy.config.update({'server.socket_host': "0.0.0.0",
-                        'server.socket_port': int(os.environ.get("PORT", 5000))})
-cherrypy.tree.graft(app)
-cherrypy.engine.start()
-cherrypy.engine.block()
+# app = wsgigzip.GzipMiddleware(bottle.default_app())
+#
+# cherrypy.config.update({'server.socket_host': "0.0.0.0",
+#                         'server.socket_port': int(os.environ.get("PORT", 5000))})
+# cherrypy.tree.graft(app)
+# cherrypy.engine.start()
+# cherrypy.engine.block()
 #----------------------------------------------------------------
 
 # http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
