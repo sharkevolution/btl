@@ -599,6 +599,7 @@ fieldset {
   font-weight: normal;
   text-rendering: optimizelegibility;
   font-size: 18px;
+  
 }
 
 .maket {
@@ -615,6 +616,7 @@ fieldset {
 
 .top-title h1{
   font-size: 28px;
+  padding-top: 2px;
 }
 
 
