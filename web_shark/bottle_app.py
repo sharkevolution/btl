@@ -199,6 +199,12 @@ def my_story():
     return template(myfile)
 
 
+@route('/registration', method='POST') # or @route('/login', method='POST')
+def do_registration():
+    myfile = os.path.join(config.exm, 'register.html')
+    return template(myfile)
+
+
 @route('/<page>', method='POST')
 def do_page(page):
 

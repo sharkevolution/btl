@@ -752,17 +752,17 @@ fieldset {
   font-weight:normal;
 }
 
-.login_btn{
+#register .login_btn{
   width:150px;
   height:25px;
 }
 
-.login_in{
+#register .login_in{
   width:70px;
   height:25px;
 }
 
-.login-style {
+#register .login-style {
     /*margin-left:1px;*/
     margin-top: 3px;
     border-radius:4px;
@@ -778,7 +778,7 @@ fieldset {
     background-color: opacity: 0.1;
 }
 
-.login-style:active {
+#register .login-style:active {
     /*background:rgb(13, 110, 98);*/
     /*background:rgb(213, 185, 119);*/
     /*color:#000;*/
@@ -786,4 +786,179 @@ fieldset {
     cursor: pointer;
     outline:none;
     box-shadow: inset 2px 2px 2px rgba(0,0,0,0.1);
+}
+
+
+.align_center
+{
+   position: relative;
+   width: 100%;
+   top: 25%;
+
+/*   border: 1px dashed red;
+   color: red;*/
+
+}
+
+.align_center:after
+{
+   content: '';
+   display: block;
+   clear: both;
+}
+
+.align_center_to_left
+{
+   position: relative;
+   right: 50%;
+   float: right;
+}
+
+.align_center_to_right
+{
+   position: relative;
+   z-index: 1;
+   right: -50%;
+
+   margin: 1em 0;
+   /*border: 1px dashed green;*/
+
+}
+
+
+.align_center_to_right ul {
+    width:290px;
+    list-style-type:none;
+    list-style-position:outside;
+    margin:0px;
+    padding:0px;
+}
+.align_center_to_right li{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    position:relative;
+}
+
+
+
+.newreg {
+   vertical-align: middle;
+   text-align: left;
+   height: 50px;
+   width: 200px;
+   font-size: 20px;
+   font-family: Comic Sans;
+   font-weight: bold;
+   background-color: #c3ff91;
+   border: none;
+   text-decoration: none; border: 1px inset #aaa
+   	box-shadow: inset 0 1px 0 0 #fff;
+	-moz-box-shadow: inset 0 1px 0 0 #fff;
+	-webkit-box-shadow: inset 0 1px 0 0 #fff;
+   border-radius: 5px;
+}
+
+
+.lime_name {
+   display: block;
+   position: relative;
+   height: 150px;
+   text-align: left;
+}
+
+.lime_name h1{
+   color: darkslategray;
+   text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+   line-height:150px;
+   font-size: 28px;
+   text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+#open_lime{
+  display: block;
+  position: relative;
+  float: left;
+}
+
+.align_center_to_right li:first-child, .align_center_to_right li:last-child {
+    border-bottom:1px solid #777;
+}
+
+
+.align_center_to_right h2 {
+    margin:0;
+    display: inline;
+}
+.required_notification {
+    color:#d45252;
+    margin:5px 0 0 0;
+    /*display:inline;*/
+    float:right;
+}
+
+
+.align_center_to_right label {
+    width:150px;
+    margin-top: 3px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+}
+#open_lime input {
+    height:20px;
+    width:220px;
+    padding:5px 8px;
+}
+#open_lime textarea {padding:8px; width:300px;}
+#open_lime button {margin-left:156px;}
+
+
+#open_lime input, #open_lime textarea {
+    border:1px solid #aaa;
+    box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+    border-radius:2px;
+}
+#open_lime input:focus, #open_lime textarea:focus {
+    background: #fff;
+    border:1px solid #555;
+    box-shadow: 0 0 3px #aaa;
+}
+/* Button Style */
+#open_lime button.submit {
+    background-color: #68b12f;
+    background: -webkit-gradient(linear, left top, left bottom, from(#68b12f), to(#50911e));
+    background: -webkit-linear-gradient(top, #68b12f, #50911e);
+    background: -moz-linear-gradient(top, #68b12f, #50911e);
+    background: -ms-linear-gradient(top, #68b12f, #50911e);
+    background: -o-linear-gradient(top, #68b12f, #50911e);
+    background: linear-gradient(top, #68b12f, #50911e);
+    border: 1px solid #509111;
+    border-bottom: 1px solid #5b992b;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 #9fd574;
+    -webkit-box-shadow: 0 1px 0 0 #9fd574 inset ;
+    -moz-box-shadow: 0 1px 0 0 #9fd574 inset;
+    -ms-box-shadow: 0 1px 0 0 #9fd574 inset;
+    -o-box-shadow: 0 1px 0 0 #9fd574 inset;
+    color: white;
+    font-weight: bold;
+    padding: 6px 20px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #396715;
+}
+#open_lime button.submit:hover {
+    opacity:.85;
+    cursor: pointer;
+}
+#open_lime button.submit:active {
+    border: 1px solid #20911e;
+    box-shadow: 0 0 10px 5px #356b0b inset;
+    -webkit-box-shadow:0 0 10px 5px #356b0b inset ;
+    -moz-box-shadow: 0 0 10px 5px #356b0b inset;
+    -ms-box-shadow: 0 0 10px 5px #356b0b inset;
+    -o-box-shadow: 0 0 10px 5px #356b0b inset;
 }
