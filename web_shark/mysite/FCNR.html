@@ -337,7 +337,7 @@
       </div>
   </div>
   <div class='rightbox'>
-    <p>Дата последнего обновления сайта 08.06.2017</p>
+    <p>Дата последнего обновления сайта 15.06.2017</p>
     <p>Используемая версия алгоритма 1.0.4</p>
   </div>
 
@@ -423,14 +423,12 @@
     }
 
     function submit_export() {
-
       if (window.flag_save == 0) {
           window.interval_export = setInterval(start_export, 3000);
           window.flag_save = 1;
       } else {
         // alert(window.flag_save);
       }
-
     }
 
     function start_export(){
@@ -557,9 +555,6 @@
                 location.href = '/result?unique=' + window.unique;
               } else {
                 alert('аннулирована заявка ' + jsonobj[1]);
-                // window.dis = 0;
-                // clearInterval(window.intervalID);
-                // optlost();
                 Bad_server();
               }
 
@@ -584,13 +579,9 @@
           var usridx = document.getElementById('usidx');
           usridx.innerHTML = uscur;
 
-
           } else {
               alert("Server, data not available");
               Bad_server();
-              // window.dis = 0;
-              // clearInterval(window.intervalID);
-              // optlost();
             }
           }
 
