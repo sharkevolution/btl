@@ -149,12 +149,6 @@
                   </p>
               </form>
             </div>
-            <div class="help_load">
-              <form id='export_data' enctype="multipart/form-data" method="post">
-                <!-- <button id="plan" class="help-style">Plan</button> -->
-                <button id="save" class="help-style" onclick="submit_export(this.form);return false;" name="onex">Save</button>
-              </form>
-            </div>
           </div>
           <div id="background"><!-- Main background -->
                  <div id="main">
@@ -241,6 +235,12 @@
       </div>
         <div class="geolist">
           <h3>Список и количество фигур</h3>
+          <div class="help_load">
+            <form id='export_data' enctype="multipart/form-data" method="post">
+              <!-- <button id="plan" class="help-style">Plan</button> -->
+              <button id="save" class="help-style" onclick="submit_export(this.form);return false;" name="onex">Save</button>
+            </form>
+          </div>
           <form id='listfruit' name="mylist">
               <!-- <fieldset>
                 <input class='inp operator' type="checkbox" value="Start"><label for="raz">описание</label>
