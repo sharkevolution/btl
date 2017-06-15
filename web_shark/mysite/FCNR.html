@@ -354,6 +354,7 @@
   <script type="text/javascript">
 
     var dis = 0;
+    var flag_save = 0;
     var intervalID = 0;
     var unique = "{{private_code}}";
     var obj = eval("{{zona}}");
@@ -391,7 +392,7 @@
         window.limright = document.getElementById('rangeInput_1').value;
         window.attempt = document.getElementById('rangeInput_2').value;
 
-        window.intervalID = setInterval(eee, 4000);
+        window.intervalID = setInterval(eee, 3000);
       } else {
       /* Добавить обработчик если пользователь отписался от заявки на расчет */
         window.subscribe = 1;
@@ -423,7 +424,12 @@
 
     function submit_export() {
 
-      window.interval_export = setInterval(start_export, 3000);
+      if (window.flag_save == 0) {
+          window.interval_export = setInterval(start_export, 3000);
+          window.flag_save = 1;
+      } else {
+        alert(window.flag_save);
+      }
 
     }
 
@@ -443,11 +449,12 @@
 
       function GetResult(){
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-          var jsonobj = JSON.parse(xmlhttp.responseText);
+          var jsonret = JSON.parse(xmlhttp.responseText);
 
-          if (jsonobj[1] == "prepared_file"){
+          if (jsonret[1] == "prepared_file"){
               clearInterval(window.interval_export);
               location.href = '/export?unique=' + window.unique;
+              window.flag_save = 0;
             }
         } else {
             alert("Server, data not available");
