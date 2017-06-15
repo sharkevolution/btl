@@ -143,3 +143,67 @@ def saveExcel(resdict, filename):
     wb.save(filename=filename)
 
     return 0
+
+
+def export_excel(data, filename):
+    """
+        Сохранить сырую матрицу в файл эксель
+    :param resdict: 
+    :param filename: 
+    :return: 
+    """
+    wb = Workbook()
+    ws1 = wb.active
+    ws1.title = "data"
+
+    name_column = 'AB'
+    for b in name_column:
+        ws1.column_dimensions[b].width = 10
+
+    font = Font(name='Calibri',
+                size=9,
+                bold=False,
+                italic=False,
+                vertAlign=None,
+                underline='none',
+                strike=False)
+
+    alignment = Alignment(horizontal='center',
+                          vertical='center',
+                          text_rotation=0,
+                          wrap_text=False,
+                          shrink_to_fit=False,
+                          indent=0)
+
+    font_title = Font(name='Calibri',
+                      size=12,
+                      bold=True,
+                      italic=False,
+                      vertAlign=None,
+                      underline='none',
+                      strike=False)
+
+    title_export = ['figure', 'count']
+    for col in range(0, 2):
+        vl = ws1.cell(column=col + 1, row=1, value=title_export[col])
+        vl.font = font_title
+        vl.alignment = alignment
+
+    row = 2
+    for d in data.items():
+        m = d[1]
+
+        vl = ws1.cell(column=1, row=row, value=m['f'])
+        vl.font = font
+        vl.alignment = alignment
+
+        vl = ws1.cell(column=2, row=row, value=m['c'])
+        vl.font = font
+        vl.alignment = alignment
+
+        row += 1
+
+    wb.save(filename=filename)
+
+    return 0
+

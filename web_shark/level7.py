@@ -1285,7 +1285,7 @@ def _level_optimization(event):
     return res
 
 
-def consolidation_figures(fi, cn, knox, limright):
+def consolidation_figures(fi, cn, knox, limright, site_attempt):
     """ Главный сборщик упорядоченных болчных структур с минимальным остатком
 
     :param fi:
@@ -1311,6 +1311,10 @@ def consolidation_figures(fi, cn, knox, limright):
 
     Essence = {}  # Хранение сущностей после выхода из колеса реинкарнаций
     gltm = 0  # Общий счетчик полученных раскладок
+
+    # Обновляем кол-во сущностей по запросу пользователя
+    perfomance.update_attempt(site_attempt)
+
     percent = (95 / perfomance.attempt)
 
     # Генератор кармических задач для сущностей
@@ -1427,14 +1431,14 @@ def consolidation_figures(fi, cn, knox, limright):
     return Essence
 
 
-def start(pull_figure, knox, limright):
+def start(pull_figure, knox, limright, site_attempt):
     logging.info('Started')
     logging.info('Start optimization: {0}'.format(str(datetime.datetime.now())))
 
     init_figure = [b[0] for b in pull_figure]
     init_count = [b[1] for b in pull_figure]
 
-    Essence = consolidation_figures(init_figure, init_count, knox, limright)
+    Essence = consolidation_figures(init_figure, init_count, knox, limright, site_attempt)
 
     logging.info('End >>>> {0}'.format(str(datetime.datetime.now())))
 
@@ -1495,19 +1499,21 @@ class main_thread(threading.Thread):
     flag_optimization = None
     progress = 0  # Процент выполнения
 
-    def __init__(self, pull_figure, knox=8, limright=90):
+    def __init__(self, pull_figure, knox=8, limright=90, site_attempt=1):
         """Init Worker Thread Class."""
 
         threading.Thread.__init__(self)
         self.pull_figure = pull_figure
         self.knox = knox
         self.limright = limright
+        self.site_attempt = site_attempt
+
 
     def run(self):
         main_thread.flag_optimization = 'start'
 
         try:
-            main_thread.resdict = start(self.pull_figure, self.knox, self.limright)
+            main_thread.resdict = start(self.pull_figure, self.knox, self.limright, self.site_attempt)
             main_thread.flag_optimization = 'stop'
         except Exception as ex:
             main_thread.flag_optimization = 'error'
@@ -1525,18 +1531,19 @@ class main_thread_two():
     flag_optimization = None
     progress = 0  # Процент выполнения
 
-    def __init__(self, pull_figure, knox=8, limright=90):
+    def __init__(self, pull_figure, knox=8, limright=90, site_attempt=1):
         """Init Worker Thread Class."""
 
         self.pull_figure = pull_figure
         self.knox = knox
         self.limright = limright
+        self.site_attempt = site_attempt
 
     def run(self):
 
         main_thread.flag_optimization = 'start'
         try:
-            main_thread.resdict = start(self.pull_figure, self.knox, self.limright)
+            main_thread.resdict = start(self.pull_figure, self.knox, self.limright, self.site_attempt)
             main_thread.flag_optimization = 'stop'
         except Exception as ex:
             logging.info(ex)

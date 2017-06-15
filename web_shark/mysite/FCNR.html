@@ -144,14 +144,16 @@
               <h3>Загрузка данных (.xlsx | .txt)</h3>
               <form id='myForm' action="/upload_figure" enctype="multipart/form-data" method="post">
                   <p>
-                      <input type="file" onchange="submit_kml(this.form);" name="fkml">
-                      <input type="hidden" name="code" id="private" value="{{private_code}}">
+                    <input type="file" onchange="submit_kml(this.form);" name="fkml">
+                    <input type="hidden" name="code" id="private" value="{{private_code}}">
                   </p>
               </form>
             </div>
             <div class="help_load">
-              <button value="help" class="help-style">План</button>
-              <button value="help" class="help-style">Экспорт</button>
+              <form id='export_data' enctype="multipart/form-data" method="post">
+                <!-- <button id="plan" class="help-style">Plan</button> -->
+                <button id="save" class="help-style" onclick="submit_export(this.form);return false;" name="onex">Save</button>
+              </form>
             </div>
           </div>
           <div id="background"><!-- Main background -->
@@ -252,7 +254,7 @@
             <!-- </ul> -->
         </div>
         <div class="geolist field_settings">
-          <h3>Расчетные показатели на сайте</h3>
+          <h3>Настройки алгоритма</h3>
           <div class='knox'>
           <form>
             <input type="range" id="rangeInput" name="rangeInput" min="1" max="10" value="8"
@@ -272,7 +274,7 @@
         </div>
         <div class='canvas_matrix'>
         <form>
-          <input type="range" id="rangeInput_2" name="rangeInput_2" min="1" max="50" value="1" step="1"
+          <input type="range" id="rangeInput_2" name="rangeInput_2" min="1" max="20" value="1" step="1"
                  oninput="amount.value=rangeInput_2.value">
           <output name="amount" for="rangeInput_2">1</output>
         </form>
@@ -387,6 +389,7 @@
         // alert(h);
         window.knox = document.getElementById('rangeInput').value;
         window.limright = document.getElementById('rangeInput_1').value;
+        window.attempt = document.getElementById('rangeInput_2').value;
 
         window.intervalID = setInterval(eee, 2000);
       } else {
@@ -417,6 +420,54 @@
           break;
       }
     }
+
+    function submit_export() {
+
+      window.interval_export = setInterval(start_export, 3000);
+
+    }
+
+    function start_export(){
+      var xmlhttp;
+      // Are we using a modern browser or ...
+      if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+      } else {
+        // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      if (!xmlhttp){
+        alert("Error initializing XMLHttpRequest!");
+      }
+
+      function GetResult(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+          var jsonobj = JSON.parse(xmlhttp.responseText);
+
+          if (jsonobj[1] == "prepared_file"){
+              clearInterval(window.interval_export);
+              location.href = '/export?unique=' + window.unique;
+            }
+        } else {
+            alert("Server, data not available");
+          }
+        }
+
+      xmlhttp.onload = GetResult;
+      // xmlhttp.onerror = Bad_server;
+      // send the request in an async way
+      xmlhttp.open("POST", "/feedback.json", true);
+      xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+      var json_file = 'json_file=' + JSON.stringify(
+        {'exp': window.fruit,
+        'unique':window.unique
+      });
+
+      xmlhttp.send(json_file);
+    }
+
 
     function optnew(){
       var div = document.createElement('div');
@@ -553,7 +604,8 @@
            'subscribe': window.subscribe,
            'fruit': window.clone_fruit,
            'knox': window.knox,
-           'limright': window.limright
+           'limright': window.limright,
+           'attempt': window.attempt
          });
 
         xmlhttp.send(json_name);

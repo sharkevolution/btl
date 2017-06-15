@@ -14,6 +14,8 @@ window.onload = function() {
     var current_figure = 0;
     var current_amount = 0;
 
+    document.getElementById("plan").disabled = true;
+
     document.getElementById('size').value = 0;
     document.getElementById('figure').disabled = false;
     document.getElementById('count').disabled = false;

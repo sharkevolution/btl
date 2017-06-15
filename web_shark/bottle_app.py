@@ -76,6 +76,7 @@ class User(object):
         self.impfile = None  # Путь сохранения импортируемого файла
         self.outfile = None  # Путь сохранения файла с результатом расчета
         self.current_host = None  # Запоминаем хост пользователя
+        self.online_export = False
 
 
 @route('/yandex_1b8eabd36008dc04.html', method='GET')
@@ -293,6 +294,44 @@ def destroy_gencode_waiting(gencode):
         Tender.waiting_line.remove(gencode)
 
 
+@route('/feedback.json', method='POST')
+def feedback():
+
+    json_data = request.forms.get('json_file')
+    mydata = json.loads(json_data)
+
+    data = mydata['exp']  # Получаем уникальный код сеанса пользователя
+    gencode = mydata['unique']
+    usdata = Pull.uname[gencode]
+
+    fx = os.path.join(config.exm, 'result')
+    path = os.path.normpath(fx)
+    myfile = os.path.join(path, 'temp_shk.xlsx')
+
+    if usdata.online_export:
+        pass
+    else:
+        imexdata.export_excel(data, myfile)
+        usdata.online_export = True
+
+    return json.dumps({1: 'prepared_file'})
+
+
+@route('/export', method='GET')
+def export():
+
+    gencode = request.query.unique
+    usdata = Pull.uname[gencode]
+    usdata.online_export = False
+
+    fx = os.path.join(config.exm, 'result')
+    myfile = os.path.normpath(fx)
+
+    filename = 'temp_shk.xlsx'
+
+    return static_file(filename, root=myfile, download=filename)
+
+
 @route('/getallitems.json', method='POST')
 def shop_aj_getallitems():
 
@@ -307,6 +346,7 @@ def shop_aj_getallitems():
     fruit = mydata['fruit']  # Получаем массив в словаре с указанием кол-ва фигур и значений
     knox = mydata['knox']
     limright = mydata['limright']
+    site_attempt = mydata['attempt']
 
     # print(knox, limright)
 
@@ -399,11 +439,13 @@ def shop_aj_getallitems():
                             # Есть фигуры для решения
 
                             # Работа в одном процессе (блокирующий режим)
-                            # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright))
+                            # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright),
+                            #                                int(site_attempt))
                             # onthr.run()
 
                             # Работа в отдельном процессе системы (многопоточный режим)
-                            onthr = level7.main_thread(usdata.pull_figure, int(knox), int(limright))
+                            onthr = level7.main_thread(usdata.pull_figure, int(knox), int(limright),
+                                                       int(site_attempt))
                             onthr.start()
 
                             Tender.curr_optimize_gencode = gencode  # Сохраняем инфр о коде пользователя в работе

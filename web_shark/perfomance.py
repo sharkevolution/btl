@@ -147,3 +147,9 @@ def _development():
 
     return 0
 
+
+def update_attempt(site_attempt):
+    # Обновление кол-ва сущностей по запросу пользовтаеля
+
+    global attempt
+    attempt = site_attempt
