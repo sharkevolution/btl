@@ -126,7 +126,7 @@ def saveExcel(resdict, filename):
     h = str(len(matrix_result) + 1)
     ws1.conditional_formatting.add('A2:H' + h,
                                    ColorScaleRule(start_type='percentile', start_value=0, start_color='FF9900',
-                                                  mid_type='percentile', mid_value=50, mid_color='CCFFCC',
+                                                  mid_type='percentile', mid_value=50, mid_color='CCFF99',
                                                   end_type='percentile', end_value=100, end_color='6699FF')
                                    )
 
@@ -220,7 +220,7 @@ def export_excel(data, filename):
     h = str(len(data) + 1)
     ws1.conditional_formatting.add('A2:A' + h,
                                    ColorScaleRule(start_type='percentile', start_value=0, start_color='FF9900',
-                                                  mid_type='percentile', mid_value=50, mid_color='CCFFCC',
+                                                  mid_type='percentile', mid_value=50, mid_color='CCFF99',
                                                   end_type='percentile', end_value=100, end_color='6699FF')
                                    )
 
