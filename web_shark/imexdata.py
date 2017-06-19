@@ -203,15 +203,21 @@ def export_excel(data, filename):
         vl.font = font_title
         vl.alignment = alignment
 
-    row = 2
+    templist = []
     for d in data.items():
         m = d[1]
+        sz = [m['f'], m['c']]
+        templist.append(sz)
 
-        vl = ws1.cell(column=1, row=row, value=m['f'])
+    incsort = sorted(templist, key=lambda x: (x[0]))
+
+    row = 2
+    for d in incsort:
+        vl = ws1.cell(column=1, row=row, value=d[0])
         vl.font = font
         vl.alignment = alignment
 
-        vl = ws1.cell(column=2, row=row, value=m['c'])
+        vl = ws1.cell(column=2, row=row, value=d[1])
         vl.font = font
         vl.alignment = alignment
 
@@ -223,8 +229,6 @@ def export_excel(data, filename):
                                                   mid_type='percentile', mid_value=50, mid_color='CCFF99',
                                                   end_type='percentile', end_value=100, end_color='6699FF')
                                    )
-
-    # ws1.conditional_formatting.add('A2:A' + h, rule)
 
     wb.save(filename=filename)
 
