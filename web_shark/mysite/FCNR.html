@@ -57,6 +57,7 @@
       }
       addScript("https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js");
       addScript("js/pushy.min.js");
+      addScript("js/canvasloader.js");
       addScript("lib/scrollup.js");
     </script>
 
@@ -237,6 +238,7 @@
               <!-- <button id="plan" class="help-style">Plan</button> -->
               <button id="save" class="help-style" onclick="submit_export(this.form);return false;" name="onex">Save</button>
             </form>
+            <div id="canvasloader-container" class="wrapper"></div>
           </div>
           <form id='listfruit' name="mylist">
               <!-- <fieldset>
@@ -423,6 +425,16 @@
       if (window.flag_save == 0) {
           window.interval_export = setInterval(start_export, 3000);
           window.flag_save = 1;
+
+          window.cl = new CanvasLoader('canvasloader-container');
+          cl.setShape('spiral'); // default is 'oval'
+          cl.setDiameter(50); // default is 40
+          cl.setDensity(15); // default is 40
+          cl.setRange(0.5); // default is 1.3
+          cl.setSpeed(1); // default is 2
+          cl.setFPS(17); // default is 24
+          cl.show(); // Hidden by default
+
       } else {
         // alert(window.flag_save);
       }
@@ -450,6 +462,8 @@
               clearInterval(window.interval_export);
               location.href = '/export?unique=' + window.unique;
               window.flag_save = 0;
+
+              window.cl.hide();
             }
         } else {
             alert("Server, data not available");
