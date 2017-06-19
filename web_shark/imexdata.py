@@ -6,6 +6,7 @@ import os
 import csv
 from openpyxl import load_workbook, Workbook
 from openpyxl.styles import Font, Alignment
+from openpyxl.formatting.rule import ColorScaleRule
 
 
 def dispatcher_extension(dest_filename, NAMEsheet):
@@ -122,6 +123,13 @@ def saveExcel(resdict, filename):
             vl.font = Font(name='Calibri', size=12, bold=False)
         vl.alignment = alignment
 
+    h = str(len(matrix_result) + 1)
+    ws1.conditional_formatting.add('A2:H' + h,
+                                   ColorScaleRule(start_type='percentile', start_value=0, start_color='FF9900',
+                                                  mid_type='percentile', mid_value=50, mid_color='CCFFCC',
+                                                  end_type='percentile', end_value=100, end_color='6699FF')
+                                   )
+
     matrix_state = resdict[0]['matrix_state']
     for row in range(0, len(matrix_state)):
         pull = matrix_state[row]
@@ -132,6 +140,12 @@ def saveExcel(resdict, filename):
                 vl.alignment = alignment
             else:
                 break
+
+    h = str(len(matrix_state) + 1)
+    ws1.conditional_formatting.add('K2:R' + h,
+                                   ColorScaleRule(start_type='min', start_color='FFFFCC',
+                                                  end_type='max', end_color='FF9900'))
+
 
     _ = ws1.cell(column=20, row=1, value='full_line')
     _ = ws1.cell(column=21, row=1, value=resdict[0]['full_line'])
@@ -203,7 +217,15 @@ def export_excel(data, filename):
 
         row += 1
 
+    h = str(len(data) + 1)
+    ws1.conditional_formatting.add('A2:A' + h,
+                                   ColorScaleRule(start_type='percentile', start_value=0, start_color='FF9900',
+                                                  mid_type='percentile', mid_value=50, mid_color='CCFFCC',
+                                                  end_type='percentile', end_value=100, end_color='6699FF')
+                                   )
+
+    # ws1.conditional_formatting.add('A2:A' + h, rule)
+
     wb.save(filename=filename)
 
     return 0
-
