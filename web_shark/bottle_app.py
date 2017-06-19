@@ -625,14 +625,27 @@ Pull = Pull_user()
 # web: waitress-serve --port=$PORT cardisle.wsgi:application
 # serve(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
-# --------------------------------------------------------------
-app = wsgigzip.GzipMiddleware(bottle.default_app())
 
-cherrypy.config.update({'server.socket_host': "0.0.0.0",
-                        'server.socket_port': int(os.environ.get("PORT", 5000))})
-cherrypy.tree.graft(app)
-cherrypy.engine.start()
-cherrypy.engine.block()
-#----------------------------------------------------------------
+try:
+    heroku = urlparse(os.environ["CHERRY"])
+
+except Exception as ex:
+
+    heroku = 0
+
+if heroku:
+
+    app = wsgigzip.GzipMiddleware(bottle.default_app())
+
+    cherrypy.config.update({'server.socket_host': "0.0.0.0",
+                            'server.socket_port': int(os.environ.get("PORT", 5000))})
+    cherrypy.tree.graft(app)
+    cherrypy.engine.start()
+    cherrypy.engine.block()
+
+else:
+
+    app = default_app()
+    run(app, host='0.0.0.0', port=5000, debug=True)
 
 # http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
