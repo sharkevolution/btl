@@ -109,7 +109,7 @@ h3 {
     float: left;
     position: relative;
     width: 305px;
-    margin: 2px 5px 3px 0px;
+    /*margin: 2px 5px 3px 0px;*/
     /*color: #FFF;*/
     border-radius: 5px;
     text-decoration: none;
@@ -325,7 +325,7 @@ fieldset {
   position: relative;
   width: 305px;
   min-width: 305px;
-  height: 10px;
+  height: 13px;
   background-color: #f2f6f6;
   clear: left;
   margin-left: 5px;
@@ -657,10 +657,13 @@ fieldset {
     padding-left: 0px;
     padding-bottom: 5px;
     font-family: HelveticaMedCd,Arial,sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     font-weight:normal;
   }
 
+.rightbox a{
+  font-size: 15px;
+}
 
 /*}*/
 
