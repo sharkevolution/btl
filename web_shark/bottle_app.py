@@ -453,11 +453,11 @@ def shop_aj_getallitems():
                         else:
                             destroy_gencode_waiting(gencode)
                             optimization[1] = 'stop'  # Флаг отказа оптимизации
-                            optimization[3] = 'Нет данных, нажмите повторно Start Optimization!'
+                            optimization[3] = 'Нет данных, нажмите повторно Старт!'
                     else:
                         destroy_gencode(gencode)
                         optimization[1] = 'stop'  # Флаг отказа оптимизации
-                        optimization[3] = 'Разрыв соединения, перезагрузите страницу!'
+                        optimization[3] = 'Разрыв соединения, обновите страницу!'
             else:
                 if subscribe:
                     # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
@@ -530,7 +530,7 @@ def shop_aj_getallitems():
         elif level7.main_thread.flag_optimization == 'error':
             if gencode == Tender.waiting_line[0]:
                 optimization[1] = 'stop'
-                optimization[3] = 'Критическая ошибка, перезагрузите страницу!'
+                optimization[3] = 'Критическая ошибка, обновите страницу!'
                 level7.main_thread.stopping = True
                 level7.main_thread.progress = 0
                 Tender.curr_optimize_gencode = None

@@ -112,10 +112,11 @@
         <div class="start_module">
           <form id='home' name='optimus' enctype="multipart/form-data" method="post"
           onsubmit="submit_figure(this.form);return false;">
-              <input type="submit" value="Start optimization!" id='start' name='tender' value="">
+              <input type="submit" value="Старт!" id='start' name='tender' value="">
               <input type="hidden" name="code" id="private" value="{{private_code}}">
               <input type="hidden" id="resolution" value='0'>
           </form>
+          <div id="canvasloader-optimization" class="wrapper"></div>
           <div id="userapp">
             <table class="tab-style">
                <tr>
@@ -392,11 +393,19 @@
         window.attempt = document.getElementById('rangeInput_2').value;
 
         window.intervalID = setInterval(eee, 3000);
+        window.cnvsopt = new CanvasLoader('canvasloader-optimization');
+        cnvsopt.setShape('spiral'); // default is 'oval'
+        cnvsopt.setDiameter(30); // default is 40
+        cnvsopt.setDensity(18); // default is 40
+        cnvsopt.setRange(0.5); // default is 1.3
+        cnvsopt.setSpeed(1); // default is 2
+        cnvsopt.setFPS(20); // default is 24
+        cnvsopt.show(); // Hidden by default
       } else {
       /* Добавить обработчик если пользователь отписался от заявки на расчет */
         window.subscribe = 1;
       }
-      status_opt('Inquiry!');
+      status_opt('Запрос!');
       return false
     }
 
@@ -428,7 +437,7 @@
 
           window.cl = new CanvasLoader('canvasloader-container');
           cl.setShape('spiral'); // default is 'oval'
-          cl.setDiameter(50); // default is 40
+          cl.setDiameter(40); // default is 40
           cl.setDensity(15); // default is 40
           cl.setRange(0.5); // default is 1.3
           cl.setSpeed(1); // default is 2
@@ -462,7 +471,6 @@
               clearInterval(window.interval_export);
               location.href = '/export?unique=' + window.unique;
               window.flag_save = 0;
-
               window.cl.hide();
             }
         } else {
@@ -502,9 +510,10 @@
           home.removeChild(element);
         }
         clearInterval(window.intervalID);
-        status_opt('Please, reload page!');
+        status_opt('Обновите страницу!');
         document.getElementById('start').disabled = true;
         window.dis = 0;
+
     }
 
     function optlost(){
@@ -540,14 +549,15 @@
 
             if (jsonobj[1] == "stop"){
                 window.dis = 0;
-                status_opt('Start optimization!');
+                status_opt('Старт!');
                 clearInterval(window.intervalID);
                 // optlost();
                 document.getElementById('start').disabled = false;
+                window.cnvsopt.hide();
               }
             else if(jsonobj[1] == "wait"){
                 window.dis = 1;
-                status_opt('Waiting');
+                status_opt('Ожидание');
               }
             else if (jsonobj[1] == "start"){
                   window.dis = 1;
@@ -555,18 +565,20 @@
                   if (!getoptm){
                     // optnew();
                   }
-                  status_opt('Calculation');
+                  status_opt('Расчет');
             }
             else if (jsonobj[1] == "result"){
                 window.dis = 0;
-                status_opt('Start optimization!');
+                status_opt('Старт!');
                 clearInterval(window.intervalID);
                 // optlost();
                 document.getElementById('start').disabled = false;
                 location.href = '/result?unique=' + window.unique;
+                window.cnvsopt.hide();
               } else {
                 alert('аннулирована заявка ' + jsonobj[1]);
                 Bad_server();
+                window.cnvsopt.hide();
               }
 
           var widthprogress = parseInt(jsonobj[4]);
@@ -593,6 +605,7 @@
           } else {
               alert("Server, data not available");
               Bad_server();
+              window.cnvsopt.hide();
             }
           }
 

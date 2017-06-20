@@ -227,12 +227,14 @@ input[type="submit"]:disabled {
 
 input[type="submit"] {
     padding:7px 10px;
+    margin-right: 7px;
     font-size: 80%;
     background-color:#F08080;
     border:0 none;
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    width: 130px;
 }
 
 input[type="submit"]:active, :hover, :focus {
@@ -955,4 +957,8 @@ fieldset {
     -moz-box-shadow: 0 0 10px 5px #356b0b inset;
     -ms-box-shadow: 0 0 10px 5px #356b0b inset;
     -o-box-shadow: 0 0 10px 5px #356b0b inset;
+}
+
+#canvasloader-optimization{
+  height: 0px;
 }
