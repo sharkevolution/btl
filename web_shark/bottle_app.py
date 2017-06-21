@@ -642,9 +642,6 @@ if heroku:
     host = url.hostname
     port = url.port
 
-    logger.info('user: ' + str(user))
-    logger.info('pass: ' + str(password))
-
     conn = psycopg2.connect(
                 dbname=dbname,
                 user=user,
@@ -664,9 +661,22 @@ if heroku:
 else:
 
     try:
-        connect_str = "dbname='mylocaldb' user='' host='localhost' password=''"
+        connect_str = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
         # use our connection values to establish a connection
         conn = psycopg2.connect(connect_str)
+
+        cursor = conn.cursor()
+        # create a new table with a single column called "name"
+        cursor.execute("""CREATE TABLE IF NOT EXISTS tutorials (name char(40));""")
+        # run a SELECT statement - no data in there, but we can try it
+        cursor.execute("INSERT INTO tutorials VALUES('Audi')")
+
+        cursor.execute("""SELECT * from tutorials""")
+        rows = cursor.fetchall()
+        print(rows)
+
+        conn.commit()
+        conn.close()
 
     except Exception as e:
         print("Uh oh, can't connect. Invalid dbname, user or password?")
