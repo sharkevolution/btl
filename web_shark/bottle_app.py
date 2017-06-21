@@ -635,6 +635,24 @@ except Exception as ex:
 
 if heroku:
 
+    url = urlparse(os.environ["USERS_DB_URL"])
+    dbname = url.path[1:]
+    user = url.username
+    password = url.password
+    host = url.hostname
+    port = url.port
+
+    logger.info('user: ' + str(user))
+    logger.info('pass: ' + str(password))
+
+    conn = psycopg2.connect(
+                dbname=dbname,
+                user=user,
+                password=password,
+                port=port,
+                host=host)
+
+
     app = wsgigzip.GzipMiddleware(bottle.default_app())
 
     cherrypy.config.update({'server.socket_host': "0.0.0.0",
@@ -644,6 +662,15 @@ if heroku:
     cherrypy.engine.block()
 
 else:
+
+    try:
+        connect_str = "dbname='mylocaldb' user='' host='localhost' password=''"
+        # use our connection values to establish a connection
+        conn = psycopg2.connect(connect_str)
+
+    except Exception as e:
+        print("Uh oh, can't connect. Invalid dbname, user or password?")
+        print(e)
 
     app = default_app()
     run(app, host='0.0.0.0', port=5000, debug=True)
