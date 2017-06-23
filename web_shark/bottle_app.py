@@ -11,6 +11,8 @@ from collections import deque
 from datetime import timedelta
 from dateutil.tz import tzutc, tzlocal
 
+import requests
+
 import bottle
 from bottle import route, run, request, static_file, default_app
 from bottle import jinja2_template as template, redirect, response
@@ -30,6 +32,8 @@ import logging
 
 import psycopg2
 from urllib.parse import urlparse
+
+from web_shark import psg
 
 # import dropbox
 #
@@ -566,34 +570,32 @@ def main_log():
     return logger
 
 
+def send_sms():
+    # Отправка сообщения пользователю
+    login = '380732218247'  # phone number
+    password = 'tgxm8ou'  # Password
+    alphaName = 'gsm1'  # string, sender id (alpha-name)
+
+    abonent = '380963786850'
+    text = 'Sending SMS from SMSCLUB via python'
+
+    xml = "<?xml version='1.0' encoding='utf-8'?><request_sendsms><username><![CDATA[" + \
+          login + "]]></username><password><![CDATA[" + password + "]]></password><from><![CDATA[" + \
+          alphaName + "]]></from><to><![CDATA[" + abonent + "]]></to><text><![CDATA[" + \
+          text + "]]></text></request_sendsms>"
+
+    url = 'https://gate.smsclub.mobi/xml/'
+    headers = {'Content-type': 'text/xml; charset=utf-8'}
+    res = requests.post(url, data=xml, headers=headers)
+    print(res.status_code)
+    print(res.raise_for_status())
+
+
 logger = main_log()
 Unxtime = Epoch()
 Pull = Pull_user()
 
-# try:
-#     # urlparse.uses_netloc.append("postgres")
-#     url = urlparse(os.environ["USERS_DB_URL"])
-#     dbname = url.path[1:]
-#     user = url.username
-#     password = url.password
-#     host = url.hostname
-#     port = url.port
-#
-#     conn = psycopg2.connect(
-#                 dbname=dbname,
-#                 user=user,
-#                 password=password,
-#                 port=port,
-#                 host=host
-#                 )
-#
-# except Exception as ex:
-#
-#     # user=<username> password=<password>
-#     conn = psycopg2.connect('dbname=mylocaldb user='' password='' host=localhost port=5432')
-#
-#
-# cur = conn.cursor()
+
 #
 # command = """
 #         SELECT relname, pg_class.relkind as relkind FROM pg_class, pg_namespace
@@ -642,12 +644,9 @@ if heroku:
     host = url.hostname
     port = url.port
 
-    conn = psycopg2.connect(
-                dbname=dbname,
-                user=user,
-                password=password,
-                port=port,
-                host=host)
+    connect_str = "dbname={0}, user={1}, password={2}, port={3}, host={4}".format(dbname, user, password, port, host)
+    psg.create_tables_two(connect_str)
+
 
 
     app = wsgigzip.GzipMiddleware(bottle.default_app())
@@ -662,25 +661,13 @@ else:
 
     try:
         connect_str = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
-        # use our connection values to establish a connection
-        conn = psycopg2.connect(connect_str)
-
-        cursor = conn.cursor()
-        # create a new table with a single column called "name"
-        cursor.execute("""CREATE TABLE IF NOT EXISTS tutorials (name char(40));""")
-        # run a SELECT statement - no data in there, but we can try it
-        cursor.execute("INSERT INTO tutorials VALUES('Audi')")
-
-        cursor.execute("""SELECT * from tutorials""")
-        rows = cursor.fetchall()
-        print(rows)
-
-        conn.commit()
-        conn.close()
+        psg.create_tables_two(connect_str)
 
     except Exception as e:
         print("Uh oh, can't connect. Invalid dbname, user or password?")
         print(e)
+
+    # send_sms()  # Отправка СМС с промокодом
 
     app = default_app()
     run(app, host='0.0.0.0', port=5000, debug=True)
