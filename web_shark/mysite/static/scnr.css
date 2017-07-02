@@ -838,6 +838,9 @@ fieldset {
     position:relative;
 }
 
+#navlist {
+  display: inline;
+}
 
 
 .newreg {
@@ -887,17 +890,19 @@ fieldset {
 .align_center_to_right h2 {
     margin:0;
     display: inline;
+    font-size: 20px;
 }
 .required_notification {
     color:#d45252;
     margin:5px 0 0 0;
     /*display:inline;*/
     float:right;
+    font-size: 12px;
 }
 
 
 .align_center_to_right label {
-    width:150px;
+    width:200px;
     margin-top: 3px;
     display:inline-block;
     float:left;
@@ -909,7 +914,7 @@ fieldset {
     padding:5px 8px;
 }
 #open_lime textarea {padding:8px; width:300px;}
-#open_lime button {margin-left:156px;}
+#open_lime button {}
 
 
 #open_lime input, #open_lime textarea {
@@ -964,4 +969,8 @@ fieldset {
 
 #canvasloader-optimization{
   height: 0px;
+}
+
+input:required, textarea:required {
+    background: #fff url('../img/star_red.png') no-repeat 98% center;
 }

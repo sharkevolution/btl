@@ -9,35 +9,6 @@
     <meta name="Keywords" content="раскрой, штрипс, раскладка, упаковка, ножи, перестановки, оптимизация, алгоритм, двумерная упаковка">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (d, w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter42227109 = new Ya.Metrika({
-                        id:42227109,
-                        clickmap:true,
-                        trackLinks:true,
-                        accurateTrackBounce:true
-                    });
-                } catch(e) { }
-            });
-
-            var n = d.getElementsByTagName("script")[0],
-                s = d.createElement("script"),
-                f = function () { n.parentNode.insertBefore(s, n); };
-            s.type = "text/javascript";
-            s.async = true;
-            s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-            if (w.opera == "[object Opera]") {
-                d.addEventListener("DOMContentLoaded", f, false);
-            } else { f(); }
-        })(document, window, "yandex_metrika_callbacks");
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/42227109" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-
     <script type="text/javascript">
 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -66,6 +37,7 @@
       <link href="static/calc.css" rel="stylesheet" type="text/css">
       <link href="css/pushy.css" rel="stylesheet" type="text/css">
     </noscript>
+
 </head>
 
 <body>
@@ -102,22 +74,25 @@
           <div class="align_center">
             <div class="align_center_to_left">
                 <div class="align_center_to_right">
-                    <form id="open_lime" action="/open" enctype="multipart/form-data" method="post">
+                    <form id="open_lime" action="/registration" enctype="multipart/form-data" method="post"
+                      onsubmit="return false;">
                       <ul>
                         <li>
-                           <h2>Регистрация</h2>
-                           <span class="required_notification">* Обязательные поля</span>
+                           <h2>Авторизация</h2>
+                           <!-- <span class="required_notification">* Обязательные поля</span> -->
                         </li>
                         <li>
                           <label for="name">Номер телефона</label>
                           <input type="text" name="phone" placeholder="380732218247" required />
                         </li>
                         <li>
-                          <label for="pass">E-mail</label>
-                          <input type="text" name="mail" placeholder="nsitala@gmail.com" required/>
+                          <label for="pass">Пароль</label>
+                          <input type="text" name="pass" placeholder="********" required/>
                         </li>
                         <li>
-                          <input class="submit" type="submit">Продолжить</button>
+                          <input type="hidden" name="me_submit" id="me" value='0'>
+                          <button class="submit" onclick="newuser(this.form)">Регистрация</button>
+                          <button class="submit" onclick="login(this.form)" value="Вход">Вход</button>
                         </li>
                       </ul>
                     </form>
@@ -135,8 +110,17 @@
       &#169; 2017 Shark Evolution.<br>nsitala@gmail.com +(380)732-218-247
     </p>
   </div>
-
   <script>
+    function newuser(event) {
+        document.getElementById('me').value = 'registration';
+        event.submit();
+    }
+    function login(event) {
+        document.getElementById('me').value = 'login';
+        event.submit();
+    }
+  </script>
+  <script type="text/javascript">
           var loadDeferredStyles = function() {
             var addStylesNode = document.getElementById("deferred-styles");
             var replacement = document.createElement("div");

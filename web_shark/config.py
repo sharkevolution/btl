@@ -10,6 +10,13 @@ exm = os.path.normpath(_current_dir)
 
 BASE_DIR = os.path.join(__file__)
 
+connect_str = None
+
+def update_connect(connect_base):
+    global connect_str
+
+    connect_str = connect_base
+
 
 
 

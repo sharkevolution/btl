@@ -6,6 +6,7 @@ import logging
 import json
 import time
 import pytz
+import re
 import datetime
 from collections import deque
 from datetime import timedelta
@@ -14,7 +15,7 @@ from dateutil.tz import tzutc, tzlocal
 import requests
 
 import bottle
-from bottle import route, run, request, static_file, default_app
+from bottle import route, run, request, static_file, hook, default_app
 from bottle import jinja2_template as template, redirect, response
 
 # from gevent import monkey, pool; monkey.patch_all()
@@ -26,6 +27,9 @@ from web_shark import config
 from web_shark import imexdata
 from web_shark import level7
 from web_shark import genpass
+from web_shark import psg
+from web_shark import mail
+
 # from web_shark import perfomance
 
 import logging
@@ -81,6 +85,25 @@ class User(object):
         self.outfile = None  # Путь сохранения файла с результатом расчета
         self.current_host = None  # Запоминаем хост пользователя
         self.online_export = False
+
+
+def authenticated(func):
+    """ Проверка авторизации пользователя
+    
+    :param func: 
+    :return: 
+    """
+    def wrapped(*args, **kwargs):
+
+        # Проверяем печеньку есть ли она и срок действия
+        username = request.get_cookie("account", secret='some-secret-key')
+
+        if username:
+            return func(*args, **kwargs)
+        else:
+            redirect('/login')
+
+    return wrapped
 
 
 @route('/yandex_1b8eabd36008dc04.html', method='GET')
@@ -180,7 +203,7 @@ def do_load():
     # Изменить загрузку из файла в preload
     usdata.preload_figure = imexdata.dispatcher_extension(new_path_figure, 'data')
 
-    response.set_cookie("account", 'shark', secret='some-secret-key')
+    # response.set_cookie("account", 'shark', secret='some-secret-key')
     myfile = os.path.join(config.exm, 'FCNR.html')
     return template(myfile, private_code=gencode, zona=usdata.preload_figure)
 
@@ -204,14 +227,46 @@ def my_story():
     return template(myfile)
 
 
-@route('/registration', method='POST') # or @route('/login', method='POST')
+@route('/registration', method='POST')
 def do_registration():
-    myfile = os.path.join(config.exm, 'register.html')
+    current_user = request.headers.get('host')
+    form_phone = request.forms.get('phone')
+    form_pass = request.forms.get('pass')
+    form_reg = request.forms.get('me_submit')
+
+    # response.set_cookie("account", 'shark', secret='some-secret-key')
+    if form_reg == 'registration':
+        myfile = os.path.join(config.exm, 'regmail.html')
+
+    elif form_reg == 'login':
+
+        # Проверка электронного адреса
+        # addressToVerify = 'info@emailhippo.com'
+        # match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', addressToVerify)
+
+        # if match == None:
+        #     print('Bad Syntax')
+        #     raise ValueError('Bad Syntax')
+        response.set_cookie("account", 'shark', secret='some-secret-key')
+        redirect('/')
+
     return template(myfile)
 
 
-@route('/<page>', method='POST')
-def do_page(page):
+@route('/open', method='POST')
+def do_registration():
+    response.set_cookie("account", 'shark', secret='some-secret-key')
+    redirect('/')
+
+
+@route('/login', method='GET') # or @route('/login', method='POST')
+def do_auth():
+    myfile = os.path.join(config.exm, 'login.html')
+    return template(myfile)
+
+
+@route('/upload_figure', method='POST')
+def do_page():
 
     current_user = request.headers.get('host')
     gencode = request.forms.get('code')
@@ -224,7 +279,6 @@ def do_page(page):
     else:
         usdata = Pull.uname[gencode]
 
-    if page == 'upload_figure':
         result = do_load()
 
     return result
@@ -243,6 +297,7 @@ def retresult():
 
 
 @route('/', method='GET')
+@authenticated
 def index():
     """ Главная точка входа на сайт
 
@@ -557,6 +612,15 @@ def shop_aj_getallitems():
         return json.dumps(optimization)
 
 
+# @hook('before_request')
+# def strip_path():
+#     username = request.get_cookie("account", secret='some-secret-key')
+#     if username:
+#         pass
+#     else:
+#         redirect('/registration')
+
+
 def main_log():
 
     level = logging.INFO
@@ -644,8 +708,10 @@ if heroku:
     host = url.hostname
     port = url.port
 
-    connect_str = "dbname={0}, user={1}, password={2}, port={3}, host={4}".format(dbname, user, password, port, host)
-    psg.create_tables_two(connect_str)
+    connect_base = "dbname={0}, user={1}, password={2}, port={3}, host={4}".format(dbname, user, password, port, host)
+    config.update_connect(connect_base)
+
+    psg.create_tables_two(config.connect_str)
 
 
 
@@ -660,8 +726,14 @@ if heroku:
 else:
 
     try:
-        connect_str = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
-        psg.create_tables_two(connect_str)
+        connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
+        config.update_connect(connect_base)
+
+        psg.create_tables_two(config.connect_str)
+        psg.access_create(config.connect_str)
+        psg.new_user(config.connect_str)
+        psg.new_billing(config.connect_str)
+        psg.figures_add(config.connect_str)
 
     except Exception as e:
         print("Uh oh, can't connect. Invalid dbname, user or password?")
