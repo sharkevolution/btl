@@ -14,8 +14,8 @@ window.onload = function() {
     var current_figure = 0;
     var current_amount = 0;
 
-    document.getElementById("reg").disabled = true;
-    document.getElementById("account").disabled = true;
+    // document.getElementById("reg").disabled = true;
+    // document.getElementById("account").disabled = true;
 
     document.getElementById('size').value = 0;
     document.getElementById('figure').disabled = false;
