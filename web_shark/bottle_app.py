@@ -718,16 +718,16 @@ if heroku:
     # urlparse.uses_netloc.append("postgres")
     url = urlparse(os.environ["USERS_DB_URL"])
 
-    conn = psycopg2.connect(
-        database=url.path[1:],
-        user=url.username,
-        password=url.password,
-        host=url.hostname,
-        port=url.port
-    )
-    logger.info(conn)
+    # conn = psycopg2.connect(
+    #     database=url.path[1:],
+    #     user=url.username,
+    #     password=url.password,
+    #     host=url.hostname,
+    #     port=url.port
+    # )
 
-    connect_base = "dbname={0}, user={1}, password={2}, host={3}, port={4}".format(dbname, user, password, host, port)
+    connect_base = "database={0}, user={1}, password={2}, host={3}, port={4}".format(dbname, user, password, host, port)
+    logger.info(connect_base)
     config.update_connect(connect_base)
 
     # psg.create_tables_two(config.connect_str)
