@@ -726,7 +726,7 @@ if heroku:
     #     port=url.port
     # )
 
-    connect_base = "database={0}, user={1}, password={2}, host={3}, port={4}".format(dbname, user, password, host, port)
+    connect_base = "dbname={0}, user={1}, password={2}, host={3}, port={4}".format(dbname, user, password, host, port)
     logger.info(connect_base)
     config.update_connect(connect_base)
 
