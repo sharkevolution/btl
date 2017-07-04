@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from psycopg2.extras import Json
+from psycopg2 import sql
 import psycopg2
 
 from web_shark import config
@@ -254,6 +255,35 @@ def insert_admin():
     finally:
         if conn is not None:
             conn.close()
+
+
+def find_regigistration(logphone, logpass):
+    login_data = None
+    conn = None
+    try:
+
+        conn = psycopg2.connect(config.connect_str)
+        cur = conn.cursor()
+
+        quote = "\'"
+        logphone = quote + logphone + quote
+        logpass = quote + logpass + quote
+
+        qw = """SELECT * FROM login_users
+                    WHERE login_number = {0} AND login_password = {1};""".format(logphone, logpass)
+
+        cur.execute(qw)
+        login_data = cur.fetchone()
+
+        cur.close()
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+            return login_data
 
 
 

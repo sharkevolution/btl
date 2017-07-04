@@ -82,12 +82,12 @@
                            <!-- <span class="required_notification">* Обязательные поля</span> -->
                         </li>
                         <li>
-                          <label for="name">Номер телефона</label>
-                          <input type="text" name="phone" placeholder="380732218247" required />
+                          <label for="name">Телефон +xx-xxx-xxx-xx-xx</label>
+                          <input name="phone" type="tel" pattern="\+[0-9]{2}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required>
                         </li>
                         <li>
-                          <label for="pass">Пароль</label>
-                          <input type="text" name="pass" placeholder="********" required/>
+                          <label for="pass">Пароль не менее 6 знаков</label>
+                          <input type="password" name="pass" pattern=".{6,}" required>
                         </li>
                         <li>
                           <input type="hidden" name="me_submit" id="me" value='0'>

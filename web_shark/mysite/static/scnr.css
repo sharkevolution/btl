@@ -909,9 +909,10 @@ fieldset {
     padding:3px;
 }
 #open_lime input {
-    height:20px;
-    width:220px;
+    height:18px;
+    width:200px;
     padding:5px 8px;
+    font-size: 16px;
 }
 #open_lime textarea {padding:8px; width:300px;}
 #open_lime button {}
