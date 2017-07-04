@@ -217,6 +217,7 @@ def server_static(name, filename):
 
 @route('/start')
 @route('/upload_figure')
+@authenticated
 def redir_home():
     redirect('/')
 
@@ -247,8 +248,14 @@ def do_registration():
         # if match == None:
         #     print('Bad Syntax')
         #     raise ValueError('Bad Syntax')
-        response.set_cookie("account", 'shark', secret='some-secret-key')
-        redirect('/')
+        login_data = None
+        login_data = psg.find_regigistration(form_phone, form_pass)
+        if login_data:
+            response.set_cookie("account", 'shark', secret='some-secret-key')
+            redirect('/')
+        else:
+            myfile = os.path.join(config.exm, 'login.html')
+
 
     return template(myfile)
 
