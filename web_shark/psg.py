@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+import os
 from psycopg2.extras import Json
 from psycopg2 import sql
 import psycopg2
