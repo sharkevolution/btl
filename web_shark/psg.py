@@ -4,6 +4,7 @@
 from psycopg2.extras import Json
 from psycopg2 import sql
 import psycopg2
+from urllib.parse import urlparse
 
 from web_shark import config
 from web_shark import mail
@@ -262,7 +263,17 @@ def find_regigistration(logphone, logpass):
     conn = None
     try:
 
-        conn = psycopg2.connect(config.connect_str)
+        url = urlparse(os.environ["USERS_DB_URL"])
+
+        conn = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
+
+        # conn = psycopg2.connect(config.connect_str)
         cur = conn.cursor()
 
         quote = "\'"
