@@ -251,7 +251,7 @@ def do_registration():
         login_data = None
         login_data = psg.find_regigistration(form_phone, form_pass)
         if login_data:
-            response.set_cookie("account", 'shark', secret='some-secret-key')
+            response.set_cookie("account", 'sharkx', secret='some-secret-key')
             redirect('/')
         else:
             myfile = os.path.join(config.exm, 'login.html')
@@ -262,7 +262,7 @@ def do_registration():
 
 @route('/open', method='POST')
 def do_registration():
-    response.set_cookie("account", 'shark', secret='some-secret-key')
+    response.set_cookie("account", 'sharkx', secret='some-secret-key')
     redirect('/')
 
 
@@ -320,7 +320,7 @@ def index():
 
     expire_date = datetime.datetime.now()
     expire_date = expire_date + datetime.timedelta(days=2)
-    response.set_cookie("account", 'shark', secret='some-secret-key', expires=expire_date)
+    response.set_cookie("account", 'sharkx', secret='some-secret-key', expires=expire_date)
 
     myfile = os.path.join(config.exm, 'FCNR.html')
     return template(myfile, private_code=gencode, zona=usdata.preload_figure)
