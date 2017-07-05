@@ -98,7 +98,7 @@ def authenticated(func):
         # Проверяем печеньку есть ли она и срок действия
         username = request.get_cookie("account", secret='some-secret-key')
 
-        if username:
+        if username == 'sharkx':
             return func(*args, **kwargs)
         else:
             redirect('/login')
