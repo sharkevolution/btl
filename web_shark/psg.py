@@ -273,6 +273,8 @@ def find_regigistration(logphone, logpass):
             host=url.hostname,
             port=url.port
         )
+        # connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
+        # config.update_connect(connect_base)
 
         # conn = psycopg2.connect(config.connect_str)
         cur = conn.cursor()

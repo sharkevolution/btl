@@ -517,6 +517,14 @@
       elems.value = txt;
     }
 
+    // возвращает cookie с именем name, если есть, если нет, то undefined
+    function getCookie(name) {
+      var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
     function eee(){
         var xmlhttp;
         // Are we using a modern browser or ...
@@ -602,6 +610,8 @@
         // send the request in an async way
         xmlhttp.open("POST", "/getallitems.json", true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        // cookie = getCookie('account');
+        // xmlhttp.setRequestHeader('Cookie', cookie);
 
         // u = 0;
         // for(var index in window.fruit) {

@@ -464,6 +464,17 @@ def shop_aj_getallitems():
                 optimization[1] = 'stop'
                 optimization[3] = 'Превышен лимит ответа, расчет сброшен!'
 
+        # Проверяем печеньку есть ли она и срок действия
+        username = request.get_cookie("account", secret='some-secret-key')
+        if not username == 'sharkx':
+            # !!!Критическая секция!!!, остановка работающего потока
+            level7.main_thread.stopping = True
+            level7.main_thread.flag_optimization = None
+            level7.main_thread.progress = 0
+            destroy_gencode_waiting(b)
+            optimization[1] = 'stop'
+            optimization[3] = 'Неавторизованный доступ!'
+
     if gencode in Tender.gencode_time:
         # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
         Tender.gencode_time[gencode] = datetime.datetime.now()
