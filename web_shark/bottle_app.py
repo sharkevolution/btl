@@ -237,7 +237,8 @@ def do_registration():
 
     # response.set_cookie("account", 'shark', secret='some-secret-key')
     if form_reg == 'registration':
-        myfile = os.path.join(config.exm, 'regmail.html')
+        redirect('/')
+        # myfile = os.path.join(config.exm, 'regmail.html')
 
     elif form_reg == 'login':
 
@@ -261,7 +262,7 @@ def do_registration():
 
 
 @route('/open', method='POST')
-def do_registration():
+def do_open():
     response.set_cookie("account", 'sharkx', secret='some-secret-key')
     redirect('/')
 
