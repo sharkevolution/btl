@@ -217,7 +217,7 @@ def server_static(name, filename):
 
 @route('/start')
 @route('/upload_figure')
-@authenticated
+# @authenticated
 def redir_home():
     redirect('/')
 
@@ -305,7 +305,7 @@ def retresult():
 
 
 @route('/', method='GET')
-@authenticated
+# @authenticated
 def index():
     """ Главная точка входа на сайт
 
@@ -466,7 +466,7 @@ def shop_aj_getallitems():
 
         # Проверяем печеньку есть ли она и срок действия
         username = request.get_cookie("account", secret='some-secret-key')
-        if not username == 'sharkx':
+        if not username == 'sharkxxx':
             # !!!Критическая секция!!!, остановка работающего потока
             level7.main_thread.stopping = True
             level7.main_thread.flag_optimization = None
