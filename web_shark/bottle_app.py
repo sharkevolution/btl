@@ -478,6 +478,8 @@ def shop_aj_getallitems():
     #     destroy_gencode(b)
         optimization[1] = 'stop'
         optimization[3] = 'Неавторизованный доступ!'
+        optimization[2] = ''
+        optimization[5] = ''
         return json.dumps(optimization)
     else:
 
