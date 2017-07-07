@@ -466,7 +466,7 @@ def shop_aj_getallitems():
 
         # Проверяем печеньку есть ли она и срок действия
         username = request.get_cookie("account", secret='some-secret-key')
-        if not username == 'sharkxxx':
+        if not username == 'sharkx':
             # !!!Критическая секция!!!, остановка работающего потока
             level7.main_thread.stopping = True
             level7.main_thread.flag_optimization = None
