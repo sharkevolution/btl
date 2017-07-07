@@ -85,6 +85,7 @@ class User(object):
         self.outfile = None  # Путь сохранения файла с результатом расчета
         self.current_host = None  # Запоминаем хост пользователя
         self.online_export = False
+        self.account = None
 
 
 def authenticated(func):
@@ -321,6 +322,10 @@ def index():
 
     expire_date = datetime.datetime.now()
     expire_date = expire_date + datetime.timedelta(days=2)
+
+    username = request.get_cookie("account", secret='some-secret-key')
+    usdata.account = username
+
     #response.set_cookie("account", 'sharkx', secret='some-secret-key', expires=expire_date)
 
     myfile = os.path.join(config.exm, 'FCNR.html')
@@ -467,13 +472,13 @@ def shop_aj_getallitems():
         # Проверяем печеньку есть ли она и срок действия
         username = request.get_cookie("account", secret='some-secret-key')
         if not username == 'sharkx':
-            # !!!Критическая секция!!!, остановка работающего потока
-            level7.main_thread.stopping = True
-            level7.main_thread.flag_optimization = None
-            level7.main_thread.progress = 0
+        #     level7.main_thread.stopping = True
+        #     level7.main_thread.flag_optimization = None
+        #     level7.main_thread.progress = 0
             destroy_gencode_waiting(b)
             optimization[1] = 'stop'
             optimization[3] = 'Неавторизованный доступ!'
+
 
     if gencode in Tender.gencode_time:
         # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
