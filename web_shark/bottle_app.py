@@ -475,7 +475,7 @@ def shop_aj_getallitems():
         #     level7.main_thread.stopping = True
         #     level7.main_thread.flag_optimization = None
         #     level7.main_thread.progress = 0
-            destroy_gencode_waiting(b)
+            destroy_gencode(b)
             optimization[1] = 'stop'
             optimization[3] = 'Неавторизованный доступ!'
 
