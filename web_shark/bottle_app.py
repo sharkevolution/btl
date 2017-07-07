@@ -469,171 +469,172 @@ def shop_aj_getallitems():
                 optimization[1] = 'stop'
                 optimization[3] = 'Превышен лимит ответа, расчет сброшен!'
 
-        # Проверяем печеньку есть ли она и срок действия
-        username = request.get_cookie("account", secret='some-secret-key')
-        if not username == 'sharkx':
-        #     level7.main_thread.stopping = True
-        #     level7.main_thread.flag_optimization = None
-        #     level7.main_thread.progress = 0
-            destroy_gencode(b)
-            optimization[1] = 'stop'
-            optimization[3] = 'Неавторизованный доступ!'
+    # Проверяем печеньку есть ли она и срок действия
+    username = request.get_cookie("account", secret='some-secret-key')
+    if not username == 'sharkx':
+    #     level7.main_thread.stopping = True
+    #     level7.main_thread.flag_optimization = None
+    #     level7.main_thread.progress = 0
+    #     destroy_gencode(b)
+        optimization[1] = 'stop'
+        optimization[3] = 'Неавторизованный доступ!'
+        return json.dumps(optimization)
+    else:
 
+        if gencode in Tender.gencode_time:
+            # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
+            Tender.gencode_time[gencode] = datetime.datetime.now()
+            # print('fixe time gencode')
 
-    if gencode in Tender.gencode_time:
-        # Текущий Пользователь с нами, поэтому фиксируем время выхода его на связь
-        Tender.gencode_time[gencode] = datetime.datetime.now()
-        # print('fixe time gencode')
-
-        if gencode in Tender.waiting_line:
-            # Запись процента выполнения расчета
-            if gencode == Tender.waiting_line[0]:
-                optimization[4] = level7.main_thread.progress
-            else:
-                optimization[4] = 0
-        else:
-            # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
-            Tender.waiting_line.append(gencode)
-            # Добавление в профиль пользовтаеля фигур и количества при старте подписки
-            usdata = Pull.uname[gencode]
-
-            fruit_trsnsform(usdata, fruit)
-            optimization[4] = 0
-
-        if level7.main_thread.flag_optimization is None:
-            # Расчет в текущем времени не выполняется ни по одной заявке
-
-            if gencode == Tender.waiting_line[0]:
-                # Заявка в очереди совпадает с анализируемым текущим сеансом
-
-                if subscribe:
-                    # Пользователь отписался от выполнения заявки, необходимо изьять из очереди задач
-                    destroy_gencode_waiting(gencode)
-                    optimization[1] = 'stop'  # Флаг отказа оптимизации
-                    optimization[3] = 'Вы, отписались от решения заявки!'
-                    Tender.curr_optimize_gencode = None
+            if gencode in Tender.waiting_line:
+                # Запись процента выполнения расчета
+                if gencode == Tender.waiting_line[0]:
+                    optimization[4] = level7.main_thread.progress
                 else:
-                    # Запуск расчета в отдельном потоке
-                    if gencode in Pull.uname:
-                        usdata = Pull.uname[gencode]
+                    optimization[4] = 0
+            else:
+                # Добавляем сеанс пользователя в очередь задач с учетом кол-ва макс подключений
+                Tender.waiting_line.append(gencode)
+                # Добавление в профиль пользовтаеля фигур и количества при старте подписки
+                usdata = Pull.uname[gencode]
 
+                fruit_trsnsform(usdata, fruit)
+                optimization[4] = 0
+
+            if level7.main_thread.flag_optimization is None:
+                # Расчет в текущем времени не выполняется ни по одной заявке
+
+                if gencode == Tender.waiting_line[0]:
+                    # Заявка в очереди совпадает с анализируемым текущим сеансом
+
+                    if subscribe:
+                        # Пользователь отписался от выполнения заявки, необходимо изьять из очереди задач
+                        destroy_gencode_waiting(gencode)
+                        optimization[1] = 'stop'  # Флаг отказа оптимизации
+                        optimization[3] = 'Вы, отписались от решения заявки!'
+                        Tender.curr_optimize_gencode = None
+                    else:
+                        # Запуск расчета в отдельном потоке
+                        if gencode in Pull.uname:
+                            usdata = Pull.uname[gencode]
+
+                            level7.main_thread.progress = 0
+                            if usdata.pull_figure:
+                                # Есть фигуры для решения
+
+                                # Работа в одном процессе (блокирующий режим)
+                                # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright),
+                                #                                int(site_attempt))
+                                # onthr.run()
+
+                                # Работа в отдельном процессе системы (многопоточный режим)
+                                onthr = level7.main_thread(usdata.pull_figure, int(knox), int(limright),
+                                                           int(site_attempt))
+                                onthr.start()
+
+                                Tender.curr_optimize_gencode = gencode  # Сохраняем инфр о коде пользователя в работе
+                                optimization[1] = 'start'  # Флаг запуска оптимизации
+                            else:
+                                destroy_gencode_waiting(gencode)
+                                optimization[1] = 'stop'  # Флаг отказа оптимизации
+                                optimization[3] = 'Нет данных, нажмите повторно Старт!'
+                        else:
+                            destroy_gencode(gencode)
+                            optimization[1] = 'stop'  # Флаг отказа оптимизации
+                            optimization[3] = 'Разрыв соединения, обновите страницу!'
+                else:
+                    if subscribe:
+                        # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
+                        destroy_gencode_waiting(gencode)
+                        optimization[1] = 'stop'  # Флаг отказа оптимизации
+                        optimization[3] = 'Вы, отписались от решения заявки!'
+                    else:
+                        optimization[1] = 'wait'  # Флаг ожидания оптимизации
+
+            elif level7.main_thread.flag_optimization == 'stop':
+                # Поток отработал заявку
+
+                if gencode == Tender.waiting_line[0]:
+                    # Заявка совпадает с анализируемым текущим сеансом
+
+                    # Сохраняем результат
+                    if level7.main_thread.resdict:
+                        do_save(level7.main_thread.resdict, gencode)
+                        optimization[1] = 'result'
+                        optimization[3] = 'Окончание работы алгоритма!'
+                    # else:
+                    #     optimization[3] = 'Решение ранее сброшено, перезагрузите страницу'
+                    #     optimization[1] = 'stop'
+
+                    level7.main_thread.resdict = []
+                    level7.main_thread.flag_optimization = None
+                    level7.main_thread.progress = 0
+
+                    gendel = Tender.waiting_line.popleft() # Удаляем отработаный сеанс после работы алгоритма
+                    Tender.curr_optimize_gencode = None
+
+                else:
+                    if subscribe:
+                        # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
+                        destroy_gencode_waiting(gencode)
+                        optimization[1] = 'stop'  # Флаг отказа оптимизации
+                        optimization[3] = 'Вы, отписались от решения заявки!'
+                    else:
+                        optimization[1] = 'wait'  # Флаг ожидания оптимизации
+
+            elif level7.main_thread.flag_optimization == 'start':
+                if gencode == Tender.waiting_line[0]:
+
+                    if subscribe:
+                        # !!!Критическая секция!!!, остановка работающего потока
+                        level7.main_thread.stopping = True
                         level7.main_thread.progress = 0
-                        if usdata.pull_figure:
-                            # Есть фигуры для решения
-
-                            # Работа в одном процессе (блокирующий режим)
-                            # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright),
-                            #                                int(site_attempt))
-                            # onthr.run()
-
-                            # Работа в отдельном процессе системы (многопоточный режим)
-                            onthr = level7.main_thread(usdata.pull_figure, int(knox), int(limright),
-                                                       int(site_attempt))
-                            onthr.start()
-
-                            Tender.curr_optimize_gencode = gencode  # Сохраняем инфр о коде пользователя в работе
-                            optimization[1] = 'start'  # Флаг запуска оптимизации
+                        level7.main_thread.flag_optimization = None
+                        destroy_gencode_waiting(gencode)
+                        optimization[1] = 'stop'
+                        optimization[3] = 'Вы, остановили поток решения!'
+                        Tender.curr_optimize_gencode = None
+                    else:
+                        optimization[1] = 'start'  # Флаг запуска оптимизации
+                else:
+                    if subscribe:
+                        # Важно, необходимо удаление сеанса из очереди, пользователь отписался
+                        destroy_gencode_waiting(gencode)
+                        optimization[1] = 'stop'
+                        optimization[3] = 'Вы, отказались от подписки!'
+                    else:
+                        # Ограничиваем кол-во запросов ajax на подключение
+                        if len(Tender.waiting_line) <= 5:
+                            optimization[1] = 'wait'  # Флаг ожидания оптимизации
                         else:
                             destroy_gencode_waiting(gencode)
                             optimization[1] = 'stop'  # Флаг отказа оптимизации
-                            optimization[3] = 'Нет данных, нажмите повторно Старт!'
-                    else:
-                        destroy_gencode(gencode)
-                        optimization[1] = 'stop'  # Флаг отказа оптимизации
-                        optimization[3] = 'Разрыв соединения, обновите страницу!'
-            else:
-                if subscribe:
-                    # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
-                    destroy_gencode_waiting(gencode)
-                    optimization[1] = 'stop'  # Флаг отказа оптимизации
-                    optimization[3] = 'Вы, отписались от решения заявки!'
-                else:
-                    optimization[1] = 'wait'  # Флаг ожидания оптимизации
+                            optimization[3] = 'Превышен лимит подключений: {0}'.format(5)
 
-        elif level7.main_thread.flag_optimization == 'stop':
-            # Поток отработал заявку
-
-            if gencode == Tender.waiting_line[0]:
-                # Заявка совпадает с анализируемым текущим сеансом
-
-                # Сохраняем результат
-                if level7.main_thread.resdict:
-                    do_save(level7.main_thread.resdict, gencode)
-                    optimization[1] = 'result'
-                    optimization[3] = 'Окончание работы алгоритма!'
-                # else:
-                #     optimization[3] = 'Решение ранее сброшено, перезагрузите страницу'
-                #     optimization[1] = 'stop'
-
-                level7.main_thread.resdict = []
-                level7.main_thread.flag_optimization = None
-                level7.main_thread.progress = 0
-
-                gendel = Tender.waiting_line.popleft() # Удаляем отработаный сеанс после работы алгоритма
-                Tender.curr_optimize_gencode = None
-
-            else:
-                if subscribe:
-                    # Пользователь отписался от выполнения заявки, необходимо изьять заявку из очереди задач
-                    destroy_gencode_waiting(gencode)
-                    optimization[1] = 'stop'  # Флаг отказа оптимизации
-                    optimization[3] = 'Вы, отписались от решения заявки!'
-                else:
-                    optimization[1] = 'wait'  # Флаг ожидания оптимизации
-
-        elif level7.main_thread.flag_optimization == 'start':
-            if gencode == Tender.waiting_line[0]:
-
-                if subscribe:
-                    # !!!Критическая секция!!!, остановка работающего потока
+            elif level7.main_thread.flag_optimization == 'error':
+                if gencode == Tender.waiting_line[0]:
+                    optimization[1] = 'stop'
+                    optimization[3] = 'Критическая ошибка, обновите страницу!'
                     level7.main_thread.stopping = True
                     level7.main_thread.progress = 0
-                    level7.main_thread.flag_optimization = None
-                    destroy_gencode_waiting(gencode)
-                    optimization[1] = 'stop'
-                    optimization[3] = 'Вы, остановили поток решения!'
                     Tender.curr_optimize_gencode = None
-                else:
-                    optimization[1] = 'start'  # Флаг запуска оптимизации
-            else:
-                if subscribe:
-                    # Важно, необходимо удаление сеанса из очереди, пользователь отписался
+
                     destroy_gencode_waiting(gencode)
-                    optimization[1] = 'stop'
-                    optimization[3] = 'Вы, отказались от подписки!'
-                else:
-                    # Ограничиваем кол-во запросов ajax на подключение
-                    if len(Tender.waiting_line) <= 5:
-                        optimization[1] = 'wait'  # Флаг ожидания оптимизации
-                    else:
-                        destroy_gencode_waiting(gencode)
-                        optimization[1] = 'stop'  # Флаг отказа оптимизации
-                        optimization[3] = 'Превышен лимит подключений: {0}'.format(5)
+                    level7.main_thread.flag_optimization = None
 
-        elif level7.main_thread.flag_optimization == 'error':
-            if gencode == Tender.waiting_line[0]:
-                optimization[1] = 'stop'
-                optimization[3] = 'Критическая ошибка, обновите страницу!'
-                level7.main_thread.stopping = True
-                level7.main_thread.progress = 0
-                Tender.curr_optimize_gencode = None
+            # Количество ожидающих пользователей
+            if gencode in Tender.waiting_line:
+                optimization[2] = len(Tender.waiting_line)
+                optimization[5] = Tender.waiting_line.index(gencode)
+            else:
+                optimization[2] = ''
+                optimization[5] = ''
 
-                destroy_gencode_waiting(gencode)
-                level7.main_thread.flag_optimization = None
+            # print(optimization)
 
-        # Количество ожидающих пользователей
-        if gencode in Tender.waiting_line:
-            optimization[2] = len(Tender.waiting_line)
-            optimization[5] = Tender.waiting_line.index(gencode)
+            return json.dumps(optimization)
         else:
-            optimization[2] = ''
-            optimization[5] = ''
-
-        # print(optimization)
-
-        return json.dumps(optimization)
-    else:
-        return json.dumps(optimization)
+            return json.dumps(optimization)
 
 
 # @hook('before_request')
