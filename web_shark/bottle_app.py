@@ -635,6 +635,22 @@ def shop_aj_getallitems():
             return json.dumps(optimization)
 
 
+@hook('before_request')
+def beforeRequest():
+
+    try:
+        heroku = urlparse(os.environ["CHERRY"])
+
+    except Exception as ex:
+
+        heroku = 0
+
+    if heroku:
+
+        if not request.url.startswith('https'):
+            return redirect(request.url.replace('http', 'https', 1))
+
+
 # @hook('before_request')
 # def strip_path():
 #     username = request.get_cookie("account", secret='some-secret-key')
