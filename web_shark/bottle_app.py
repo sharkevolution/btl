@@ -121,13 +121,11 @@ def redirect_https(func):
 
             heroku = 0
 
-        heroku = 1
+        # heroku = 1
         if heroku:
 
             if not request.url.startswith('https'):
-                request.url.replace('http', 'https', 1)
-                response.status = 303
-                return redirect(request.url.replace('http', 'https', 1))
+                return redirect("https://sharkevo.ru")
             else:
                 return func(*args, **kwargs)
         else:
