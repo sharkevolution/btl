@@ -126,10 +126,10 @@ def redirect_https(func):
 
             if not request.url.startswith('https'):
 
-                response.status = 303
-                response.set_header('location', 'http://sharkevo.ru')
+                url = request.url.replace('http://', 'https://', 1)
+                code = 301
 
-                return redirect("https://sharkevo.ru")
+                return redirect(url, code=code)
             else:
                 return func(*args, **kwargs)
         else:
