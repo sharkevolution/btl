@@ -127,8 +127,8 @@ def redirect_https(func):
             if not request.url.startswith('https'):
                 request.url.replace('http', 'https', 1)
                 return redirect(request.url.replace('http', 'https', 1))
-                # return func(*args, **kwargs)
-
+            else:
+                return func(*args, **kwargs)
         else:
             return func(*args, **kwargs)
 
