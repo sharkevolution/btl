@@ -332,7 +332,7 @@ def retresult():
 
 
 @route('/', method='GET')
-@redirect_https
+# @redirect_https
 def index():
     """ Главная точка входа на сайт
 
