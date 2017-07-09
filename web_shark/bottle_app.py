@@ -107,6 +107,31 @@ def authenticated(func):
     return wrapped
 
 
+def redirect_https(func):
+    """ Проверка авторизации пользователя
+    """
+
+    def wrapped(*args, **kwargs):
+
+        try:
+            heroku = urlparse(os.environ["CHERRY"])
+
+        except Exception as ex:
+
+            heroku = 0
+
+        if heroku:
+
+            if not request.url.startswith('https'):
+                return redirect(request.url.replace('http', 'https', 1))
+
+        else:
+            return func(*args, **kwargs)
+
+    return wrapped
+
+
+
 @route('/yandex_1b8eabd36008dc04.html', method='GET')
 def yandex():
     myfile = os.path.join(config.exm, 'yandex_1b8eabd36008dc04.html')
@@ -306,7 +331,7 @@ def retresult():
 
 
 @route('/', method='GET')
-# @authenticated
+@redirect_https
 def index():
     """ Главная точка входа на сайт
 
@@ -635,20 +660,20 @@ def shop_aj_getallitems():
             return json.dumps(optimization)
 
 
-@hook('before_request')
-def beforeRequest():
-
-    try:
-        heroku = urlparse(os.environ["CHERRY"])
-
-    except Exception as ex:
-
-        heroku = 0
-
-    if heroku:
-
-        if not request.url.startswith('https'):
-            return redirect(request.url.replace('http', 'https', 1))
+# @hook('before_request')
+# def beforeRequest():
+#
+#     try:
+#         heroku = urlparse(os.environ["CHERRY"])
+#
+#     except Exception as ex:
+#
+#         heroku = 0
+#
+#     if heroku:
+#
+#         if not request.url.startswith('https'):
+#             return redirect(request.url.replace('http', 'https', 1))
 
 
 # @hook('before_request')
