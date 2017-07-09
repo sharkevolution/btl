@@ -68,12 +68,11 @@ h3 {
 }
 
 #wrapper {
-
     min-height: 800px;
-    height: 800px;
-    width: 100%;
-    height: auto !important;
-    margin-bottom: -60px;
+    display: block;
+
+    /*height: auto !important;
+    margin-bottom: -60px;*/
 }
 
 /* FOOTER ---------------------------------------------------------- */
@@ -109,13 +108,30 @@ h3 {
     float: left;
     position: relative;
     width: 305px;
-    /*margin: 2px 5px 3px 0px;*/
-    /*color: #FFF;*/
     border-radius: 5px;
     text-decoration: none;
     font-size: 20px;
     background:#FFF;
+    overflow: hidden;
+
 }
+
+
+/*
+@media all and (max-width: 1920px) {*/
+
+.coffee{
+  display: block;
+  position: relative;
+  margin-left: 320px;
+  width: 100%;
+  min-height: 900px;
+  background:url('../img/coffee-logo.jpg') no-repeat;
+
+}
+
+/*}*/
+
 
 .open_home form{
   display: block;
@@ -616,10 +632,6 @@ fieldset {
 }
 
 
-/*.rightbox {
-  margin-left: 320px;
-}*/
-
 /*@media all and (max-width: 1920px) {*/
   .rightbox {
     display: block;
@@ -895,7 +907,6 @@ fieldset {
 .required_notification {
     color:#d45252;
     margin:5px 0 0 0;
-    /*display:inline;*/
     float:right;
     font-size: 12px;
 }
@@ -974,4 +985,11 @@ fieldset {
 
 input:required, textarea:required {
     background: #fff url('../img/star_red.png') no-repeat 98% center;
+}
+
+.image_picker_image {
+    max-width: 100px;
+    max-height: 100px;
+    background-color: #FF0000;
+    background-size: contain;
 }

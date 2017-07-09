@@ -76,7 +76,9 @@ def create_tables_two(connect_str):
             admin_id SERIAL PRIMARY KEY,
             admin_mail VARCHAR(50) NOT NULL,
             admin_mailpass VARCHAR(20) NOT NULL,
-            admin_su VARCHAR(20) NOT NULL
+            admin_su VARCHAR(20) NOT NULL,
+            admin_sms_login VARCHAR(20) NOT NULL,
+            admin_sms_pass VARCHAR(20) NOT NULL
         )
         """
     )

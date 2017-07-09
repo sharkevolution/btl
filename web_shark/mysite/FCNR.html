@@ -61,6 +61,9 @@
       addScript("js/pushy.min.js");
       addScript("js/canvasloader.js");
       addScript("lib/scrollup.js");
+      addScript("image-picker/image-picker.js");
+      addScript("js/picker.js");
+
     </script>
 
     <noscript id="deferred-styles">
@@ -68,6 +71,7 @@
         <link href="static/scnr.css" rel="stylesheet" type="text/css">
         <link href="static/calc.css" rel="stylesheet" type="text/css">
         <link href="css/pushy.css" rel="stylesheet" type="text/css">
+        <link href="image-picker/image-picker.css" rel="stylesheet" type="text/css" >
     </noscript>
 </head>
 
@@ -293,46 +297,58 @@
             Фактические возможности настройки алгоритма (ширина, остаток, кол-во ножей) - без ограничений
           </p> -->
         </div>
+        <div class='rightbox'>
+          <h3>Видео инструкция</h3>
+          <!-- <iframe width="290" height="215"
+            src="https://www.youtube.com/embed/EA0WTPVzbW8" frameborder="0" allowfullscreen>
+          </iframe> -->
+          <h3>Пример работы</h3>
+          <!-- <iframe width="290" height="215"
+            src="https://www.youtube.com/embed/cEVa8i-2JVg" frameborder="0" allowfullscreen>
+          </iframe> -->
+        </div>
+        <div class='rightbox'>
+          <h3>Примеры файлов для загрузки</h3>
+          <p>
+            Файл в формате Microsoft Excel
+            <a href="analiz_data/xltest.xlsx">xltest.xlsx</a>
+          </p>
+          <p>
+            Файл в текстовом формате
+            <a href="analiz_data/test.txt">test.txt</a>
+          </p>
+          <p>
+            После сохранения тестового файла на устройстве, загрузите его через "Загрузка данных" Обзор, выше на сайте.
+          </p>
+
+        </div>
+        <div class='rightbox'>
+          <h3>Отработанные примеры</h3>
+          <p>
+             Файл решений для анализа смотри
+            <a href="analiz_data/result.xlsx">здесь</a>
+          </p>
+        </div>
+
+        <div class='rightbox'>
+          <p>Дата последнего обновления сайта 01.07.2017</p>
+          <p>Используемая версия алгоритма 1.0.4</p>
+        </div>
     </div>
-    <div class='rightbox'>
-      <h3>Видео инструкция</h3>
-      <!-- <iframe width="290" height="215"
-        src="https://www.youtube.com/embed/EA0WTPVzbW8" frameborder="0" allowfullscreen>
-      </iframe> -->
-      <h3>Пример работы</h3>
-      <!-- <iframe width="290" height="215"
-        src="https://www.youtube.com/embed/cEVa8i-2JVg" frameborder="0" allowfullscreen>
-      </iframe> -->
-    </div>
-    <div class='rightbox'>
-      <h3>Примеры файлов для загрузки</h3>
-      <p>
-        Файл в формате Microsoft Excel
-        <a href="analiz_data/xltest.xlsx">xltest.xlsx</a>
-      </p>
-      <p>
-        Файл в текстовом формате
-        <a href="analiz_data/test.txt">test.txt</a>
-      </p>
-      <p>
-        После сохранения тестового файла на устройстве, загрузите его через "Загрузка данных" Обзор, выше на сайте.
-      </p>
+    <div class="coffee">
+      <p>Список программ развития для алгоритма</p>
+
+      <select id="selectImage" class="image-picker show-labels show-html" data-limit="5" multiple="multiple">
+        <option data-img-label="Ристретто" data-img-src="img/ristreto.jpg" value="1">Cute Kitten 1</option>
+        <option data-img-label="Эспрессо" data-img-src="img/espresso.jpg" value="2">Cute Kitten 2</option>
+        <option data-img-label="Коррето" data-img-src="img/correto.jpg" value="3">Cute Kitten 3</option>
+        <option data-img-label="Американо" data-img-src="img/americano.jpg" value="4">Cute Kitten 4</option>
+        <option data-img-label="Лате" data-img-src="img/late.jpg" value="5">Cute Kitten 5</option>
+      </select>
 
     </div>
-    <div class='rightbox'>
-      <h3>Отработанные примеры</h3>
-      <p>
-         Файл решений для анализа смотри
-        <a href="analiz_data/result.xlsx">здесь</a>
-      </p>
-    </div>
-  </div>
-  <div class='rightbox'>
-    <p>Дата последнего обновления сайта 01.07.2017</p>
-    <p>Используемая версия алгоритма 1.0.4</p>
-  </div>
 
-  <!-- </div> -->
+  </div>
 
   <div class="footer">
       <a class="twit" rel="nofollow" href="https://twitter.com/nsitala" title="sharkevo.ru"></a>
