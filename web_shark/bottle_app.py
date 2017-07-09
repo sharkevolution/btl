@@ -111,6 +111,7 @@ def redirect_https(func):
     """ Проверка авторизации пользователя
     """
 
+
     def wrapped(*args, **kwargs):
 
         try:
