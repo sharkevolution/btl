@@ -121,7 +121,6 @@ def redirect_https(func):
 
             heroku = 0
 
-        # heroku = 1
         if heroku:
 
             if not request.url.startswith('https'):
@@ -338,7 +337,7 @@ def retresult():
 
 
 @route('/', method='GET')
-@redirect_https
+# @redirect_https
 def index():
     """ Главная точка входа на сайт
 
