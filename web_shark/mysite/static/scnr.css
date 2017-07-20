@@ -209,7 +209,11 @@ h3 {
     font-size: 14px;
 }
 
-.geolist form{
+.help_load form {
+  width:50px;
+}
+
+.list_load form {
   width:150px;
 }
 

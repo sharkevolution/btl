@@ -99,7 +99,7 @@ def authenticated(func):
         # Проверяем печеньку есть ли она и срок действия
         username = request.get_cookie("account", secret='some-secret-key')
 
-        if username == 'sharkx1':
+        if username == 'sharkx2':
             return func(*args, **kwargs)
         else:
             redirect('/login')
@@ -284,7 +284,7 @@ def do_registration():
         login_data = None
         login_data = psg.find_regigistration(form_phone, form_pass)
         if login_data:
-            response.set_cookie("account", 'sharkx1', secret='some-secret-key')
+            response.set_cookie("account", 'sharkx2', secret='some-secret-key')
             redirect('/')
         else:
             myfile = os.path.join(config.exm, 'login.html')
@@ -502,7 +502,7 @@ def shop_aj_getallitems():
 
     # Проверяем печеньку есть ли она и срок действия
     username = request.get_cookie("account", secret='some-secret-key')
-    if not username == 'sharkx1':
+    if not username == 'sharkx2':
         optimization[1] = 'stop'
         optimization[3] = 'Неавторизованный доступ!'
         optimization[2] = ''

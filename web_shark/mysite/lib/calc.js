@@ -75,13 +75,36 @@ window.onload = function() {
 
         if (current_figure > 0 && current_amount > 0){
 
-          var size = Object.keys(window.fruit).length
-          if (size == 0){
-            idx_fruit = 0
+          if (current_figure == 77 && current_amount == 77){
+
+            var btn = document.createElement("BUTTON");
+            btn.className = 'help-style';
+            btn.onclick = function() { admin();};
+            var t = document.createTextNode("ADMIN");
+            btn.appendChild(t);
+            export_data.appendChild(btn);
+
+            document.getElementById('size').value = 0;
+            document.getElementById('figure').disabled = false;
+            document.getElementById('count').disabled = false;
+
+            document.getElementById('crf').childNodes.item(0).nodeValue = 0;
+            document.getElementById('amf').childNodes.item(0).nodeValue = 0;
+
+            current_figure = 0;
+            current_amount = 0;
+
+          } else {
+
+            var size = Object.keys(window.fruit).length
+            if (size == 0){
+              idx_fruit = 0
+            }
+            window.fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
+            fruitnew(idx_fruit);
+            idx_fruit += 1;
           }
-          window.fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
-          fruitnew(idx_fruit);
-          idx_fruit += 1;
+
         }
 
       }
@@ -105,13 +128,28 @@ window.onload = function() {
 
         if (current_figure > 0 && current_amount > 0){
 
-          var size = Object.keys(window.fruit).length
-          if (size == 0){
-            idx_fruit = 0
+          if (current_figure == 77 && current_amount == 77){
+
+            document.getElementById('size').value = 0;
+            document.getElementById('figure').disabled = false;
+            document.getElementById('count').disabled = false;
+
+            document.getElementById('crf').childNodes.item(0).nodeValue = 0;
+            document.getElementById('amf').childNodes.item(0).nodeValue = 0;
+
+            current_figure = 0;
+            current_amount = 0;
+
+          } else {
+
+            var size = Object.keys(window.fruit).length
+            if (size == 0){
+              idx_fruit = 0
+            }
+            window.fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
+            fruitnew(idx_fruit);
+            idx_fruit += 1;
           }
-          window.fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
-          fruitnew(idx_fruit);
-          idx_fruit += 1;
         }
 
       }
@@ -318,3 +356,7 @@ function moveprogress(widthprogress) {
       document.selection.empty();
     }
   }
+
+function admin(){
+  alert("ok");
+}
