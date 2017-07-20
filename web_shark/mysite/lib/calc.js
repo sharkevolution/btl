@@ -79,7 +79,7 @@ window.onload = function() {
 
             var btn = document.createElement("BUTTON");
             btn.className = 'help-style';
-            btn.onclick = function() { admin();};
+            btn.onclick = function() { admin();return false;};
             var t = document.createTextNode("ADMIN");
             btn.appendChild(t);
             export_data.appendChild(btn);
@@ -358,5 +358,5 @@ function moveprogress(widthprogress) {
   }
 
 function admin(){
-  alert("ok");
+  document.location.href = "/admin";
 }

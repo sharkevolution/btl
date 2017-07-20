@@ -299,6 +299,12 @@ def do_open():
     redirect('/')
 
 
+@route('/admin', method='GET')
+def do_admin():
+    #response.set_cookie("account", 'sharkx', secret='some-secret-key')
+    redirect('/login')
+
+
 @route('/login', method='GET') # or @route('/login', method='POST')
 def do_auth():
     myfile = os.path.join(config.exm, 'login.html')
