@@ -481,6 +481,8 @@ def shop_aj_getallitems():
     limright = mydata['limright']
     site_attempt = mydata['attempt']
     develop = mydata['correto']
+    if not develop:
+        develop = [4]
 
     # print(knox, limright)
 
