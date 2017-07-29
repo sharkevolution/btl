@@ -29,6 +29,10 @@ document.addEventListener("DOMContentLoaded", ready);
       window.limright = document.getElementById('rangeInput_1').value;
       window.attempt = document.getElementById('rangeInput_2').value;
 
+      objSel = document.getElementById("selectImage");
+      window.correto = getSelectedIndexes(objSel);
+      // alert ( getSelectedIndexes(objSel) );
+
       window.intervalID = setInterval(eee, 3000);
       window.cnvsopt = new CanvasLoader('canvasloader-optimization');
       cnvsopt.setShape('spiral'); // default is 'oval'
@@ -274,7 +278,8 @@ document.addEventListener("DOMContentLoaded", ready);
          'fruit': window.clone_fruit,
          'knox': window.knox,
          'limright': window.limright,
-         'attempt': window.attempt
+         'attempt': window.attempt,
+         'correto': window.correto
        });
 
       xmlhttp.send(json_name);

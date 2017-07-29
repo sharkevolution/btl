@@ -76,8 +76,93 @@ _sep = collections.namedtuple('separation', ['gold_cycle',
 # g = _perf._make(val)
 
 
-# Количество выращиваемых сущностей
-attempt = 1
+attempt = 1  # Количество выращиваемых сущностей
+list_develop_pull = [0]  # Список применяемых программ от 0 до 4
+
+def _program_develop():
+
+    global list_develop_pull
+
+    # Программа развития сущщности "A"
+    task_fate_A = {}
+    layout_task = []
+    layout_task.extend([1] * 3)
+    layout_task.extend([2] * 2)
+    layout_task.extend([3] * 1)
+    task_fate_A[1] = layout_task
+
+    # Программа развития сущщности "B"
+    task_fate_B = {}
+    layout_task = []
+    layout_task.extend([3] * 1)
+    task_fate_B[2] = layout_task
+
+    layout_task = []
+    layout_task.extend([1] * 7)
+    layout_task.extend([2] * 3)
+    task_fate_B[1] = layout_task
+
+    # Программа развития сущщности "C"
+    task_fate_C = {}
+    layout_task = []
+    layout_task.extend([3] * 1)
+    task_fate_C[4] = layout_task
+
+    layout_task = []
+    layout_task.extend([1] * 5)
+    task_fate_C[3] = layout_task
+
+    layout_task = []
+    layout_task.extend([2] * 2)
+    task_fate_C[2] = layout_task
+
+    layout_task = []
+    layout_task.extend([1] * 5)
+    task_fate_C[1] = layout_task
+
+    # Программа развития сущщности "D"
+    task_fate_D = {}
+    layout_task = []
+    layout_task.extend([6] * 1)
+    task_fate_D[3] = layout_task
+
+    layout_task.extend([3] * 5)
+    layout_task.extend([5] * 2)
+    task_fate_D[2] = layout_task
+
+    layout_task = []
+    layout_task.extend([1] * 10)
+    layout_task.extend([2] * 5)
+    layout_task.extend([4] * 1)
+    task_fate_D[1] = layout_task
+
+    # Программа развития сущщности "E"
+    task_fate_E = {}
+    layout_task = []
+    layout_task.extend([5] * 1)
+    task_fate_E[2] = layout_task
+
+    layout_task = []
+    layout_task.extend([1] * 10)
+    layout_task.extend([2] * 5)
+    layout_task.extend([3] * 3)
+    layout_task.extend([4] * 2)
+    task_fate_E[1] = layout_task
+
+    all_task_develop = [task_fate_A, task_fate_B,
+                        task_fate_C, task_fate_D,
+                        task_fate_E]
+
+    q = collections.deque()
+    for h in list_develop_pull:
+        q.append(h)
+
+    for b in range(5):
+        s = q[0]
+        f = all_task_develop[s]
+        q.rotate(-1)
+
+        yield (f)
 
 
 def _development():
@@ -94,62 +179,71 @@ def _development():
     separation = _sep(gold_cycle=15, gold_life=100)
     dist = _dist(distance_model=0, model_fx=0)
 
-    # Программа развития сущщности "A"
-    task_fate_A = {}
+    # # Программа развития сущщности "A"
+    # task_fate_A = {}
+    #
+    # layout_task = []
+    # layout_task.extend([5] * 1)
+    # task_fate_A[2] = layout_task
+    #
+    # layout_task = []
+    # layout_task.extend([1] * 10)
+    # layout_task.extend([2] * 5)
+    # layout_task.extend([3] * 3)
+    # layout_task.extend([4] * 2)
+    # task_fate_A[1] = layout_task
+    #
+    # # Программа развития сущщности "B"
+    # task_fate_B = {}
+    #
+    # layout_task = []
+    # layout_task.extend([3] * 1)
+    # task_fate_B[2] = layout_task
+    #
+    # layout_task = []
+    # layout_task.extend([1] * 5)
+    # layout_task.extend([2] * 3)
+    # task_fate_B[1] = layout_task
 
-    layout_task = []
-    layout_task.extend([5] * 1)
-    task_fate_A[2] = layout_task
-
-    layout_task = []
-    layout_task.extend([1] * 10)
-    layout_task.extend([2] * 5)
-    layout_task.extend([3] * 3)
-    layout_task.extend([4] * 2)
-    task_fate_A[1] = layout_task
-
-    # Программа развития сущщности "B"
-    task_fate_B = {}
-
-    layout_task = []
-    layout_task.extend([3] * 1)
-    task_fate_B[2] = layout_task
-
-    layout_task = []
-    layout_task.extend([1] * 5)
-    layout_task.extend([2] * 3)
-    task_fate_B[1] = layout_task
-
+    mydev = _program_develop()
 
     box = _box(section=0.26, lim_list=0.10, alfa_effect=7.2, plato=1, loop=25)
     # q.append([cloth, box, dist, lifecycle, separation, task_fate])
+    task_fate_A = next(mydev)
     q.append([box, dist, lifecycle, separation, task_fate_A])
 
     box = _box(section=0.25, lim_list=0.15, alfa_effect=7.1, plato=1, loop=25)
+    task_fate_B = next(mydev)
     q.append([box, dist, lifecycle, separation, task_fate_B])
 
     box = _box(section=0.24, lim_list=0.20, alfa_effect=7.0, plato=1, loop=25)
-    q.append([box, dist, lifecycle, separation, task_fate_A])
+    task_fate_C = next(mydev)
+    q.append([box, dist, lifecycle, separation, task_fate_C])
 
     box = _box(section=0.23, lim_list=0.25, alfa_effect=6.9, plato=1, loop=25)
-    q.append([box, dist, lifecycle, separation, task_fate_B])
+    task_fate_D = next(mydev)
+    q.append([box, dist, lifecycle, separation, task_fate_D])
 
     box = _box(section=0.22, lim_list=0.30, alfa_effect=6.8, plato=1, loop=25)
-    q.append([box, dist, lifecycle, separation, task_fate_A])
+    task_fate_E = next(mydev)
+    q.append([box, dist, lifecycle, separation, task_fate_E])
 
 
     # Организация циклического конвеера задач
     for b in range(attempt):
-        develop = q[0]
+        loop = q[0]
         q.rotate(-1)
 
-        yield (develop)
+        yield (loop)
 
     return 0
 
 
-def update_attempt(site_attempt):
+def update_attempt(site_attempt, develop):
     # Обновление кол-ва сущностей по запросу пользовтаеля
 
     global attempt
+    global list_develop_pull
+
     attempt = site_attempt
+    list_develop_pull = develop

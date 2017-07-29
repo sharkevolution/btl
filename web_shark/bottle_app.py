@@ -94,6 +94,7 @@ def authenticated(func):
     :param func: 
     :return: 
     """
+
     def wrapped(*args, **kwargs):
 
         # Проверяем печеньку есть ли она и срок действия
@@ -110,7 +111,6 @@ def authenticated(func):
 def redirect_https(func):
     """ Проверка авторизации пользователя
     """
-
 
     def wrapped(*args, **kwargs):
 
@@ -135,7 +135,6 @@ def redirect_https(func):
             return func(*args, **kwargs)
 
     return wrapped
-
 
 
 @route('/yandex_1b8eabd36008dc04.html', method='GET')
@@ -181,11 +180,10 @@ class Epoch():
     """
 
     def __init__(self):
-
-        self.tzutc = tzutc()    # При форм Даты определяет что будет Время в UTC
+        self.tzutc = tzutc()  # При форм Даты определяет что будет Время в UTC
         self.tzlocal = tzlocal()  # При форм Даты определяет что будет Локальное время
-        self.winter_summer = time.daylight  #Исп. ли переход на зимнее-летнее время
-        #Время Unix в UTC формате
+        self.winter_summer = time.daylight  # Исп. ли переход на зимнее-летнее время
+        # Время Unix в UTC формате
         self.__UNIX_EPOCH = datetime.datetime(1970, 1, 1, 0, 0, tzinfo=pytz.utc)
         self.complex_data = None
 
@@ -196,11 +194,11 @@ class Epoch():
         self.__hour = self.complex_data[3]
         self.__minute = self.complex_data[4]
 
-        #Создаем локальное время
+        # Создаем локальное время
         naive = datetime.datetime(self.__year, self.__month, self.__day,
                                   self.__hour, self.__minute, tzinfo=tzlocal())
 
-        #Переводим локальное время в UTC
+        # Переводим локальное время в UTC
         self.utc_datetime = naive.astimezone(pytz.utc)
 
         self.delta = self.utc_datetime - self.__UNIX_EPOCH
@@ -289,23 +287,26 @@ def do_registration():
         else:
             myfile = os.path.join(config.exm, 'login.html')
 
-
     return template(myfile)
 
 
 @route('/open', method='POST')
 def do_open():
-    #response.set_cookie("account", 'sharkx', secret='some-secret-key')
+    # response.set_cookie("account", 'sharkx', secret='some-secret-key')
     redirect('/')
 
 
-@route('/admin', method='GET')
+@route('/admin', method='POST')
 def do_admin():
-    #response.set_cookie("account", 'sharkx', secret='some-secret-key')
-    redirect('/login')
+    json_data = request.forms.get('json_file')
+    mydata = json.loads(json_data)
+    secret_letter = mydata['params']  # Получаем уникальный код сеанса пользователя
+    if secret_letter:
+        # Устанавливаем админскую куку
+        response.set_cookie("admin_level", 'blue', secret='some-secret-key')
 
 
-@route('/login', method='GET') # or @route('/login', method='POST')
+@route('/login', method='GET')  # or @route('/login', method='POST')
 def do_auth():
     myfile = os.path.join(config.exm, 'login.html')
     return template(myfile)
@@ -313,7 +314,6 @@ def do_auth():
 
 @route('/upload_figure', method='POST')
 def do_page():
-
     current_user = request.headers.get('host')
     gencode = request.forms.get('code')
 
@@ -342,6 +342,15 @@ def retresult():
     return static_file(filename, root=myfile, download=filename)
 
 
+@route('/develop', method='GET')
+def do_develop():
+    devpass = request.get_cookie("admin_level", secret='some-secret-key')
+    if devpass == 'blue':
+        return 'ok'
+    else:
+        return 'bad'
+
+
 @route('/', method='GET')
 # @redirect_https
 def index():
@@ -363,14 +372,24 @@ def index():
     username = request.get_cookie("account", secret='some-secret-key')
     usdata.account = username
 
-    #response.set_cookie("account", 'sharkx', secret='some-secret-key', expires=expire_date)
+    # response.set_cookie("account", 'sharkx', secret='some-secret-key', expires=expire_date)
+    devpass = request.get_cookie("admin_level", secret='some-secret-key')
 
     myfile = os.path.join(config.exm, 'FCNR.html')
-    return template(myfile, private_code=gencode, zona=usdata.preload_figure)
+
+    navigation = [
+        '<li class="pushy-link"><a href="/login">Авторизация</a></li>',
+        '<li class="pushy-link"><a href="/">Результаты</a></li>',
+        '<li class="pushy-link"><a href="/mystory">Обо мне</a></li>',
+        '<li class="pushy-link"><a href="/">На главную</a></li>'
+    ]
+    if devpass == 'blue':
+        navigation.extend(['<li class="pushy-link"><a href="/develop">Админ</a></li>'])
+
+    return template(myfile, private_code=gencode, zona=usdata.preload_figure, navigation=navigation)
 
 
 def do_save(resdict, gencode):
-
     usdata = Pull.uname[gencode]
     fx = os.path.join(config.exm, 'result', gencode + '.xlsx')
     usdata.outfile = os.path.normpath(fx)
@@ -391,21 +410,19 @@ def destroy_gencode(gencode):
         del (Pull.uname[gencode])
 
     if gencode in Tender.gencode_time:
-        del(Tender.gencode_time[gencode])
+        del (Tender.gencode_time[gencode])
 
     if gencode in Tender.waiting_line:
         Tender.waiting_line.remove(gencode)
 
 
 def destroy_gencode_waiting(gencode):
-
     if gencode in Tender.waiting_line:
         Tender.waiting_line.remove(gencode)
 
 
 @route('/feedback.json', method='POST')
 def feedback():
-
     json_data = request.forms.get('json_file')
     mydata = json.loads(json_data)
 
@@ -428,7 +445,6 @@ def feedback():
 
 @route('/export', method='GET')
 def export():
-
     gencode = request.query.unique
     usdata = Pull.uname[gencode]
     usdata.online_export = False
@@ -443,7 +459,6 @@ def export():
 
 @route('/getallitems.json', method='POST')
 def shop_aj_getallitems():
-
     # https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Strict_mode
     # http://w-code.ru/jscript/ajax/ajax-xmlhttprequest
 
@@ -456,6 +471,7 @@ def shop_aj_getallitems():
     knox = mydata['knox']
     limright = mydata['limright']
     site_attempt = mydata['attempt']
+    develop = mydata['correto']
 
     # print(knox, limright)
 
@@ -488,7 +504,7 @@ def shop_aj_getallitems():
                 del (Pull.uname[b])
 
             if b in Tender.gencode_time:
-                del(Tender.gencode_time[b])
+                del (Tender.gencode_time[b])
 
         if not b == Tender.curr_optimize_gencode:
             if differ.seconds > 15:
@@ -557,14 +573,14 @@ def shop_aj_getallitems():
                             if usdata.pull_figure:
                                 # Есть фигуры для решения
 
-                                # Работа в одном процессе (блокирующий режим)
+                                # # Работа в одном процессе (блокирующий режим)
                                 # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright),
-                                #                                int(site_attempt))
+                                #                                int(site_attempt), develop)
                                 # onthr.run()
 
                                 # Работа в отдельном процессе системы (многопоточный режим)
                                 onthr = level7.main_thread(usdata.pull_figure, int(knox), int(limright),
-                                                           int(site_attempt))
+                                                           int(site_attempt), develop)
                                 onthr.start()
 
                                 Tender.curr_optimize_gencode = gencode  # Сохраняем инфр о коде пользователя в работе
@@ -605,7 +621,7 @@ def shop_aj_getallitems():
                     level7.main_thread.flag_optimization = None
                     level7.main_thread.progress = 0
 
-                    gendel = Tender.waiting_line.popleft() # Удаляем отработаный сеанс после работы алгоритма
+                    gendel = Tender.waiting_line.popleft()  # Удаляем отработаный сеанс после работы алгоритма
                     Tender.curr_optimize_gencode = None
 
                 else:
@@ -698,7 +714,6 @@ def shop_aj_getallitems():
 
 
 def main_log():
-
     level = logging.INFO
     handler = logging.StreamHandler()
     handler.setLevel(level)
@@ -734,7 +749,6 @@ def send_sms():
 logger = main_log()
 Unxtime = Epoch()
 Pull = Pull_user()
-
 
 #
 # command = """

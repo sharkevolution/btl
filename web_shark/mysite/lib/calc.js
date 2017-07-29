@@ -358,5 +358,20 @@ function moveprogress(widthprogress) {
   }
 
 function admin(){
-  document.location.href = "/admin";
+
+  var xhr = new XMLHttpRequest();
+
+  var params = 'json_file=' +  JSON.stringify(
+    {
+      'params': window.fruit
+    });
+
+  xhr.open('POST', '/admin', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    // alert(this.responseText);
+  	}
+  }
+  xhr.send(params);
 }
