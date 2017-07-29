@@ -49,6 +49,18 @@ from web_shark import psg
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+def html_navigation():
+
+    navigation = [
+        '<li class="pushy-link"><a href="/login">Авторизация</a></li>',
+        '<li class="pushy-link"><a href="/">Результаты</a></li>',
+        '<li class="pushy-link"><a href="/mystory">Обо мне</a></li>',
+        '<li class="pushy-link"><a href="/">На главную</a></li>'
+    ]
+
+    return navigation
+
+
 def fruit_trsnsform(usdata, fruit):
     """
         Трансформация данных фигур и количества полученных от клиента в пригодный вид python
@@ -235,7 +247,9 @@ def do_load():
 
     # response.set_cookie("account", 'shark', secret='some-secret-key')
     myfile = os.path.join(config.exm, 'FCNR.html')
-    return template(myfile, private_code=gencode, zona=usdata.preload_figure)
+    navigation = html_navigation()
+
+    return template(myfile, private_code=gencode, zona=usdata.preload_figure, navigation=navigation)
 
 
 @route('/<name>/<filename>')
@@ -377,12 +391,7 @@ def index():
 
     myfile = os.path.join(config.exm, 'FCNR.html')
 
-    navigation = [
-        '<li class="pushy-link"><a href="/login">Авторизация</a></li>',
-        '<li class="pushy-link"><a href="/">Результаты</a></li>',
-        '<li class="pushy-link"><a href="/mystory">Обо мне</a></li>',
-        '<li class="pushy-link"><a href="/">На главную</a></li>'
-    ]
+    navigation = html_navigation()
     if devpass == 'blue':
         navigation.extend(['<li class="pushy-link"><a href="/develop">Админ</a></li>'])
 
