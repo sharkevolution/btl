@@ -1,6 +1,7 @@
 
 fruit = {};
 var idx_fruit = 0;
+var view_idx_fruit = 0;
 
 window.onload = function() {
 
@@ -268,7 +269,19 @@ function fruitnew(idx_fruit){
   var label = document.createElement('label');
   label.for = 'raz';
 
-  var str = String(window.fruit[idx_fruit].f) + ', ' + String(window.fruit[idx_fruit].c)
+  view_idx_fruit += 1
+
+  if (view_idx_fruit > 9){
+      vf = String(view_idx_fruit);
+  } else {
+      vf = '0' + String(view_idx_fruit)
+  }
+  n = 6;
+  k = [''];
+  k.length += n;
+  nbspstr = k.join('&nbsp;');
+
+  var str = vf + '.' + nbspstr + String(window.fruit[idx_fruit].f) + ', ' + String(window.fruit[idx_fruit].c);
   label.innerHTML = str;
 
   fld.appendChild(label);
