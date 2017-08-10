@@ -32,9 +32,9 @@ from numpy import array
 # from matplotlib import cm, style
 # from mpl_toolkits.mplot3d import axes3d
 
-import config
-import imexdata
-import perfomance
+from web_shark import config
+from web_shark import imexdata
+from web_shark import perfomance
 
 
 # style.use('fivethirtyeight')
