@@ -34,7 +34,8 @@ def update_heroku(heroku_flag):
 def main_log():
     level = logging.INFO
 
-    file_handler = RotatingFileHandler('ex/microblog.log', 'a', 1 * 1024 * 1024, 10)
+    mylog =  os.path.join(exm, 'microblog.log')
+    file_handler = RotatingFileHandler(mylog, 'a', 1 * 1024 * 1024, 10)
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
 
