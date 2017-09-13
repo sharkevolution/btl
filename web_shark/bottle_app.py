@@ -3,6 +3,8 @@
 
 import os
 import logging
+# from logging.handlers import RotatingFileHandler
+
 import json
 import time
 import pytz
@@ -32,12 +34,8 @@ from web_shark import mail
 
 # from web_shark import perfomance
 
-import logging
-
 import psycopg2
 from urllib.parse import urlparse
-
-from web_shark import psg
 
 # import dropbox
 #
@@ -295,6 +293,7 @@ def do_registration():
         #     raise ValueError('Bad Syntax')
         login_data = None
         login_data = psg.find_regigistration(form_phone, form_pass)
+        zzz = psg.get_billing_users(form_phone, form_pass)
         if login_data:
             response.set_cookie("account", 'sharkx3', secret='some-secret-key')
             redirect('/')
@@ -724,16 +723,18 @@ def shop_aj_getallitems():
 #         redirect('/registration')
 
 
-def main_log():
-    level = logging.INFO
-    handler = logging.StreamHandler()
-    handler.setLevel(level)
-    handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-    logger = logging.getLogger('info')
-    logger.addHandler(handler)
-    logger.setLevel(level)  # even if not required...
-
-    return logger
+# def main_log():
+#     level = logging.INFO
+#
+#     file_handler = RotatingFileHandler('ex/microblog.log', 'a', 1 * 1024 * 1024, 10)
+#     file_handler.setLevel(logging.INFO)
+#     file_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+#
+#     logger = logging.getLogger('info')
+#     logger.addHandler(file_handler)
+#     logger.setLevel(level)  # even if not required...
+#
+#     return logger
 
 
 def send_sms():
@@ -757,7 +758,9 @@ def send_sms():
     print(res.raise_for_status())
 
 
-logger = main_log()
+logger = config.main_log()
+logger.info('hello')
+
 Unxtime = Epoch()
 Pull = Pull_user()
 
@@ -794,13 +797,15 @@ Pull = Pull_user()
 
 
 try:
-    heroku = urlparse(os.environ["CHERRY"])
+    heroku_flag = urlparse(os.environ["CHERRY"])
 
 except Exception as ex:
 
-    heroku = 0
+    heroku_flag = None
 
-if heroku:
+config.update_heroku(heroku_flag)
+
+if config.heroku:
 
     url = urlparse(os.environ["USERS_DB_URL"])
     dbname = url.path[1:]
@@ -810,7 +815,7 @@ if heroku:
     port = url.port
 
     # urlparse.uses_netloc.append("postgres")
-    url = urlparse(os.environ["USERS_DB_URL"])
+    # url = urlparse(os.environ["USERS_DB_URL"])
 
     # conn = psycopg2.connect(
     #     database=url.path[1:],
@@ -820,7 +825,11 @@ if heroku:
     #     port=url.port
     # )
 
-    connect_base = "dbname={0}, user={1}, password={2}, host={3}, port={4}".format(dbname, user, password, host, port)
+    connect_base = "dbname={0}, user={1}, password={2}, host={3}, port={4}".format(dbname,
+                                                                                   user,
+                                                                                   password,
+                                                                                   host,
+                                                                                   port)
     logger.info(connect_base)
     config.update_connect(connect_base)
 
@@ -838,8 +847,8 @@ if heroku:
 else:
 
     try:
-        connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
-        config.update_connect(connect_base)
+        # connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
+        config.update_connect(config.connect_base)
 
         psg.create_tables_two(config.connect_str)
         psg.access_create(config.connect_str)

@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import os
+
 from psycopg2.extras import Json
 from psycopg2 import sql
 import psycopg2
@@ -262,23 +263,29 @@ def insert_admin():
 
 
 def find_regigistration(logphone, logpass):
+    logger = config.main_log()
     login_data = None
     conn = None
+
     try:
 
-        url = urlparse(os.environ["USERS_DB_URL"])
+        if config.heroku:
+            url = urlparse(os.environ["USERS_DB_URL"])
 
-        conn = psycopg2.connect(
-            database=url.path[1:],
-            user=url.username,
-            password=url.password,
-            host=url.hostname,
-            port=url.port
-        )
-        # connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
-        # config.update_connect(connect_base)
+            conn = psycopg2.connect(
+                database=url.path[1:],
+                user=url.username,
+                password=url.password,
+                host=url.hostname,
+                port=url.port
+            )
+        else:
 
-        # conn = psycopg2.connect(config.connect_str)
+            # connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
+            # config.update_connect(connect_base)
+
+            conn = psycopg2.connect(config.connect_base)
+
         cur = conn.cursor()
 
         quote = "\'"
@@ -294,7 +301,7 @@ def find_regigistration(logphone, logpass):
         cur.close()
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        logger.info(error)
     finally:
         if conn is not None:
             conn.close()
@@ -305,7 +312,7 @@ def find_regigistration(logphone, logpass):
 
 
 def get_admin_email():
-
+    logger = config.main_log()
     base_mail = None
     base_mailpass = None
 
@@ -325,12 +332,63 @@ def get_admin_email():
         cur.close()
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        logger.info(error)
     finally:
         if conn is not None:
             conn.close()
 
         return base_mail, base_mailpass
+
+
+
+def get_billing_users(form_phone, form_pass):
+    """
+        Поиск зарегистрированного пользователя и разрешенных доступов
+    :return:
+    """
+    logger = config.main_log()
+    conn = None
+    data = find_regigistration(form_phone, form_pass)
+    if data:
+
+        try:
+            if config.heroku:
+
+                url = urlparse(os.environ["USERS_DB_URL"])
+
+                conn = psycopg2.connect(
+                    database=url.path[1:],
+                    user=url.username,
+                    password=url.password,
+                    host=url.hostname,
+                    port=url.port
+                )
+            else:
+                conn = psycopg2.connect(config.connect_base)
+
+            cur = conn.cursor()
+            login_id = data[0]
+
+            quote = "\'"
+            bilqwery = login_id
+
+            qw = """SELECT * FROM billing_users
+                        WHERE login_id = {0};""".format(bilqwery)
+
+            cur.execute(qw)
+            bill_data = cur.fetchall()
+            logger.info(bill_data)
+
+            cur.close()
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            logger.info(error)
+        finally:
+            if conn is not None:
+                conn.close()
+
+                return bill_data
+
 
 
 

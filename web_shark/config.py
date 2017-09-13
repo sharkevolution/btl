@@ -2,6 +2,8 @@
 # -*- coding: UTF-8 -*-
 
 import os
+import logging
+from logging.handlers import RotatingFileHandler
 
 # _current_dir1 = os.getcwd()
 _current_dir = os.path.dirname(__file__)
@@ -11,6 +13,10 @@ exm = os.path.normpath(_current_dir)
 BASE_DIR = os.path.join(__file__)
 
 connect_str = None
+heroku = None
+
+connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
+
 
 def update_connect(connect_base):
     global connect_str
@@ -18,6 +24,22 @@ def update_connect(connect_base):
     connect_str = connect_base
 
 
+def update_heroku(heroku_flag):
+    global heroku
+
+    heroku = heroku_flag
 
 
 
+def main_log():
+    level = logging.INFO
+
+    file_handler = RotatingFileHandler('ex/microblog.log', 'a', 1 * 1024 * 1024, 10)
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+
+    logger = logging.getLogger('info')
+    logger.addHandler(file_handler)
+    logger.setLevel(level)  # even if not required...
+
+    return logger
