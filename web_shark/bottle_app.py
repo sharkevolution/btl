@@ -964,7 +964,7 @@ Pull = Pull_user()
 
 try:
     heroku_flag = urlparse(os.environ["CHERRY"])
-
+    logger.info(heroku_flag)
 except Exception as ex:
 
     heroku_flag = None
@@ -998,7 +998,6 @@ if config.heroku:
                                                                                    port)
     logger.info('test------------------------------')
     logger.info(connect_base)
-    logger.info(config.heroku)
     logger.info('test_end ------------------------------')
     config.update_connect(connect_base)
 
