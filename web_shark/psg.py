@@ -390,7 +390,6 @@ def get_admin_email():
     base_mail = None
     base_mailpass = None
 
-    conn = None
     try:
         if config.heroku:
             url = urlparse(os.environ["USERS_DB_URL"])
@@ -403,9 +402,7 @@ def get_admin_email():
         else:
             conn = psycopg2.connect(config.connect_base)
 
-        conn = psycopg2.connect(config.connect_str)
         cur = conn.cursor()
-
         cur.execute("""SELECT admin_mail, admin_mailpass FROM admin;""")
 
         admin_data = cur.fetchone()
