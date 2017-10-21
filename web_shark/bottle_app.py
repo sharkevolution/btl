@@ -996,7 +996,9 @@ if config.heroku:
                                                                                    password,
                                                                                    host,
                                                                                    port)
+    logger.info('test------------------------------')
     logger.info(connect_base)
+    logger.info('test_end ------------------------------')
     config.update_connect(connect_base)
 
     # psg.create_tables_two(config.connect_str)
