@@ -290,7 +290,7 @@ def do_registration():
         base_mail, base_mailpass = psg.get_admin_email()
         logger.info(base_mail)
         logger.info(base_mailpass)
-        
+
         mail.send_mail_key(base_mail, base_mailpass, form_email, akey)
 
         us = json.dumps({'email': form_email,
