@@ -963,7 +963,7 @@ Pull = Pull_user()
 
 
 try:
-    heroku_flag = urlparse(os.environ.get("CHERRY"))
+    heroku_flag = os.environ["CHERRY"]
     logger.info(heroku_flag)
 except Exception as ex:
 
