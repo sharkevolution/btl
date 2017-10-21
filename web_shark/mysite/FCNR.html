@@ -79,15 +79,21 @@
           <button value="Login" id='reg' class="login-style login_btn">Регистрация</button>
           <button value="In" id='account' class="login-style login_in">Вход</button>
         </form> -->
-      </div>
+        </div>
+        <div class="user">
+          <p>
+            Вы вошли как &nbsp {{current_user}}
+          </p>
+        </div>
     </div>
   </div>
   <div id="wrapper">
       <div class="open_home">
         <div class="start_module">
           <form id='home' name='optimus' enctype="multipart/form-data" method="post"
-          onsubmit="submit_figure(this.form);return false;">
+          onsubmit="submit_figure(this);return false;">
               <input type="submit" value="Старт!" id='start' name='tender' value="">
+              <button id="setting_start" class="settings" name="set_start" value=0 onclick="check_settings();">S</button>
               <input type="hidden" name="code" id="private" value="{{private_code}}">
               <input type="hidden" id="resolution" value='0'>
           </form>
@@ -146,6 +152,7 @@
                      </div>
                      <div id="first-rows">
                         <button class="del-bg" id="delete">D</button>
+                        <button class="bsp-bg" id='bsp'>&nbsp</button>
                         <input type="text" id='size' value="" size="4" disabled=1 />
                       </div>
                   </div>
@@ -244,11 +251,11 @@
           <div class='comnt'><output>&nbsp миним. остаток</output></div>
         </div>
         <div class='canvas_matrix'>
-        <form>
-          <input type="range" id="rangeInput_2" name="rangeInput_2" min="1" max="20" value="1" step="1"
-                 oninput="amount.value=rangeInput_2.value">
-          <output name="amount" for="rangeInput_2">1</output>
-        </form>
+          <form>
+            <input type="range" id="rangeInput_2" name="rangeInput_2" min="1" max="20" value="1" step="1"
+                   oninput="amount.value=rangeInput_2.value">
+            <output name="amount" for="rangeInput_2">1</output>
+          </form>
           <div class='comnt'><output>&nbsp матриц</output></div>
         </div>
           <p>
@@ -262,11 +269,46 @@
           </p> -->
         </div>
         <div class='rightbox'>
-          <h3>Видео инструкция</h3>
+          <h3>Временный код активации</h3>
+          <div id="active_key">
+            <input type="text" id='init_key' value="" size="6"/>
+
+            <div class="temp_key_activate">
+              <form id='activation_data' enctype="multipart/form-data" method="post">
+                <!-- <button id="plan" class="help-style">Plan</button> -->
+                <button id="promo_key" class="help-style-active" onclick="submit_tempkey(this.form);return false;" name="onex">Activate</button>
+              </form>
+              <div id="canvasloader-tempkey" class="wrapper"></div>
+            </div>
+
+
+          </div>
+          <div class="textact">
+            <table id='t1' class="tab-style_act">
+               <tr>
+                  <td>Начало действия</td>
+                  <td id='date_start' width="48%">{{arrkey['date_start']}}</td>
+               </tr>
+               <tr>
+                  <td>Окончание действия</td>
+                  <td id='date_end' width="48%">{{arrkey['date_end']}}</td>
+               </tr>
+               <tr>
+                  <td>Тарифный план</td>
+                  <td id='tarif_name' width="48%">{{arrkey['tarif']}}</td>
+               </tr>
+               <tr>
+                  <td>Последнее состояние</td>
+                  <td id='tarif_status' width="48%">{{arrkey['status']}}</td>
+               </tr>
+            </table>
+
+
+          </div>
           <!-- <iframe width="290" height="215"
             src="https://www.youtube.com/embed/EA0WTPVzbW8" frameborder="0" allowfullscreen>
           </iframe> -->
-          <h3>Пример работы</h3>
+          <!-- <h3>Пример работы</h3> -->
           <!-- <iframe width="290" height="215"
             src="https://www.youtube.com/embed/cEVa8i-2JVg" frameborder="0" allowfullscreen>
           </iframe> -->
@@ -295,7 +337,7 @@
         </div>
 
         <div class='rightbox'>
-          <p>Дата последнего обновления сайта 13.09.2017</p>
+          <p>Дата последнего обновления сайта 21.10.2017</p>
           <p>Используемая версия алгоритма 1.0.5</p>
         </div>
     </div>
@@ -324,6 +366,7 @@
   <script>
   var dis = 0;
   var flag_save = 0;
+  var flag_tempkey = 0;
   var intervalID = 0;
   var unique = "{{private_code}}";
   var obj = eval("{{zona}}");

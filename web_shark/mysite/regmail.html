@@ -76,13 +76,6 @@
       <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-              <!-- <a href="#">Инструкция</a>
-              <ul>
-                  <li class="pushy-link"><a href="#">Item 1</a></li>
-                  <li class="pushy-link"><a href="#">Item 2</a></li>
-                  <li class="pushy-link"><a href="#">Item 3</a></li>
-              </ul>
-          </li> -->
           <li class="pushy-link"><a href="/login">Авторизация</a></li>
           <li class="pushy-link"><a href="/">Результаты</a></li>
           <li class="pushy-link"><a href="/mystory">Обо мне</a></li>
@@ -109,12 +102,17 @@
                     <form id="open_lime" action="/open" enctype="multipart/form-data" method="post">
                       <ul>
                         <li>
-                           <h2>Регистрация</h2>
+                           <h2>Завершение регистрации</h2>
                            <!-- <span class="required_notification">* Обязательные поля</span> -->
                         </li>
                         <li>
-                          <label for="name">Пароль отправлен на email</label>
+                          <label for="name">Код активации отправлен на электронный адрес</label>
                           <input type="password" name="pass" pattern=".{6,}" required>
+                        </li>
+                        <li>
+                          <p>
+                            {{registry_answer}}
+                          </p>
                         </li>
                         <li>
                           <button class="submit" type="submit">Завершить</button>

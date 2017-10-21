@@ -181,6 +181,44 @@ window.onload = function() {
 
     },false);
 
+    document.querySelector("#bsp").addEventListener("click",function() {
+
+        var p = document.getElementById('size').value;
+        var nmstr = String(p);
+        if (nmstr.length > 0){
+          p = nmstr.substr(0, nmstr.length -1);
+          document.getElementById('size').value = p;
+
+          if (p == ""){
+            document.getElementById('size').value = '0';
+        }
+
+        document.getElementById('figure').disabled = false;
+        document.getElementById('count').disabled = false;
+      }
+
+        // document.getElementById('crf').childNodes.item(0).nodeValue = 0;
+        // document.getElementById('amf').childNodes.item(0).nodeValue = 0;
+        //
+        // current_figure = 0;
+        // current_amount = 0;
+
+        // fruitremove();
+
+        // var w = 0;
+        // for(var h in window.fruit) {
+        //   w += 1;
+        // }
+        // calc_resolution();
+        // clearSelection();
+
+    },false);
+
+
+
+
+
+
     var elem1 = document.querySelectorAll(".operator");
     var len1 = elem1.length;
 

@@ -44,3 +44,7 @@ def main_log():
     logger.setLevel(level)  # even if not required...
 
     return logger
+
+
+
+access_name = ['Демо', '1 день', '3 дня', '7 дней', '30 дней']

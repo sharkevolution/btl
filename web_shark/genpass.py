@@ -7,7 +7,7 @@ def generate_temp_password(length):
 
     """
     chars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghjklmnopqrstuvwxyz23456789"
-    len_pass = 15
+    len_pass = 4
 
     if not isinstance(length, int) or length < len_pass:
         raise ValueError("temp password must have positive length")
@@ -17,5 +17,5 @@ def generate_temp_password(length):
 
 if __name__ == '__main__':
 
-    for b in range(0, 31, 1):
-        print(generate_temp_password(15))
+    for b in range(0, 1, 1):
+        print(generate_temp_password(20))

@@ -105,20 +105,13 @@ button {
     top:10px;
 }*/
 
-input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
-    /*font-size: 25px;
-    padding: 3px 5px;
-    width: 65px;
-    margin-top:5px;
-    margin-left:1px;*/
-
+#main input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
     font-size: 22px;
     padding: 4px 7px;
     width: 65px;
-    /* margin-top: 5px; */
     margin-left: 1px;
     color: #000;
-
+    border:1px solid #000;
 }
 
 .btn-style:disabled {
@@ -126,12 +119,10 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 }
 
 .rows {
-    /*width:250px;*/
     margin-top:5px;
 }
 
 #first-rows {
-    /*width:250px;*/
     margin-top:5px;
 }
 
@@ -145,6 +136,37 @@ input:not([type="submit"]):not([type="file"]):not([type="checkbox"]), textarea {
 /* Aligning the division and dot button properly */
 .fall-back {
     margin-left:1px !important;
+}
+
+#bsp {
+  min-width: 40px;
+  min-height :40px;
+  width: 40px;
+  height: 40px;
+  margin-left:1px;
+  border-radius:4px;
+}
+
+/*Adding a background color to the delete button */
+.bsp-bg {
+    background: rgb(154, 195, 167) url('../img/bsp.png') no-repeat 50% center;
+    background-size: 65% 45%;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    text-shadow: rgba(255,255,255,.5) 0 -1px 0, rgba(0,0,0,0.18) 0 .18em .15em;
+    color:#FFF;
+    font-size:20px;
+    cursor: pointer;
+    outline:none;
+    /*border-bottom:3px solid #399cb9;*/
+}
+
+.bsp-bg:active {
+    background:rgb(213, 185, 119);
+    color:#000;
+    font-size:20px;
+    cursor: pointer;
+    outline:none;
+    box-shadow: inset 2px 2px 2px #399cb9;
 }
 
 /* Aligning the addition and equals to button properly */

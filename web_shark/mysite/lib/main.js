@@ -10,14 +10,23 @@ function ready(){
 };
 document.addEventListener("DOMContentLoaded", ready);
 
+  function check_settings(){
+    document.getElementById('setting_start').value = 1;
+  }
+
 
   function submit_figure(event) {
-    // alert('my');
-    // alert(window.dis);
+
+    // Проверка на нажатие кнопки Settings
+    if (event.set_start.value == 1) {
+      return false
+    } else {
+      document.getElementById('setting_start').value = 0;
+    }
+
     if (window.dis == 0){
       moveprogress(0);
       window.subscribe = 0;
-
       window.clone_fruit = window.fruit;
 
       // h = 0;
@@ -32,6 +41,9 @@ document.addEventListener("DOMContentLoaded", ready);
       objSel = document.getElementById("selectImage");
       window.correto = getSelectedIndexes(objSel);
       // alert ( getSelectedIndexes(objSel) );
+
+      // Запуск функции проверки промокода
+      check_promokey();
 
       window.intervalID = setInterval(eee, 3000);
       window.cnvsopt = new CanvasLoader('canvasloader-optimization');
@@ -49,6 +61,49 @@ document.addEventListener("DOMContentLoaded", ready);
     status_opt('Запрос!');
     return false
   }
+
+  function check_promokey(){
+    var xmlhttp;
+    // Are we using a modern browser or ...
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (!xmlhttp){
+      alert("Error initializing XMLHttpRequest!");
+    }
+
+    function GetResult(){
+      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+        var jsonret = JSON.parse(xmlhttp.responseText);
+
+        if (jsonret[1] == "activated_key"){
+            clearInterval(window.interval_tempkey);
+            // location.href = '/export?unique=' + window.unique;
+            window.flag_tempkey = 0;
+            window.cltempkey.hide();
+          }
+      } else {
+          alert("Server, data not available");
+        }
+      }
+
+    xmlhttp.onload = GetResult;
+    // xmlhttp.onerror = Bad_server;
+    // send the request in an async way
+    xmlhttp.open("POST", "/checkpromo.json", true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+    var json_file = 'json_file=' + JSON.stringify(
+      {'unique':window.unique
+    });
+
+    xmlhttp.send(json_file);
+  }
+
 
   function submit_kml(form) {
 
@@ -133,6 +188,78 @@ document.addEventListener("DOMContentLoaded", ready);
     xmlhttp.send(json_file);
   }
 
+  function submit_tempkey() {
+    if (window.flag_tempkey == 0) {
+        window.interval_tempkey = setInterval(start_tempkey, 3000);
+        window.flag_tempkey = 1;
+
+        window.cltempkey = new CanvasLoader('canvasloader-tempkey');
+        cltempkey.setShape('spiral'); // default is 'oval'
+        cltempkey.setDiameter(25); // default is 40
+        cltempkey.setDensity(15); // default is 40
+        cltempkey.setRange(0.5); // default is 1.3
+        cltempkey.setSpeed(1); // default is 2
+        cltempkey.setFPS(17); // default is 24
+        cltempkey.show(); // Hidden by default
+
+    } else {
+      // alert(window.flag_save);
+    }
+  }
+
+  function start_tempkey(){
+    var xmlhttp;
+    // Are we using a modern browser or ...
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (!xmlhttp){
+      alert("Error initializing XMLHttpRequest!");
+    }
+
+    function GetResult(){
+      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+        var jsonret = JSON.parse(xmlhttp.responseText);
+
+        if (jsonret.prop == "stop"){
+            clearInterval(window.interval_tempkey);
+            // location.href = '/export?unique=' + window.unique;
+            window.flag_tempkey = 0;
+            window.cltempkey.hide();
+
+            var dict_arr = jsonret.arr;
+
+            document.getElementById('date_start').innerHTML = dict_arr.date_start;
+            document.getElementById('date_end').innerHTML = dict_arr.date_end;
+            document.getElementById('tarif_name').innerHTML = dict_arr.tarif;
+            document.getElementById('tarif_status').innerHTML = dict_arr.status;
+
+            document.getElementById('init_key').value = '';
+
+          }
+      } else {
+          alert("Server, data not available");
+        }
+      }
+
+    xmlhttp.onload = GetResult;
+    // xmlhttp.onerror = Bad_server;
+    // send the request in an async way
+    xmlhttp.open("POST", "/promokey.json", true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+    prkey = document.getElementById('init_key').value;
+    var json_file = 'json_file=' + JSON.stringify(
+      {'promokey': prkey,
+      'unique':window.unique
+    });
+
+    xmlhttp.send(json_file);
+  }
 
   function optnew(){
     var div = document.createElement('div');
