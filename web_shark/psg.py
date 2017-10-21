@@ -208,9 +208,18 @@ def new_user_two(connect_str, form_email, form_pass, loggin_session):
     err = 0
     conn = None
     try:
-        conn = psycopg2.connect(connect_str)
-        cur = conn.cursor()
+        if config.heroku:
+            url = urlparse(os.environ["USERS_DB_URL"])
+            conn = psycopg2.connect(
+                database=url.path[1:],
+                user=url.username,
+                password=url.password,
+                host=url.hostname,
+                port=url.port)
+        else:
+            conn = psycopg2.connect(config.connect_base)
 
+        cur = conn.cursor()
         qw = """SELECT * FROM login_users WHERE login_mail = {0};""".format(em)
         cur.execute(qw)
         log_user = cur.fetchone()
@@ -315,9 +324,18 @@ def figures_add(connect_str):
 def insert_admin():
     conn = None
     try:
-        conn = psycopg2.connect(config.connect_str)
-        cur = conn.cursor()
+        if config.heroku:
+            url = urlparse(os.environ["USERS_DB_URL"])
+            conn = psycopg2.connect(
+                database=url.path[1:],
+                user=url.username,
+                password=url.password,
+                host=url.hostname,
+                port=url.port)
+        else:
+            conn = psycopg2.connect(config.connect_base)
 
+        cur = conn.cursor()
         cur.execute("""INSERT INTO admin (admin_mail, admin_mailpass, 
                         admin_su, admin_sms_login, admin_sms_pass)
                         values ({0}, {1}, {2}, {3}, {4}); """.format("'nsitala@gmail.com'",
@@ -356,10 +374,6 @@ def find_regigistration(logemail, logpass):
                 port=url.port
             )
         else:
-
-            # connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
-            # config.update_connect(connect_base)
-
             conn = psycopg2.connect(config.connect_base)
 
         cur = conn.cursor()
