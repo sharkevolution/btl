@@ -33,18 +33,23 @@ def update_heroku(heroku_flag):
 
 def main_log():
 
-    global exm
+    # global exm
 
-    level = logging.INFO
+    # level = logging.INFO
+    #
+    # mylog = os.path.join(exm, 'microblog.log')
+    # file_handler = RotatingFileHandler(mylog, 'a', 1 * 1024 * 1024, 10)
+    # file_handler.setLevel(logging.INFO)
+    # file_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
 
-    mylog =  os.path.join(exm, 'microblog.log')
-    file_handler = RotatingFileHandler(mylog, 'a', 1 * 1024 * 1024, 10)
-    file_handler.setLevel(logging.INFO)
-    file_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(name)s %(levelname)-8s %(message)s",
+    )
 
     logger = logging.getLogger('info')
-    logger.addHandler(file_handler)
-    logger.setLevel(level)  # even if not required...
+    # logger.addHandler(file_handler)
+    # logger.setLevel(level)  # even if not required...
 
     return logger
 

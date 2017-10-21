@@ -396,8 +396,7 @@ def get_admin_email():
         conn = psycopg2.connect(config.connect_str)
         cur = conn.cursor()
 
-        cur.execute("""SELECT admin_mail, admin_mailpass FROM admin
-                        WHERE admin_id = 1; """)
+        cur.execute("""SELECT admin_mail, admin_mailpass FROM admin;""")
 
         admin_data = cur.fetchone()
         base_mail = admin_data[0]
