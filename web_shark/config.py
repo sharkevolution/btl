@@ -32,6 +32,9 @@ def update_heroku(heroku_flag):
 
 
 def main_log():
+
+    global exm
+
     level = logging.INFO
 
     mylog =  os.path.join(exm, 'microblog.log')
