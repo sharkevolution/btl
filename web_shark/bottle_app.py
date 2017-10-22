@@ -313,9 +313,11 @@ def do_registration():
         login_data = psg.find_regigistration(form_email, form_pass)
 
         if login_data:
+            expire_date = datetime.datetime.utcnow()
+            expire_date = expire_date + datetime.timedelta(days=1)
             us = json.dumps({'login_email': form_email,
-                             'login_pass':form_pass})
-            response.set_cookie("account", us, secret='some-secret-key')
+                             'login_pass': form_pass})
+            response.set_cookie("account", us, secret='some-secret-key', expires=expire_date)
             redirect('/')
 
         else:
@@ -348,7 +350,11 @@ def do_open():
 
             us = json.dumps({'login_email': form_email,
                              'login_pass': form_pass})
-            response.set_cookie("account", us, secret='some-secret-key')
+
+            expire_date = datetime.datetime.utcnow()
+            expire_date = expire_date + datetime.timedelta(days=1)
+
+            response.set_cookie("account", us, secret='some-secret-key', expires=expire_date)
             redirect('/')
         else:
             myfile = os.path.join(config.exm, 'regmail.html')
@@ -430,7 +436,7 @@ def index():
     usdata.current_host = current_host
 
     # expire_date = datetime.datetime.now()
-    # expire_date = expire_date + datetime.timedelta(days=2)
+    # expire_date = expire_date + datetime.timedelta(days=1)
     current_user = 'Гость'
     # Проверка на активность профиля пользователя
 
@@ -443,8 +449,7 @@ def index():
         form_user = usdict['login_email']
         form_pass = usdict['login_pass']
 
-        get_promo = psg.check_active_billing(form_user, '1')
-
+        get_promo = psg.check_active_billing(form_user, form_pass)
         login_data = psg.find_regigistration(form_user, form_pass)
         if login_data:
             current_user = form_user
@@ -456,7 +461,6 @@ def index():
 
     # usdata.account = username
 
-    # response.set_cookie("account", 'sharkx', secret='some-secret-key', expires=expire_date)
     devpass = request.get_cookie("admin_level", secret='some-secret-key')
 
     myfile = os.path.join(config.exm, 'FCNR.html')
