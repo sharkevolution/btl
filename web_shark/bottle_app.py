@@ -342,7 +342,9 @@ def do_open():
         ret = psg.new_user_two(config.connect_base, form_email, form_pass, loggin_session)
         if ret is 0:
 
-            psg.create_unused_promokey(mail=form_email, access_id=466, count=5)
+            #  Создание промокодов под пользователя
+            psg.create_unused_promokey(mail=form_email, access_id=475, count=5)
+            psg.create_unused_promokey(mail=form_email, access_id=477, count=1)
 
             us = json.dumps({'login_email': form_email,
                              'login_pass': form_pass})
@@ -906,8 +908,8 @@ def shop_aj_getallitems():
 
 def send_sms():
     # Отправка сообщения пользователю
-    login = '380732218247'  # phone number
-    password = 'tgxm8ou'  # Password
+    login = None  # phone number
+    password = None  # Password
     alphaName = 'gsm1'  # string, sender id (alpha-name)
 
     abonent = '380963786850'
@@ -1022,7 +1024,7 @@ else:
         config.update_connect(config.connect_base)
 
         # psg.create_tables_two(config.connect_str)
-        # psg.access_create(config.connect_str)
+        # psg.access_create()
         # psg.new_user(config.connect_str)
         # psg.new_billing(config.connect_str)
         # psg.figures_add(config.connect_str)

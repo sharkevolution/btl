@@ -106,40 +106,51 @@ def create_tables_two(connect_str):
             conn.close()
 
 
-def access_create(connect_str):
+def access_create():
     # Заполнение таблицы с уровнями доступа и стоимостью операций
+    quote = "\'"
 
     commands = (
         """
         INSERT INTO access_users (access_name, access_day, access_price, access_figures, access_counts,
             access_seconds, access_longsession)
             VALUES({0}, 365, 0, 5, 20, 60, 300);
-        """.format(config.access_name[0]),
+        """.format(quote + config.access_name[0] + quote),
         """
         INSERT INTO access_users (access_name, access_day, access_price, access_figures, access_counts,
             access_seconds, access_longsession)
             VALUES({0}, 1, 150, 700, 700, 1800, 3600);
-        """.format(config.access_name[1]),
+        """.format(quote + config.access_name[1] + quote),
         """
         INSERT INTO access_users (access_name, access_day, access_price, access_figures, access_counts,
             access_seconds, access_longsession)
-            VALUES({0}, 1, 150, 700, 700, 1800, 86400);
-        """.format(config.access_name[2]),
+            VALUES({0}, 3, 150, 700, 700, 1800, 86400);
+        """.format(quote + config.access_name[2] + quote),
         """
         INSERT INTO access_users (access_name, access_day, access_price, access_figures, access_counts,
             access_seconds, access_longsession)
-            VALUES({0}, 1, 150, 700, 700, 1800, 86400);
-        """.format(config.access_name[3]),
+            VALUES({0}, 7, 150, 700, 700, 1800, 86400);
+        """.format(quote + config.access_name[3] + quote),
         """
         INSERT INTO access_users (access_name, access_day, access_price, access_figures, access_counts,
             access_seconds, access_longsession)
-            VALUES({0}, 1, 150, 700, 700, 1800, 86400);
-        """.format(config.access_name[4]),
+            VALUES({0}, 30, 150, 700, 700, 1800, 86400);
+        """.format(quote + config.access_name[4] + quote)
     )
 
+    err = 0
     conn = None
     try:
-        conn = psycopg2.connect(connect_str)
+        if config.heroku:
+            url = urlparse(os.environ["USERS_DB_URL"])
+            conn = psycopg2.connect(
+                database=url.path[1:],
+                user=url.username,
+                password=url.password,
+                host=url.hostname,
+                port=url.port)
+        else:
+            conn = psycopg2.connect(config.connect_base)
         cur = conn.cursor()
 
         # create table one by one
@@ -527,10 +538,8 @@ def check_active_billing(username, promokey):
 
         f = "%Y-%m-%d %H:%M:%S"
         dt = datetime.datetime.utcnow()
-        d = timedelta(days=+1)
-        dt1 = dt + d
         dtnow = quote + dt.strftime(f) + quote
-        dtafter = quote + dt1.strftime(f) + quote
+
         promokey2 = quote + promokey + quote
 
         if user:
@@ -567,6 +576,17 @@ def check_active_billing(username, promokey):
                 empty_key = cur.fetchone()
                 if empty_key:
                     id = quote + str(empty_key[0]) + quote
+                    access_id = quote + str(empty_key[2]) + quote
+
+                    qw = """SELECT access_day FROM access_users
+                                WHERE access_id = {0};""".format(access_id)
+                    cur.execute(qw)
+                    access_day = cur.fetchone()
+                    if access_day:
+                        d = timedelta(days=+access_day[0])
+                        dt1 = dt + d
+                        dtafter = quote + dt1.strftime(f) + quote
+
                     # Активация нового промокода
                     cur.execute("""UPDATE billing_users SET billing_start = {0}, billing_end = {1} WHERE
                                         billing_id = {2};""".format(dtnow, dtafter, id))
@@ -687,5 +707,7 @@ if __name__ == '__main__':
     # base_mail, base_mailpass = get_admin_email()
     # mail.send_mail(base_mail, base_mailpass, base_mail)
 
-    create_unused_promokey(mail="nsitala@gmail.com", access_id=466, count=4)
+    # access_create()
+    create_unused_promokey(mail="nsitala@gmail.com", access_id=475, count=4)
+    create_unused_promokey(mail="nsitala@gmail.com", access_id=477, count=1)
     # check_active_billing(username="YdgPNH8HHQYoC7g")
