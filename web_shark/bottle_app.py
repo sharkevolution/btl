@@ -313,7 +313,8 @@ def do_registration():
         login_data = psg.find_regigistration(form_email, form_pass)
 
         if login_data:
-            us = json.dumps({'login_email': form_email})
+            us = json.dumps({'login_email': form_email,
+                             'login_pass':form_pass})
             response.set_cookie("account", us, secret='some-secret-key')
             redirect('/')
 
