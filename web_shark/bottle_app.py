@@ -523,16 +523,16 @@ def promokey():
     try:
         usdict = json.loads(us)
         # username = usdict['login_password']
-        username = usdict['login_email']
+        form_email = usdict['login_email']
     except Exception as ex:
         username = None
 
-    get_promo = psg.check_active_billing(username, promokey)
+    get_promo = psg.check_active_billing(form_email, promokey)
 
-    # if usdata.flag_promokey:
-    #     pass
-    # else:
-    #     usdata.flag_promokey = True
+    if usdata.flag_promokey:
+        pass
+    else:
+        usdata.flag_promokey = True
 
     return json.dumps({'prop': 'stop', 'arr': get_promo})
 
@@ -676,7 +676,7 @@ def shop_aj_getallitems():
 
     try:
         get_promo = json.loads(us)
-    except Exception as ex:
+    except Exception:
         optimization[1] = 'stop'
         optimization[3] = 'Неавторизованный доступ!'
         optimization[2] = ''
