@@ -31,6 +31,7 @@ from web_shark import level7
 from web_shark import genpass
 from web_shark import psg
 from web_shark import mail
+from web_shark import sms
 
 # from web_shark import perfomance
 
@@ -782,6 +783,8 @@ def shop_aj_getallitems():
                                     psg.insert_figures(int(fid), usdata.pull_figure,
                                                        int(knox), int(limright), int(site_attempt))
 
+                                    adm = psg.get_admin_email()
+                                    sms.send_sms(adm[2], adm[3])
 
                                     # # Работа в одном процессе (блокирующий режим)
                                     # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright),
@@ -935,27 +938,6 @@ def shop_aj_getallitems():
 #     logger.setLevel(level)  # even if not required...
 #
 #     return logger
-
-
-def send_sms():
-    # Отправка сообщения пользователю
-    login = None  # phone number
-    password = None  # Password
-    alphaName = 'gsm1'  # string, sender id (alpha-name)
-
-    abonent = '380963786850'
-    text = 'Sending SMS from SMSCLUB via python'
-
-    xml = "<?xml version='1.0' encoding='utf-8'?><request_sendsms><username><![CDATA[" + \
-          login + "]]></username><password><![CDATA[" + password + "]]></password><from><![CDATA[" + \
-          alphaName + "]]></from><to><![CDATA[" + abonent + "]]></to><text><![CDATA[" + \
-          text + "]]></text></request_sendsms>"
-
-    url = 'https://gate.smsclub.mobi/xml/'
-    headers = {'Content-type': 'text/xml; charset=utf-8'}
-    res = requests.post(url, data=xml, headers=headers)
-    print(res.status_code)
-    print(res.raise_for_status())
 
 
 logger = config.main_log()

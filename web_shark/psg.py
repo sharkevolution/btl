@@ -333,41 +333,6 @@ def figures_add(connect_str):
             conn.close()
 
 
-def insert_admin():
-    conn = None
-    try:
-        if config.heroku:
-            url = urlparse(os.environ["USERS_DB_URL"])
-            conn = psycopg2.connect(
-                database=url.path[1:],
-                user=url.username,
-                password=url.password,
-                host=url.hostname,
-                port=url.port)
-        else:
-            conn = psycopg2.connect(config.connect_base)
-
-        cur = conn.cursor()
-        cur.execute("""INSERT INTO admin (admin_mail, admin_mailpass, 
-                        admin_su, admin_sms_login, admin_sms_pass)
-                        values ({0}, {1}, {2}, {3}, {4}); """.format("'nsitala@gmail.com'",
-                                                                     "'sonic1980'",
-                                                                     "'zzz'",
-                                                                     "'zzz'",
-                                                                     "'zzz'"))
-
-        # cur.execute("""INSERT INTO admin (admin_mail, admin_mailpass, admin_su)
-        #                 values ('nsitala@gmail.com', 'sonic1980', 'zzz'); """)
-
-        cur.close()
-        conn.commit()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-
-
 def find_regigistration(logemail, logpass):
     logger = config.main_log()
     login_data = None
@@ -429,12 +394,16 @@ def get_admin_email():
             conn = psycopg2.connect(config.connect_base)
 
         cur = conn.cursor()
-        cur.execute("""SELECT admin_mail, admin_mailpass FROM admin;""")
+        cur.execute("""SELECT admin_mail, admin_mailpass, 
+                            admin_sms_login, admin_sms_pass 
+                            FROM admin;""")
 
         admin_data = cur.fetchone()
         if admin_data:
             base_mail = admin_data[0]
             base_mailpass = admin_data[1]
+            sms_login = admin_data[2]
+            sms_pass = admin_data[3]
 
         # cur.close()
         conn.commit()
@@ -445,7 +414,7 @@ def get_admin_email():
         if conn is not None:
             conn.close()
 
-        return base_mail, base_mailpass
+        return base_mail, base_mailpass, sms_login, sms_pass
 
 
 def get_billing_users(form_phone, form_pass, curr_key):
@@ -684,7 +653,6 @@ def insert_figures(fid, pull_figures, knox, limright, attempt):
                                                                                knox,
                                                                                limright))
 
-
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         logger.info(error)
@@ -761,6 +729,6 @@ if __name__ == '__main__':
     # mail.send_mail(base_mail, base_mailpass, base_mail)
 
     # access_create()
-    create_unused_promokey(mail="nsitala@gmail.com", access_id=475, count=4)
-    create_unused_promokey(mail="nsitala@gmail.com", access_id=477, count=1)
+    # create_unused_promokey(mail="nsitala@gmail.com", access_id=475, count=4)
+    # create_unused_promokey(mail="nsitala@gmail.com", access_id=477, count=1)
     # check_active_billing(username="YdgPNH8HHQYoC7g")
