@@ -25,12 +25,14 @@
 
     <script src="lib/calc.js"></script>
     <script type="text/javascript">
+
       function addScript(src){
         var script = document.createElement('script');
         script.src = src;
         script.async = false; // чтобы гарантировать порядок
         document.head.appendChild(script);
       }
+
       addScript("https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js");
       addScript("js/pushy.min.js");
       addScript("js/canvasloader.js");
@@ -377,6 +379,7 @@
   var unique = "{{private_code}}";
   var obj = eval("{{zona}}");
   var plf = Object.keys(obj).length;
+  // alert(plf);
   var subscribe = 0;  /* Подписка на ожидание или решение заявки*/
   var clone_fruit = window.fruit;
   </script>

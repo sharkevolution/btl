@@ -214,11 +214,6 @@ window.onload = function() {
 
     },false);
 
-
-
-
-
-
     var elem1 = document.querySelectorAll(".operator");
     var len1 = elem1.length;
 
@@ -238,7 +233,20 @@ window.onload = function() {
     }
 
     calc_resolution();
+
+    ready();
 };
+
+var ready=function(){
+
+  // alert(window.plf);
+  if (window.plf > 0){
+    // document.getElementById('start').disabled = false;
+      window.fruit_file(window.obj);
+  } else {
+    // document.getElementById('start').disabled = true;
+  }
+}
 
 var calc_resolution = function(){
   /* Подсчет размеров фигур и их количества для выдачи разрешения на запуск

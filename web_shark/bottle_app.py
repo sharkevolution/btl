@@ -242,6 +242,25 @@ def do_load():
     new_path_figure = os.path.normpath(new_path_data)
     usdata.impfile = new_path_figure
 
+    current_user = 'Гость'
+
+    try:
+        us = request.get_cookie("account", secret='some-secret-key')
+        usdict = json.loads(us)
+        form_user = usdict['login_email']
+        form_pass = usdict['login_pass']
+
+        get_promo = psg.check_active_billing(form_user, form_pass)
+        login_data = psg.find_regigistration(form_user, form_pass)
+        if login_data:
+            current_user = form_user
+        else:
+            current_user = 'Гость'
+
+    except Exception as ex:
+        username = None
+
+
     # Изменить загрузку из файла в preload
     usdata.preload_figure = imexdata.dispatcher_extension(new_path_figure, 'data')
 
@@ -252,7 +271,8 @@ def do_load():
     return template(myfile, private_code=gencode,
                     zona=usdata.preload_figure,
                     navigation=navigation,
-                    current_user='Гость')
+                    current_user=current_user,
+                    arrkey=get_promo)
 
 
 @route('/<name>/<filename>')
@@ -579,7 +599,7 @@ def feedback():
     json_data = request.forms.get('json_file')
     mydata = json.loads(json_data)
 
-    data = mydata['exp']  # Получаем уникальный код сеанса пользователя
+    data = mydata['exp']
     gencode = mydata['unique']
     usdata = Pull.uname[gencode]
 
@@ -754,7 +774,12 @@ def shop_aj_getallitems():
 
                                 level7.main_thread.progress = 0
                                 if usdata.pull_figure:
-                                    # Есть фигуры для решения
+                                    # Есть фигуры для решения пишем в базу
+                                    fid = get_promo['billing_id']
+
+                                    psg.insert_figures(int(fid), usdata.pull_figure,
+                                                       int(knox), int(limright), int(site_attempt))
+
 
                                     # # Работа в одном процессе (блокирующий режим)
                                     # onthr = level7.main_thread_two(usdata.pull_figure, int(knox), int(limright),

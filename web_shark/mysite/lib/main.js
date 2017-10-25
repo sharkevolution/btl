@@ -1,14 +1,17 @@
 
 
-function ready(){
-  if (window.plf > 0){
-    // document.getElementById('start').disabled = false;
-      window.fruit_file(obj);
-  } else {
-    // document.getElementById('start').disabled = true;
-  }
-};
-document.addEventListener("DOMContentLoaded", ready);
+// function ready(){
+//
+//   var plf = Object.keys(window.obj).length;
+//   if (window.plf > 0){
+//     // document.getElementById('start').disabled = false;
+//       window.fruit_file(obj);
+//   } else {
+//     // document.getElementById('start').disabled = true;
+//   }
+// };
+// document.addEventListener("DOMContentLoaded", ready);
+// alert(window.plf);
 
   function check_settings(){
     document.getElementById('setting_start').value = 1;

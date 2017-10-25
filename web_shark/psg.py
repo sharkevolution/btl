@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import os
+import json
 import datetime
 from datetime import timedelta
 
@@ -505,12 +506,14 @@ def check_active_billing(username, promokey):
 
     :return:
     """
+
+    get_promo = {'date_start': None, 'date_end': None,
+                 'tarif': None, 'status': 'нет', 'billing_id': None}
+
+
     logger = config.main_log()
     login_data = None
     conn = None
-
-    get_promo = {'date_start': None, 'date_end': None,
-                 'tarif': None, 'status': 'нет'}
 
     try:
         if config.heroku:
@@ -565,7 +568,7 @@ def check_active_billing(username, promokey):
                     get_promo['date_end'] = str(current_key[5])
                     get_promo['tarif'] = str(access_name[1])
                     get_promo['status'] = 'Активно'
-
+                    get_promo['billing_id'] = str(current_key[0])
             else:
 
                 qw = """SELECT * FROM billing_users
@@ -602,6 +605,7 @@ def check_active_billing(username, promokey):
                         get_promo['date_end'] = str(dtafter.strip(quote))
                         get_promo['tarif'] = str(access_name[1])
                         get_promo['status'] = 'Активно'
+                        get_promo['billing_id'] = str(empty_key[0])
                 else:
 
                     name = quote + config.access_name[0] + quote
@@ -614,6 +618,7 @@ def check_active_billing(username, promokey):
                         get_promo['date_end'] = str(dtnow.strip(quote))
                         get_promo['tarif'] = name.strip(quote)
                         get_promo['status'] = 'Активно'
+                        get_promo['billing_id'] = str(empty_key[0])
 
         else:
 
@@ -638,6 +643,54 @@ def check_active_billing(username, promokey):
             conn.close()
 
     return get_promo
+
+
+def insert_figures(fid, pull_figures, knox, limright, attempt):
+
+    logger = config.main_log()
+    login_data = None
+    conn = None
+
+    try:
+        if config.heroku:
+            url = urlparse(os.environ["USERS_DB_URL"])
+            conn = psycopg2.connect(
+                database=url.path[1:],
+                user=url.username,
+                password=url.password,
+                host=url.hostname,
+                port=url.port
+            )
+        else:
+            conn = psycopg2.connect(config.connect_base)
+
+        cur = conn.cursor()
+        quote = "\'"
+
+
+        f = "%Y-%m-%d %H:%M:%S"
+        dt = datetime.datetime.utcnow()
+        dtnow = quote + dt.strftime(f) + quote
+        plf = quote + json.dumps(pull_figures) + quote
+
+        cur.execute("""INSERT INTO figures_users (billing_id, figures_pull, figures_data_start, 
+                        figures_data_end, figures_matrix, 
+                        figures_knife, figures_residue)
+                        values ({0}, {1}, {2}, {3}, {4}, {5}, {6}); """.format(fid,
+                                                                               plf,
+                                                                               dtnow,
+                                                                               dtnow,
+                                                                               attempt,
+                                                                               knox,
+                                                                               limright))
+
+
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        logger.info(error)
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 def create_unused_promokey(mail, access_id, count):
