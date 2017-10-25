@@ -244,6 +244,8 @@ def do_load():
 
     current_user = 'Гость'
 
+    get_promo = psg.check_active_billing(current_user, '1')
+
     try:
         us = request.get_cookie("account", secret='some-secret-key')
         usdict = json.loads(us)
