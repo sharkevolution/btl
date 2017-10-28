@@ -6,13 +6,12 @@ import json
 import datetime
 from datetime import timedelta
 
-from psycopg2.extras import Json
-from psycopg2 import sql
 import psycopg2
+from psycopg2.extras import Json
+
 from urllib.parse import urlparse
 
 from web_shark import config
-from web_shark import mail
 from web_shark import genpass
 
 
@@ -205,8 +204,7 @@ def new_user(connect_str):
 def new_user_two(connect_str, form_email, form_pass, loggin_session):
     """
     Добавление в базу нового пользователя
-    :param connect_str:
-    :return:
+
     """
 
     quote = "\'"

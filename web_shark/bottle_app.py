@@ -62,13 +62,8 @@ def html_navigation():
 def fruit_trsnsform(usdata, fruit):
     """
         Трансформация данных фигур и количества полученных от клиента в пригодный вид python
-
-    :param usdata:
-    :param fruit:
-    :return:
     """
     usdata.pull_figure = []
-
     for b, v in list(fruit.items()):
         usdata.pull_figure.append([int(v['f']), int(v['c'])])
 
@@ -95,7 +90,7 @@ class User(object):
         self.outfile = None  # Путь сохранения файла с результатом расчета
         self.current_host = None  # Запоминаем хост пользователя
         self.online_export = False
-        self.account = None
+        # self.account = None
         self.flag_promokey = None  # Показывает состояние выполнения активации временного ключа
 
 
@@ -121,33 +116,33 @@ def authenticated(func):
     return wrapped
 
 
-def redirect_https(func):
-    """ Проверка авторизации пользователя
-    """
-
-    def wrapped(*args, **kwargs):
-
-        try:
-            heroku = urlparse(os.environ["CHERRY"])
-
-        except Exception as ex:
-
-            heroku = 0
-
-        if heroku:
-
-            if not request.url.startswith('https'):
-
-                url = request.url.replace('http://', 'https://', 1)
-                code = 301
-
-                return redirect(url, code=code)
-            else:
-                return func(*args, **kwargs)
-        else:
-            return func(*args, **kwargs)
-
-    return wrapped
+# def redirect_https(func):
+#     """ Проверка авторизации пользователя
+#     """
+#
+#     def wrapped(*args, **kwargs):
+#
+#         try:
+#             heroku = urlparse(os.environ["CHERRY"])
+#
+#         except Exception as ex:
+#
+#             heroku = 0
+#
+#         if heroku:
+#
+#             if not request.url.startswith('https'):
+#
+#                 url = request.url.replace('http://', 'https://', 1)
+#                 code = 301
+#
+#                 return redirect(url, code=code)
+#             else:
+#                 return func(*args, **kwargs)
+#         else:
+#             return func(*args, **kwargs)
+#
+#     return wrapped
 
 
 @route('/yandex_1b8eabd36008dc04.html', method='GET')
@@ -270,12 +265,15 @@ def do_load():
     # response.set_cookie("account", 'shark', secret='some-secret-key')
     myfile = os.path.join(config.exm, 'FCNR.html')
     navigation = html_navigation()
+    plan_indicators = {'fcapacity':0, 'figamu':0, 'fbalance':0, 'frow': 0, 'fcol': 0}
+
 
     return template(myfile, private_code=gencode,
                     zona=usdata.preload_figure,
                     navigation=navigation,
                     current_user=current_user,
-                    arrkey=get_promo)
+                    arrkey=get_promo,
+                    plan_indicators=plan_indicators)
 
 
 @route('/<name>/<filename>')
@@ -444,11 +442,9 @@ def do_develop():
 
 
 @route('/', method='GET')
-# @redirect_https
 def index():
     """ Главная точка входа на сайт
 
-    :return:
     """
 
     gencode = genpass.generate_temp_password(15)  # Генератор уникального кода страницы
@@ -482,21 +478,20 @@ def index():
     except Exception as ex:
         username = None
 
-    # usdata.account = username
-
     devpass = request.get_cookie("admin_level", secret='some-secret-key')
-
     myfile = os.path.join(config.exm, 'FCNR.html')
-
     navigation = html_navigation()
+
     if devpass == 'blue':
         navigation.extend(['<li class="pushy-link"><a href="/develop">Админ</a></li>'])
 
+    plan_indicators = {'fcapacity': 0, 'figamu': 0, 'fbalance': 0, 'frow': 0, 'fcol': 0}
     return template(myfile, private_code=gencode,
                     zona=usdata.preload_figure,
                     navigation=navigation,
                     current_user=current_user,
-                    arrkey=get_promo)
+                    arrkey=get_promo,
+                    plan_indicators=plan_indicators)
 
 
 def do_save(resdict, gencode):
@@ -641,9 +636,9 @@ def shop_aj_getallitems():
     json_data = request.forms.get('json_name')
     mydata = json.loads(json_data)
 
-    gencode = mydata['unique']  # Получаем уникальный код сеанса пользователя
-    subscribe = mydata['subscribe']  # Получаем статус подписки, 0 = подписано, 1 = отписаться
-    fruit = mydata['fruit']  # Получаем массив в словаре с указанием кол-ва фигур и значений
+    gencode = mydata['unique']  # уникальный код сеанса пользователя
+    subscribe = mydata['subscribe']  # статус подписки, 0 = подписано, 1 = отписаться
+    fruit = mydata['fruit']  # массив в словаре с указанием кол-ва фигур и значений
     knox = mydata['knox']
     limright = mydata['limright']
     site_attempt = mydata['attempt']
@@ -901,72 +896,11 @@ def shop_aj_getallitems():
                 return json.dumps(optimization)
 
 
-# @hook('before_request')
-# def beforeRequest():
-#
-#     try:
-#         heroku = urlparse(os.environ["CHERRY"])
-#
-#     except Exception as ex:
-#
-#         heroku = 0
-#
-#     if heroku:
-#
-#         if not request.url.startswith('https'):
-#             return redirect(request.url.replace('http', 'https', 1))
-
-
-# @hook('before_request')
-# def strip_path():
-#     username = request.get_cookie("account", secret='some-secret-key')
-#     if username:
-#         pass
-#     else:
-#         redirect('/registration')
-
-
-# def main_log():
-#     level = logging.INFO
-#
-#     file_handler = RotatingFileHandler('ex/microblog.log', 'a', 1 * 1024 * 1024, 10)
-#     file_handler.setLevel(logging.INFO)
-#     file_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-#
-#     logger = logging.getLogger('info')
-#     logger.addHandler(file_handler)
-#     logger.setLevel(level)  # even if not required...
-#
-#     return logger
-
-
 logger = config.main_log()
 logger.info('hello')
 
 Unxtime = Epoch()
 Pull = Pull_user()
-
-#
-# command = """
-#         SELECT relname, pg_class.relkind as relkind FROM pg_class, pg_namespace
-#             WHERE pg_class.relnamespace=pg_namespace.oid
-#                 AND pg_class.relkind IN ('v', 'r')
-#                 AND pg_namespace.nspname='my_schema'
-#                 AND relname = 'my_table';
-# """
-#
-#
-# new_table =  """
-#         CREATE TABLE vendors (
-#             vendor_id SERIAL PRIMARY KEY,
-#             vendor_name VARCHAR(255) NOT NULL
-#         )
-#         """
-#
-#
-#
-# logger.info('logging test' + str(con))
-
 
 # app = default_app()
 # run(app, host='0.0.0.0', port=5000, debug=True)
@@ -989,13 +923,6 @@ config.update_heroku(heroku_flag)
 
 if config.heroku:
 
-    # url = urlparse(os.environ["USERS_DB_URL"])
-    # dbname = url.path[1:]
-    # user = url.username
-    # password = url.password
-    # host = url.hostname
-    # port = url.port
-
     # urlparse.uses_netloc.append("postgres")
     url = urlparse(os.environ["USERS_DB_URL"])
 
@@ -1007,20 +934,6 @@ if config.heroku:
         port=url.port)
 
     logging.info(conn)
-
-    # connect_base = "dbname={0}, user={1}, password={2}, host={3}, port={4}".format(dbname,
-    #                                                                                user,
-    #                                                                                password,
-    #                                                                                host,
-    #                                                                                port)
-    #
-    # logger.info('test------------------------------')
-    # logger.info(connect_base)
-    # logger.info('test_end ------------------------------')
-    # config.update_connect(connect_base)
-
-    # psg.create_tables_two(config.connect_str)
-
 
     app = wsgigzip.GzipMiddleware(bottle.default_app())
 
@@ -1040,13 +953,10 @@ else:
         # psg.access_create()
         # psg.new_user(config.connect_str)
         # psg.new_billing(config.connect_str)
-        # psg.figures_add(config.connect_str)
 
     except Exception as e:
         print("Uh oh, can't connect. Invalid dbname, user or password?")
         print(e)
-
-    # send_sms()  # Отправка СМС с промокодом
 
     app = default_app()
     run(app, host='0.0.0.0', port=5000, debug=True)

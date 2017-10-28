@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import psycopg2
-
 import gmail
 from gmail import Message
 

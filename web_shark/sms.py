@@ -3,6 +3,7 @@
 
 import requests
 
+
 def send_sms(sms_login, sms_pass):
     # Отправка сообщения пользователю
     login = sms_login  # phone number

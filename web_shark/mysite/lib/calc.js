@@ -104,6 +104,9 @@ window.onload = function() {
             window.fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
             fruitnew(idx_fruit);
             idx_fruit += 1;
+
+            // расчет плановых показателей
+            plan_calc();
           }
 
         }
@@ -150,6 +153,10 @@ window.onload = function() {
             window.fruit[idx_fruit] = {'f': current_figure, 'c': current_amount};
             fruitnew(idx_fruit);
             idx_fruit += 1;
+
+            // расчет плановых показателей
+            plan_calc();
+
           }
         }
 
@@ -178,6 +185,7 @@ window.onload = function() {
         }
         calc_resolution();
         clearSelection();
+        plan_calc();
 
     },false);
 
@@ -233,9 +241,44 @@ window.onload = function() {
     }
 
     calc_resolution();
-
     ready();
+    plan_calc();
 };
+
+function plan_calc(){
+
+  var figamu = 0;
+  var figcnt = 0;
+  var fcapacity = 0;
+  var frow = 0;
+  var fcol = 0;
+  var fbalance = 0;
+
+  for(var index in window.fruit) {
+    var attr = fruit[index];
+    fg = parseInt(attr['f']);
+    fc = parseInt(attr['c']);
+    figamu += fg * fc;
+    figcnt += fc;
+  }
+  frow = Math.ceil(figamu / 1250);
+  fcapacity = frow * 1250;
+  fbalance = fcapacity - figamu;
+
+  // alert(figcnt);
+  if (figcnt > 0){
+    fcol = Math.ceil(figcnt / frow);
+  }else {
+    fcol = 0;
+  }
+
+  document.getElementById('fcapacity').innerHTML = fcapacity;
+  document.getElementById('figamu').innerHTML = figamu;
+  document.getElementById('fbalance').innerHTML = fbalance;
+  document.getElementById('frow').innerHTML = frow;
+  document.getElementById('fcol').innerHTML = fcol;
+}
+
 
 var ready=function(){
 

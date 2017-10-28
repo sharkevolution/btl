@@ -134,6 +134,12 @@
           </div>
           <div id="background"><!-- Main background -->
                  <div id="main">
+                   <div id="first-rows">
+
+                      <button value="F" id='figure' class="btn-style opera-bg fall-back">F</button>
+                      <button value="C" id='count' class="btn-style opera-bg value align">C</button>
+                      <input type="text" id='size' value="" size="4" disabled=1 />
+                    </div>
                      <div class="rows">
                        <button value="1" class="btn-style num-bg num first-child">1</button>
                        <button value="2" class="btn-style num-bg num">2</button>
@@ -149,14 +155,9 @@
                     <div class="rows">
                        <button value="9" class="btn-style num-bg num">9</button>
                        <button value="0" class="btn-style num-bg num">0</button>
-                       <button value="F" id='figure' class="btn-style opera-bg fall-back">F</button>
-                       <button value="C" id='count' class="btn-style opera-bg value align">C</button>
+                       <button class="del-bg" id="delete">D</button>
+                       <button class="bsp-bg" id='bsp'>&nbsp</button>
                      </div>
-                     <div id="first-rows">
-                        <button class="del-bg" id="delete">D</button>
-                        <button class="bsp-bg" id='bsp'>&nbsp</button>
-                        <input type="text" id='size' value="" size="4" disabled=1 />
-                      </div>
                   </div>
           </div>
           <div id='infigure'>
@@ -270,6 +271,46 @@
             Фактические возможности настройки алгоритма (ширина, остаток, кол-во ножей) - без ограничений
           </p> -->
         </div>
+
+        <div class='rightbox'>
+          <h3>Плановые оптимальные показатели</h3>
+          <!-- <div id="active_key">
+            <div class="temp_key_activate">
+              <form id='activation_data' enctype="multipart/form-data" method="post">
+                <button id="promo_key" class="help-style-active" onclick="submit_tempkey(this.form);return false;" name="onex">View</button>
+              </form>
+              <div id="canvasloader-tempkey" class="wrapper"></div>
+            </div>
+          </div> -->
+          <div class="textact">
+            <table id='t1' class="tab-style_act">
+               <tr>
+                  <td>Емкость блока</td>
+                  <td id='fcapacity' width="48%">{{plan_indicators['fcapacity']}}</td>
+               </tr>
+               <tr>
+                  <td>Объем фигур</td>
+                  <td id='figamu' width="48%">{{plan_indicators['figamu']}}</td>
+               </tr>
+               <tr>
+                  <td>Идеальный отход</td>
+                  <td id='fbalance' width="48%">{{plan_indicators['fbalance']}}</td>
+               </tr>
+               <tr>
+                  <td>Минимум строк</td>
+                  <td id='frow' width="48%">{{plan_indicators['frow']}}</td>
+               </tr>
+               <tr>
+                  <td>Минимум ножей</td>
+                  <td id='fcol' width="48%">{{plan_indicators['fcol']}}</td>
+               </tr>
+
+            </table>
+
+          </div>
+        </div>
+
+
         <div class='rightbox'>
           <h3>Временный код активации</h3>
           <div id="active_key">
@@ -282,8 +323,6 @@
               </form>
               <div id="canvasloader-tempkey" class="wrapper"></div>
             </div>
-
-
           </div>
           <div class="textact">
             <table id='t1' class="tab-style_act">
@@ -315,6 +354,7 @@
             src="https://www.youtube.com/embed/cEVa8i-2JVg" frameborder="0" allowfullscreen>
           </iframe> -->
         </div>
+
         <div class='rightbox'>
           <h3>Примеры файлов для загрузки</h3>
           <p>
@@ -339,7 +379,7 @@
         </div>
 
         <div class='rightbox'>
-          <p>Дата последнего обновления сайта 21.10.2017</p>
+          <p>Дата последнего обновления сайта 28.10.2017</p>
           <p>Используемая версия алгоритма 1.0.5</p>
         </div>
     </div>
