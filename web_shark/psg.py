@@ -510,6 +510,9 @@ def check_active_billing(username, promokey):
         dt = datetime.datetime.utcnow()
         dtnow = quote + dt.strftime(f) + quote
 
+        dtnow_second1 = (dt + timedelta(seconds=300))
+        dtnow_second2 = quote + dtnow_second1.strftime(f) + quote
+
         promokey2 = quote + promokey + quote
 
         if user:
@@ -582,7 +585,7 @@ def check_active_billing(username, promokey):
                     access_name = cur.fetchone()
                     if access_name:
                         get_promo['date_start'] = str(dtnow.strip(quote))
-                        get_promo['date_end'] = str(dtnow.strip(quote))
+                        get_promo['date_end'] = str(dtnow_second2.strip(quote))  # str(dtnow.strip(quote))
                         get_promo['tarif'] = name.strip(quote)
                         get_promo['status'] = 'Активно'
                         get_promo['billing_id'] = str(empty_key[0])
