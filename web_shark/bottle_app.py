@@ -321,7 +321,11 @@ def do_registration():
         logger.info(base_mail)
         logger.info(base_mailpass)
 
-        mail.send_mail_key(base_mail, base_mailpass, form_email, akey)
+
+        try:
+            mail.send_mail_key(base_mail, base_mailpass, form_email, akey)
+        except Exception as err:
+            logger.info(str(err))
 
         us = json.dumps({'email': form_email,
                          'pass': form_pass,
