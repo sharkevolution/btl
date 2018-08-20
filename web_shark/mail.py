@@ -3,6 +3,7 @@
 
 import gmail
 from gmail import Message
+import requests
 
 
 def send_mail(base_mail, base_mailpass, to_mail):
@@ -24,3 +25,4 @@ def send_mail_key(base_mail, base_mailpass, to_mail, akey):
     gm = gmail.GMail(b, base_mailpass)
     msg = Message('Завершение регистрации', to="me <{0}>".format(to_mail), text=txt)
     gm.send(msg)
+

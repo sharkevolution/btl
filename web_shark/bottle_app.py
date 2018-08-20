@@ -317,7 +317,7 @@ def do_registration():
 
         akey = genpass.generate_temp_password(6)
 
-        base_mail, base_mailpass = psg.get_admin_email()
+        base_mail, base_mailpass, sms_login, sms_pass = psg.get_admin_email()
         logger.info(base_mail)
         logger.info(base_mailpass)
 

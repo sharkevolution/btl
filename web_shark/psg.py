@@ -247,21 +247,32 @@ def new_user_two(connect_str, form_email, form_pass, loggin_session):
 
         else:
 
-            qw = """INSERT INTO login_users (login_number, login_password, login_mail, 
-                                        login_registration, login_status, 
-                                        login_session, login_lastdate)
-        
-                    VALUES('None', {0}, {1}, {2}, 'on', {3}, {4});
-                """.format(ps, em, dtf, ks, dtf)
+            # qw = """INSERT INTO login_users (login_number, login_password, login_mail,
+            #                             login_registration, login_status,
+            #                             login_session, login_lastdate)
+            #
+            #         VALUES('None', {0}, {1}, {2}, {3}, {4}, {5});""".format(ps, em, dtf, 'on', ks, dtf)
 
-            cur.execute(qw)
+            cur1 = conn.cursor()
+            cur1.execute("""INSERT INTO login_users (login_number, login_password, login_mail, 
+                            login_registration, login_status, login_session, login_lastdate) values ({0}, {1}, {2}, 
+                            {3}, 'on', {4}, {5}); """.format(em, ps, em, dtf, ks, dtf))
+
+            # qw = """INSERT INTO login_users (login_number)
+            #
+            #         VALUES('None';)"""
+            #
+            #
+            # cur.execute(qw)
             conn.commit()
+            cur1.close()
 
         cur.close()
 
-    except (Exception, psycopg2.DatabaseError) as error:
+    except (Exception, psycopg2.DatabaseError) as err:
         # print(error)
-        err = 'error insert base'
+        # err = 'error insert base'
+        pass
     finally:
         if conn is not None:
             conn.close()
