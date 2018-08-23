@@ -8,13 +8,13 @@ import logging
 import json
 import time
 import pytz
-import re
+# import re
 import datetime
 from collections import deque
 from datetime import timedelta
 from dateutil.tz import tzutc, tzlocal
 
-import requests
+# import requests
 
 import bottle
 from bottle import route, run, request, static_file, hook, default_app
@@ -323,7 +323,7 @@ def do_registration():
 
 
         try:
-            mail.send_mail_key(base_mail, base_mailpass, form_email, akey)
+            mail.send_ukrnet_key(base_mail, base_mailpass, form_email, akey)
         except Exception as err:
             logger.info(str(err))
 

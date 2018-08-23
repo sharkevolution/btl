@@ -9,5 +9,5 @@ numpy
 jinja2
 wsgigzip
 cherrypy
-psycopg2
+psycopg2-binary
 requests
