@@ -321,7 +321,6 @@ def do_registration():
         logger.info(base_mail)
         logger.info(base_mailpass)
 
-
         try:
             mail.send_ukrnet_key(base_mail, base_mailpass, form_email, akey)
         except Exception as err:
@@ -333,6 +332,7 @@ def do_registration():
         response.set_cookie("registry_sharkevo", us, secret='some-secret-key')
         myfile = os.path.join(config.exm, 'regmail.html')
 
+        logger.info('ret regmail')
         return template(myfile, register_answer="")
 
     elif form_reg == 'login':
