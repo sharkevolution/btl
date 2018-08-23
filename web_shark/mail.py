@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import logging
 from web_shark import config
 
 import smtplib
@@ -54,21 +53,21 @@ www.sharkevo.ru"""
     msg['To'] = toaddrs
     msg.set_content(text_content)
 
-    with smtplib.SMTP_SSL('smtp.ukr.net', 2525) as server:
+    try:
+        server = smtplib.SMTP_SSL('smtp.ukr.net', 2525)
+        server.login(username, password)
+        server.send_message(msg)
+        logger.info('successfully sent the mail')
+        st = 'ok'
 
-        try:
-            server.login(username, password)
-            server.send_message(msg)
-            logger.info('successfully sent the mail')
-            st = 'ok'
+    except Exception as err:
+        # logger.info(str(err))
+        st = 'error'
 
-        except Exception as err:
-            logger.info(str(err))
-            st = 'error'
+    finally:
+        server.close()
 
-        finally:
-            server.close()
-            return st
+    return st
 
 
 if __name__ == '__main__':
