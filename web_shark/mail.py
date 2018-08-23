@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+import logging
 import smtplib
 from email.message import EmailMessage
 
 import gmail
 from gmail import Message
 
+logger = config.main_log()
 
 def send_mail(base_mail, base_mailpass, to_mail):
     b = "".join(["sharkevo <", base_mail, ">"])
@@ -49,10 +51,17 @@ www.sharkevo.ru"""
     msg.set_content(text_content)
 
     with smtplib.SMTP_SSL('smtp.ukr.net', 2525) as server:
-        server.login(username, password)
-        server.send_message(msg)
-        server.close()
-        # print('successfully sent the mail')
+
+        try:
+            server.login(username, password)
+            server.send_message(msg)
+            logger.info('successfully sent the mail')
+
+        except Exception as err:
+            logger.info(str(err))
+
+        finally:
+            server.close()
 
 
 if __name__ == '__main__':
