@@ -47,8 +47,8 @@ from urllib.parse import urlparse
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-def html_navigation():
 
+def html_navigation():
     navigation = [
         '<li class="pushy-link"><a href="/login">Авторизация</a></li>',
         '<li class="pushy-link"><a href="/">Результаты</a></li>',
@@ -267,15 +267,13 @@ def do_load():
     except Exception as ex:
         username = None
 
-
     # Изменить загрузку из файла в preload
     usdata.preload_figure = imexdata.dispatcher_extension(new_path_figure, 'data')
 
     # response.set_cookie("account", 'shark', secret='some-secret-key')
     myfile = os.path.join(config.exm, 'FCNR.html')
     navigation = html_navigation()
-    plan_indicators = {'fcapacity':0, 'figamu':0, 'fbalance':0, 'frow': 0, 'fcol': 0}
-
+    plan_indicators = {'fcapacity': 0, 'figamu': 0, 'fbalance': 0, 'frow': 0, 'fcol': 0}
 
     return template(myfile, private_code=gencode,
                     zona=usdata.preload_figure,
@@ -323,19 +321,19 @@ def do_registration():
         logger.info('ret regmail-0')
 
         try:
-            mail.send_ukrnet_key(base_mail, base_mailpass, form_email, akey)
+            st = mail.send_ukrnet_key(base_mail, base_mailpass, form_email, akey)
         except Exception as err:
             logger.info(str(err))
 
-        logger.info('ret regmail-1')
-        us = json.dumps({'email': form_email,
-                         'pass': form_pass,
-                         'akey': akey})
-        response.set_cookie("registry_sharkevo", us, secret='some-secret-key')
-        myfile = os.path.join(config.exm, 'regmail.html')
-
-
-        return template(myfile, register_answer="")
+        if st == 'ok':
+            us = json.dumps({'email': form_email,
+                             'pass': form_pass,
+                             'akey': akey})
+            response.set_cookie("registry_sharkevo", us, secret='some-secret-key')
+            myfile = os.path.join(config.exm, 'regmail.html')
+            return template(myfile, register_answer="")
+        else:
+            redirect('/')
 
     elif form_reg == 'login':
 
@@ -364,7 +362,6 @@ def do_registration():
 
 @route('/open', method='POST')
 def do_open():
-
     akey = request.forms.get('pass')
 
     us = request.get_cookie("registry_sharkevo", secret='some-secret-key')
@@ -398,7 +395,6 @@ def do_open():
     else:
         myfile = os.path.join(config.exm, 'regmail.html')
         return template(myfile, registry_answer="Ошибка активации, неверный код!!")
-
 
 
 @route('/admin', method='POST')
@@ -798,7 +794,7 @@ def shop_aj_getallitems():
 
                                 if fid:
                                     psg.insert_figures(int(fid), usdata.pull_figure,
-                                                   int(knox), int(limright), int(site_attempt))
+                                                       int(knox), int(limright), int(site_attempt))
 
                                 adm = psg.get_admin_email()
                                 sms.send_sms(adm[2], adm[3])
