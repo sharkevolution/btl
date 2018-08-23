@@ -11,4 +11,3 @@ wsgigzip
 cherrypy
 psycopg2-binary
 requests
-smtplib
