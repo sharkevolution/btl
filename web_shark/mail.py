@@ -5,6 +5,7 @@ from web_shark import config
 
 import smtplib
 from email.message import EmailMessage
+from contextlib import contextmanager
 
 import gmail
 from gmail import Message
@@ -27,6 +28,21 @@ def send_mail_key(base_mail, base_mailpass, to_mail, akey):
     gm = gmail.GMail(b, base_mailpass)
     msg = Message('Завершение регистрации', to="me <{0}>".format(to_mail), text=txt)
     gm.send(msg)
+
+
+@contextmanager
+def quitting_smtp_cm(smtp):
+    try:
+        yield smtp
+    finally:
+        try:
+            code, message = smtp.docmd("QUIT")
+            if code != 221:
+                raise SMTPResponseException(code, message)
+        except SMTPServerDisconnected:
+            pass
+        finally:
+            smtp.close()
 
 
 def send_ukrnet_key(base_mail, base_mailpass, to_mail, akey):
@@ -54,22 +70,18 @@ www.sharkevo.ru"""
     msg.set_content(text_content)
 
     try:
-        logger.info('start the mail')
-        server = smtplib.SMTP_SSL('smtp.ukr.net', 2525)
-        logger.info('start the mail-1')
-        server.login(username, password)
-        server.send_message(msg)
 
-        logger.info('successfully sent the mail')
-        st = 'ok'
+        with quitting_smtp_cm(smtplib.SMTP_SSL('smtp.ukr.net', 2525)) as server:
+            # server = smtplib.SMTP_SSL('smtp.ukr.net', 2525)
+            server.login(username, password)
+            server.send_message(msg)
+
+            logger.info('successfully sent the mail')
+            st = 'ok'
 
     except Exception as err:
         # logger.info(str(err))
         st = 'error'
-
-    finally:
-        if server:
-            server.close()
 
     return st
 
