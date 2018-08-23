@@ -10,7 +10,6 @@ from email.message import EmailMessage
 import gmail
 from gmail import Message
 
-logger = config.main_log()
 
 def send_mail(base_mail, base_mailpass, to_mail):
     b = "".join(["sharkevo <", base_mail, ">"])
@@ -32,6 +31,9 @@ def send_mail_key(base_mail, base_mailpass, to_mail, akey):
 
 
 def send_ukrnet_key(base_mail, base_mailpass, to_mail, akey):
+
+    logger = config.main_log()
+
     username = base_mail
     password = base_mailpass
     fromaddr = username
@@ -58,13 +60,15 @@ www.sharkevo.ru"""
             server.login(username, password)
             server.send_message(msg)
             logger.info('successfully sent the mail')
+            st = 'ok'
 
         except Exception as err:
             logger.info(str(err))
-            raise
+            st = 'error'
 
         finally:
             server.close()
+            return st
 
 
 if __name__ == '__main__':
