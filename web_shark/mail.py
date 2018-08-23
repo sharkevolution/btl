@@ -54,6 +54,7 @@ www.sharkevo.ru"""
     msg.set_content(text_content)
 
     try:
+        logger.info('start the mail')
         server = smtplib.SMTP_SSL('smtp.ukr.net', 2525)
         server.login(username, password)
         server.send_message(msg)
