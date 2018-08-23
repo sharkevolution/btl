@@ -318,13 +318,8 @@ def do_registration():
         base_mail, base_mailpass, sms_login, sms_pass = psg.get_admin_email()
         logger.info(base_mail)
         logger.info(base_mailpass)
-        logger.info('ret regmail-0')
 
-        try:
-            st = mail.send_ukrnet_key(base_mail, base_mailpass, form_email, akey)
-        except Exception as err:
-            logger.info(str(err))
-
+        st = mail.send_ukrnet_key(base_mail, base_mailpass, form_email, akey)
         if st == 'ok':
             us = json.dumps({'email': form_email,
                              'pass': form_pass,
