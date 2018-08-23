@@ -56,8 +56,10 @@ www.sharkevo.ru"""
     try:
         logger.info('start the mail')
         server = smtplib.SMTP_SSL('smtp.ukr.net', 2525)
+        logger.info('start the mail-1')
         server.login(username, password)
         server.send_message(msg)
+
         logger.info('successfully sent the mail')
         st = 'ok'
 
@@ -66,7 +68,8 @@ www.sharkevo.ru"""
         st = 'error'
 
     finally:
-        server.close()
+        if server:
+            server.close()
 
     return st
 
