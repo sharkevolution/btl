@@ -320,19 +320,21 @@ def do_registration():
         base_mail, base_mailpass, sms_login, sms_pass = psg.get_admin_email()
         logger.info(base_mail)
         logger.info(base_mailpass)
+        logger.info('ret regmail-0')
 
         try:
             mail.send_ukrnet_key(base_mail, base_mailpass, form_email, akey)
         except Exception as err:
             logger.info(str(err))
 
+        logger.info('ret regmail-1')
         us = json.dumps({'email': form_email,
                          'pass': form_pass,
                          'akey': akey})
         response.set_cookie("registry_sharkevo", us, secret='some-secret-key')
         myfile = os.path.join(config.exm, 'regmail.html')
 
-        logger.info('ret regmail')
+
         return template(myfile, register_answer="")
 
     elif form_reg == 'login':
