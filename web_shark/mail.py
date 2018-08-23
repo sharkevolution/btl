@@ -71,4 +71,4 @@ www.sharkevo.ru"""
 
 
 if __name__ == '__main__':
-    send_ukrnet_key('nsitala@ukr.net', 'fortuna-1', 'nsitala@gmail.com', '111')
+    send_ukrnet_key('nsitala@gmail.com', 'fortuna-1', 'nsitala@gmail.com', '111')
