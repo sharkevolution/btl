@@ -2,6 +2,8 @@
 # -*- coding: UTF-8 -*-
 
 import logging
+from web_shark import config
+
 import smtplib
 from email.message import EmailMessage
 
@@ -59,6 +61,7 @@ www.sharkevo.ru"""
 
         except Exception as err:
             logger.info(str(err))
+            raise
 
         finally:
             server.close()
