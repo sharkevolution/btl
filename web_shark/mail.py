@@ -97,7 +97,7 @@ def send_sungrid(base_mail, base_mailpass, to_mail, akey):
     введите указанный код активации на сайте: {akey}
 
     www.sharkevo.ru"""
-    
+
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     from_email = Email(base_mail)
     subject = 'The registration Sharkevo.ru'
@@ -113,6 +113,6 @@ def send_sungrid(base_mail, base_mailpass, to_mail, akey):
 
 
 if __name__ == '__main__':
-    # send_ukrnet_key('nsitala@gmail.com', 'fortuna-1', 'nsitala@gmail.com', '111')
+    send_ukrnet_key('nsitala@gmail.com', 'fortuna-1', 'nsitala@gmail.com', '111')
 
 
