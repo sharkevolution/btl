@@ -89,8 +89,9 @@ www.sharkevo.ru"""
     return st
 
 
-def send_sungrid(base_mail, base_mailpass, to_mail, akey):
+def send_sendgrid_key(base_mail, base_mailpass, to_mail, akey):
 
+    logger = config.main_log()
     txt = f"""
     {to_mail}  
     Для завершения регистрации и начала работы,
