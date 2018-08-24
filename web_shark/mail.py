@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-from web_shark import config
-
+import os
 import smtplib
 from email.message import EmailMessage
 from contextlib import contextmanager
+
+from web_shark import config
+
+import sendgrid
+from sendgrid.helpers.mail import *
 
 import gmail
 from gmail import Message
@@ -46,7 +50,6 @@ def quitting_smtp_cm(smtp):
 
 
 def send_ukrnet_key(base_mail, base_mailpass, to_mail, akey):
-
     logger = config.main_log()
 
     username = base_mail
@@ -71,7 +74,7 @@ www.sharkevo.ru"""
 
     try:
 
-        with quitting_smtp_cm(smtplib.SMTP_SSL('smtp.ukr.net', 2525)) as server:
+        with quitting_smtp_cm(smtplib.SMTP_SSL('smtp.ukr.net', 465)) as server:
             # server = smtplib.SMTP_SSL('smtp.ukr.net', 2525)
             server.login(username, password)
             server.send_message(msg)
@@ -86,5 +89,30 @@ www.sharkevo.ru"""
     return st
 
 
+def send_sungrid(base_mail, base_mailpass, to_mail, akey):
+
+    txt = f"""
+    {to_mail}  
+    Для завершения регистрации и начала работы,
+    введите указанный код активации на сайте: {akey}
+
+    www.sharkevo.ru"""
+    
+    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+    from_email = Email(base_mail)
+    subject = 'The registration Sharkevo.ru'
+    to_email = Email(to_mail)
+    content = Content("text/plain", txt)
+    mail = Mail(from_email, subject, to_email, content)
+    response = sg.client.mail.send.post(request_body=mail.get())
+    logger.info(response.status_code)
+    logger.info(response.body)
+    logger.info(response.headers)
+
+    return 'ok'
+
+
 if __name__ == '__main__':
-    send_ukrnet_key('nsitala@gmail.com', 'fortuna-1', 'nsitala@gmail.com', '111')
+    # send_ukrnet_key('nsitala@gmail.com', 'fortuna-1', 'nsitala@gmail.com', '111')
+
+
