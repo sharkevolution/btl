@@ -319,7 +319,7 @@ def do_registration():
         logger.info(base_mail)
         logger.info(base_mailpass)
 
-        st = mail.send_ukrnet_key(base_mail, base_mailpass, form_email, akey)
+        st = mail.send_sungrid(base_mail, base_mailpass, form_email, akey)
         if st == 'ok':
             us = json.dumps({'email': form_email,
                              'pass': form_pass,
