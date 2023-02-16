@@ -931,7 +931,7 @@ config.update_heroku(heroku_flag)
 if config.heroku:
 
     # urlparse.uses_netloc.append("postgres")
-    url = urlparse(os.environ["USERS_DB_URL"])
+    url = urlparse(os.environ["DATABASE_URL"]) # "USERS_DB_URL"
 
     conn = psycopg2.connect(
         database=url.path[1:],
