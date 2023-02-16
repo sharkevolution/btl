@@ -1,1 +1,5 @@
-# Created by .ignore support plugin (hsz.mobi)
+/__pycache__/*
+/.idea/*
+/venv/*
+/create venv.cmd
+/start.bat
