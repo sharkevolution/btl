@@ -370,7 +370,7 @@ def do_open():
         # Уникальный код сессии пользователя
         loggin_session = genpass.generate_temp_password(15)
         ret = psg.new_user_two(config.connect_base, form_email, form_pass, loggin_session)
-        if ret is 0:
+        if ret == 0:
 
             #  Создание промокодов под пользователя
             psg.create_unused_promokey(mail=form_email, access_id=475, count=5)

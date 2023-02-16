@@ -169,7 +169,7 @@ def runbeg(study_matrix, tuning_state, orm):
                 # Текущее анализируемое значение на возможность перестановок
                 fx = study_matrix[curow][cx]
 
-                if fx is 0:
+                if fx == 0:
                     cx = index_column + 1
                     curow += 1
 
@@ -674,7 +674,7 @@ class Ants_Distance(object):
                     senior_figure = senior[1]
 
                     if self.figure[senior_figure] == self.figure[
-                        younger_figure] and self.plato is 1:
+                        younger_figure] and self.plato == 1:
                         # Коэфициент блочности одинаковых фигур "Плато"
                         ds = round(self.figure[senior_figure] / 100, 2) * 100
                     else:
@@ -686,7 +686,7 @@ class Ants_Distance(object):
                     self.matrix[senior_figure] = data
 
                     if self.figure[senior_figure] == self.figure[
-                        younger_figure] and self.plato is 1:
+                        younger_figure] and self.plato == 1:
                         # Коэфициент блочности одинаковых фигур "Плато"
                         ds = round(self.figure[senior_figure] / 100, 2) * 10
                     else:
@@ -1225,7 +1225,7 @@ def _sector_gold(init_figure, init_count, lentask, *args):
             init_count = [1 for j in fraction_black]
             init_figure = fraction_black
         else:
-            if args[0][0] is 1 and args[0][1] <= 1:
+            if args[0][0] == 1 and args[0][1] <= 1:
                 shark_life = config_param.lifecycle.shark_last
                 cycle = config_param.lifecycle.cycle_last
             else:
