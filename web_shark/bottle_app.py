@@ -956,10 +956,10 @@ else:
         # connect_base = "dbname='mylocaldb' user='postgres' host='localhost' password='sitala'"
         config.update_connect(config.connect_base)
 
-        # psg.create_tables_two(config.connect_str)
-        # psg.access_create()
-        # psg.new_user(config.connect_str)
-        # psg.new_billing(config.connect_str)
+        psg.create_tables_two(config.connect_str)
+        psg.access_create()
+        psg.new_user(config.connect_str)
+        psg.new_billing(config.connect_str)
 
     except Exception as e:
         print("Uh oh, can't connect. Invalid dbname, user or password?")
