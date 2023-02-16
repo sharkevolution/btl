@@ -38,12 +38,6 @@ from web_shark import sms
 import psycopg2
 from urllib.parse import urlparse
 
-# import dropbox
-#
-# dbx = dropbox.Dropbox('3XLapBh9QeAAAAAAAAAAGaqI8f2xBwQNwX4pxksBTCQFXDWR6OV5zXgZgkj1XIeK')
-# nn = dbx.users_get_current_account()
-# print(nn)
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -970,6 +964,7 @@ else:
     except Exception as e:
         print("Uh oh, can't connect. Invalid dbname, user or password?")
         print(e)
+
 
     app = default_app()
     run(app, host='0.0.0.0', port=5000, debug=True)
