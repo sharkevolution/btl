@@ -142,7 +142,7 @@ def access_create():
     conn = None
     try:
         if config.heroku:
-            url = urlparse(os.environ["USERS_DB_URL"])
+            url = urlparse(os.environ["DATABASE_URL"])
             conn = psycopg2.connect(
                 database=url.path[1:],
                 user=url.username,
@@ -219,7 +219,7 @@ def new_user_two(connect_str, form_email, form_pass, loggin_session):
     conn = None
     try:
         if config.heroku:
-            url = urlparse(os.environ["USERS_DB_URL"])
+            url = urlparse(os.environ["DATABASE_URL"])
             conn = psycopg2.connect(
                 database=url.path[1:],
                 user=url.username,
@@ -350,7 +350,7 @@ def find_regigistration(logemail, logpass):
     try:
 
         if config.heroku:
-            url = urlparse(os.environ["USERS_DB_URL"])
+            url = urlparse(os.environ["DATABASE_URL"])
 
             conn = psycopg2.connect(
                 database=url.path[1:],
@@ -392,7 +392,7 @@ def get_admin_email():
 
     try:
         if config.heroku:
-            url = urlparse(os.environ["USERS_DB_URL"])
+            url = urlparse(os.environ["DATABASE_URL"])
             conn = psycopg2.connect(
                 database=url.path[1:],
                 user=url.username,
@@ -440,7 +440,7 @@ def get_billing_users(form_phone, form_pass, curr_key):
         try:
             if config.heroku:
 
-                url = urlparse(os.environ["USERS_DB_URL"])
+                url = urlparse(os.environ["DATABASE_URL"])
 
                 conn = psycopg2.connect(
                     database=url.path[1:],
@@ -495,7 +495,7 @@ def check_active_billing(username, promokey):
 
     try:
         if config.heroku:
-            url = urlparse(os.environ["USERS_DB_URL"])
+            url = urlparse(os.environ["DATABASE_URL"])
             conn = psycopg2.connect(
                 database=url.path[1:],
                 user=url.username,
@@ -634,7 +634,7 @@ def insert_figures(fid, pull_figures, knox, limright, attempt):
 
     try:
         if config.heroku:
-            url = urlparse(os.environ["USERS_DB_URL"])
+            url = urlparse(os.environ["DATABASE_URL"])
             conn = psycopg2.connect(
                 database=url.path[1:],
                 user=url.username,
@@ -682,7 +682,7 @@ def create_unused_promokey(mail, access_id, count):
 
     try:
         if config.heroku:
-            url = urlparse(os.environ["USERS_DB_URL"])
+            url = urlparse(os.environ["DATABASE_URL"])
             conn = psycopg2.connect(
                 database=url.path[1:],
                 user=url.username,
